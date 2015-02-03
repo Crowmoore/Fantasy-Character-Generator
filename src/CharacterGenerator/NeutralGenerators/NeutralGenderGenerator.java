@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NeutralGenerators;
+package CharacterGenerator.NeutralGenerators;
 
 import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
@@ -18,6 +18,11 @@ public class NeutralGenderGenerator implements GenderGenerator, Randomizer {
     
     List<String> genderList = Arrays.asList("Male", "Female");
     
+    /**
+     *
+     * @return
+     */
+    @Override
     public String generateGender() {
         String gender = genderList.get(randomizer.nextInt(genderList.size()));
         return gender;

@@ -5,8 +5,8 @@
  */
 package CharacterGenerator.Dwarf;
 
-import NeutralGenerators.NeutralGenderGenerator;
-import NeutralGenerators.NeutralLikesGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 
 /**
  *

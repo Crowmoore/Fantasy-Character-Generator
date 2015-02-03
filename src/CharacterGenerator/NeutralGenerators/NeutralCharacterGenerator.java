@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package NeutralGenerators;
+package CharacterGenerator.NeutralGenerators;
 
 import CharacterGenerator.Dwarf.Dwarf;
 import CharacterGenerator.Elf.Elf;
@@ -16,6 +16,12 @@ import CharacterGenerator.Interfaces.Randomizer;
  */
 public class NeutralCharacterGenerator implements CharacterGenerator, Randomizer{
     
+    /**
+     *
+     * @param race
+     * @return
+     */
+    @Override
     public String generateCharacter(String race) {
         
         if("Elf".equals(race)) {

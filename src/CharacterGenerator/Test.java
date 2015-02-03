@@ -5,8 +5,8 @@
  */
 package CharacterGenerator;
 
-import NeutralGenerators.NeutralCharacterGenerator;
-import NeutralGenerators.NeutralRaceGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralCharacterGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
 
 /**
  *

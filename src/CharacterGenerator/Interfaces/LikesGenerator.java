@@ -4,10 +4,6 @@
  * and open the template in the editor.
  */
 package CharacterGenerator.Interfaces;
-
-import java.util.Arrays;
-import java.util.List;
-
 /**
  *
  * @author Greatmelons
