@@ -1,0 +1,68 @@
+apply plugin: "java"
+apply plugin: "pmd"
+apply plugin: "findbugs"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile "junit:junit:[4,)"
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = "2.2"
+}
+
+sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.test.java.srcDirs = [ "src/" ]
+
+test {
+    testLogging {
+        events "started", "passed"
+    }
+}
+
+pmd {
+    ignoreFailures = true
+    ruleSets = [
+        "java-basic",
+        "java-braces",
+        "java-clone",
+        "java-codesize",
+        "java-controversial",
+        "java-design",
+        "java-empty",
+        "java-finalizers",
+        "java-imports",
+        "java-junit",
+        "java-migrating",
+        "java-naming",
+        "java-optimizations",
+        "java-strictexception",
+        "java-strings",
+        "java-sunsecure",
+        "java-typeresolution",
+        "java-unusedcode"
+    ]
+}
+
+check << {
+    File outDir = new File('build/reports/pmd/')
+    outDir.mkdirs()
+    ant.taskdef(name: 'cpd', classname: 'net.sourceforge.pmd.cpd.CPDTask', classpath: configurations.pmd.asPath)
+    ant.cpd(minimumTokenCount: '100', format: 'xml', outputFile: new File(outDir , 'cpd.xml')) {
+    fileset(dir: "src/CharacterGenerator") {
+        include(name: '**/*.java')
+        }
+    }
+}
+
+findbugs {
+    ignoreFailures = true
+    toolVersion = "3.0.0"
+    sourceSets = [sourceSets.main]
+    reportsDir = file("$project.buildDir/reports/findbugs")
+    effort = "max"
+}
+
