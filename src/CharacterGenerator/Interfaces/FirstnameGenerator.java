@@ -5,12 +5,14 @@
  */
 package CharacterGenerator.Interfaces;
 
+import CharacterGenerator.Enums.Gender;
+
 /**
  *
  * @author Greatmelons
  */
 public interface FirstnameGenerator {
 
-    public String generateFirstname(String gender);
+    public String generateFirstname(Gender gender);
     
 }

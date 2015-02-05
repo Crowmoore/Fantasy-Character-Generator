@@ -5,6 +5,7 @@
  */
 package CharacterGenerator.Elf;
 
+import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Interfaces.FirstnameGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 import java.util.Arrays;
@@ -14,24 +15,28 @@ import java.util.List;
  *
  * @author Greatmelons
  */
-public class ElfFirstnameGenerator implements FirstnameGenerator, Randomizer {
+public class ElfFirstnameGenerator implements FirstnameGenerator{
     
     List<String> elfFirstnameListM = Arrays.asList("Aquilan", "Drannor", "Delsaran", "Khatar", "Ailmon", "Orym", "Ailmer", "Estelar", "Voron", "Teirist", "Mirthal", "Ralikanthae", "Ayen", "Falael", "Delmuth", "Erendriel");
     List<String> elfFirstnameListF = Arrays.asList("Melladiel", "Amonthea", "Mordiliel", "Arwyn", "Aniel", "Amaranna", "Limya", "Minnathiel", "Tirenmiriel", "Issidhwen", "Melaleth");
-            
+    Randomizer randomizer;
+
+    public ElfFirstnameGenerator(Randomizer randomizer) {
+        this.randomizer = randomizer;
+    }
     /**
      *
      * @param gender
      * @return
      */
     @Override
-    public String generateFirstname(String gender) {
-        if ("Male".equals(gender)) {
-            String firstname = elfFirstnameListM.get(randomizer.nextInt(elfFirstnameListM.size()));
+    public String generateFirstname(Gender gender) {
+        if (Gender.MALE == gender) {
+            String firstname = elfFirstnameListM.get(randomizer.getRandomNumber(elfFirstnameListM.size()));
             return firstname;
         }
         else {
-            String firstname = elfFirstnameListF.get(randomizer.nextInt(elfFirstnameListF.size()));
+            String firstname = elfFirstnameListF.get(randomizer.getRandomNumber(elfFirstnameListF.size()));
             return firstname;
         }
     }

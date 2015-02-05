@@ -12,15 +12,20 @@ import CharacterGenerator.Interfaces.Randomizer;
  *
  * @author Greatmelons
  */
-public class ElfAgeGenerator implements AgeGenerator, Randomizer {
-    
+public class ElfAgeGenerator implements AgeGenerator {
+
+    Randomizer randomizer;
+
+    public ElfAgeGenerator(Randomizer randomizer) {
+        this.randomizer = randomizer;
+    }
     /**
      *
      * @return
      */
     @Override
     public int generateAge() {
-        int age = randomizer.nextInt(5000);
+        int age = randomizer.getRandomNumber(5000);
         return age;
     }
     

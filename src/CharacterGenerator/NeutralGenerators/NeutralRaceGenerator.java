@@ -14,17 +14,22 @@ import java.util.List;
  *
  * @author Greatmelons
  */
-public class NeutralRaceGenerator implements RaceGenerator, Randomizer{
+public class NeutralRaceGenerator implements RaceGenerator{
     
     List<String> raceList = Arrays.asList("Dwarf", "Elf");
-    
+
+    Randomizer randomizer;
+    //Dependency injection = DI
+    public NeutralRaceGenerator(Randomizer randomizer) {
+        this.randomizer = randomizer;
+    }
     /**
      *
      * @return
      */
     @Override
     public String generateRace() {
-        String race = raceList.get(randomizer.nextInt(raceList.size()));
+        String race = raceList.get(randomizer.getRandomNumber(raceList.size()));
         return race;
     }
     

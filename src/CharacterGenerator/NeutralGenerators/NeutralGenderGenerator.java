@@ -5,8 +5,11 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
+import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -14,17 +17,26 @@ import java.util.List;
  *
  * @author Greatmelons
  */
-public class NeutralGenderGenerator implements GenderGenerator, Randomizer {
+public class NeutralGenderGenerator implements GenderGenerator {
     
     List<String> genderList = Arrays.asList("Male", "Female");
-    
+
+    Randomizer randomizer;
+
+    public NeutralGenderGenerator(Randomizer randomizer) {
+        this.randomizer = randomizer;
+    }
+
     /**
      *
      * @return
      */
     @Override
-    public String generateGender() {
-        String gender = genderList.get(randomizer.nextInt(genderList.size()));
+    public Gender generateGender() {
+
+        List<Gender> genders = Arrays.asList(Gender.values());
+
+        Gender gender = genders.get(randomizer.getRandomNumber(genders.size()));
         return gender;
     }
     

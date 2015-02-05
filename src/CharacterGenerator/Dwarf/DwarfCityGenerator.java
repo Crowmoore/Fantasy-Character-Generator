@@ -14,17 +14,22 @@ import java.util.List;
  *
  * @author Greatmelons
  */
-public class DwarfCityGenerator implements CityGenerator, Randomizer{
+public class DwarfCityGenerator implements CityGenerator {
     
     List<String> dwarfCityList = Arrays.asList("Gorndarum", "Birnkahldur", "Hig Faldir", "Bhom Buldor", "Haggrim", "Dugbihr", "Gol Durahl", "Bhogh Darohm", "Thoghbuldahr", "Veglodahr", "Kan Taruhm", "Ham Darul", "Vern Darim");
-    
+
+    Randomizer randomizer;
+
+    public DwarfCityGenerator(Randomizer randomizer) {
+        this.randomizer = randomizer;
+    }
     /**
      *
      * @return
      */
     @Override
     public String generateCity() {
-        String city = dwarfCityList.get(randomizer.nextInt(dwarfCityList.size()));
+        String city = dwarfCityList.get(randomizer.getRandomNumber(dwarfCityList.size()));
         return city;
     }
     

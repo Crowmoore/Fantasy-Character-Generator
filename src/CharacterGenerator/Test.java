@@ -5,25 +5,29 @@
  */
 package CharacterGenerator;
 
-import CharacterGenerator.NeutralGenerators.NeutralCharacterGenerator;
+import CharacterGenerator.Dwarf.Dwarf;
+import CharacterGenerator.Dwarf.DwarfGenerator;
+import CharacterGenerator.Elf.ElfGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
+
+import java.util.logging.Logger;
 
 /**
  *
  * @author Greatmelons
  */
 public class Test {
-    
+
+    Logger log = Logger.getLogger(Test.class.getName());
+
     public void run() {        
-        /*DwarfGenerator dwarfGenerator = new DwarfGenerator();
-        String dwarf = dwarfGenerator.generateCharacter();
+
+        log.info("Starting");
         ElfGenerator elfGenerator = new ElfGenerator();
-        String elf = elfGenerator.generateCharacter();*/
-        NeutralRaceGenerator raceGenerator = new NeutralRaceGenerator();
-        String race = raceGenerator.generateRace();
-        NeutralCharacterGenerator characterGenerator = new NeutralCharacterGenerator();
-        String character = characterGenerator.generateCharacter(race);
-        System.out.println(character);
+        DwarfGenerator dwarfGenerator = new DwarfGenerator();
+        String dwarf = dwarfGenerator.generateCharacter();
+        String elf = elfGenerator.generateCharacter();
+        System.out.println(dwarf + "\n" + elf);
     }
     
 }

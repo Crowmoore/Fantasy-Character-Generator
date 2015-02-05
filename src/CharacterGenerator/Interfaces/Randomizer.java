@@ -13,6 +13,6 @@ import java.util.Random;
  */
 public interface Randomizer {
     
-    Random randomizer = new Random();
+    public int getRandomNumber(int max);
     
 }

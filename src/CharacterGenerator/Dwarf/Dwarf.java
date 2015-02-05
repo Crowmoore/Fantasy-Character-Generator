@@ -5,6 +5,11 @@
  */
 package CharacterGenerator.Dwarf;
 
+import CharacterGenerator.Enums.Gender;
+import CharacterGenerator.Interfaces.AgeGenerator;
+import CharacterGenerator.Interfaces.CityGenerator;
+import CharacterGenerator.Interfaces.FirstnameGenerator;
+import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 
@@ -14,56 +19,44 @@ import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
  */
 public class Dwarf {
 
-    private final NeutralLikesGenerator likesGenerator;
-    private final DwarfFirstnameGenerator firstnameGenerator;
-    private final DwarfLastnameGenerator lastnameGenerator;
-    private final DwarfAgeGenerator ageGenerator;
-    private final DwarfCityGenerator cityGenerator;
-    private final NeutralGenderGenerator genderGenerator;
     private String firstname;
     private String lastname;
     private String city;
     private String likes;
-    private String gender;
+    private Gender gender;
     private int age;
     
-    public Dwarf() {
-        
-        genderGenerator = new NeutralGenderGenerator();
-        likesGenerator = new NeutralLikesGenerator();
-        cityGenerator = new DwarfCityGenerator();
-        ageGenerator = new DwarfAgeGenerator();
-        firstnameGenerator = new DwarfFirstnameGenerator();
-        lastnameGenerator = new DwarfLastnameGenerator();
-        gender = "";
-        firstname = "";
-        lastname = "";
-        city = "";
-        likes = "";
-        age = 0;
-    }
-    public String getGender() {
+    public Dwarf(
+            NeutralGenderGenerator genderGenerator,
+            NeutralLikesGenerator likesGenerator,
+            FirstnameGenerator firstnameGenerator,
+            LastnameGenerator lastnameGenerator,
+            AgeGenerator ageGenerator,
+            CityGenerator cityGenerator) {
+
         gender = genderGenerator.generateGender();
+        firstname = firstnameGenerator.generateFirstname(gender);
+        lastname = lastnameGenerator.generateLastname();
+        city = cityGenerator.generateCity();
+        likes = likesGenerator.generateLikes();
+        age = ageGenerator.generateAge();
+    }
+    public Gender getGender() {
         return gender;
     }
-    public String getFirstname(String gender) {
-        firstname = firstnameGenerator.generateFirstname(gender);
+    public String getFirstname() {
         return firstname;
     }
     public String getLastname() {
-        lastname = lastnameGenerator.generateLastname();
         return lastname;
     }
     public String getCity() {
-        city = cityGenerator.generateCity();
         return city;
     }
     public int getAge() {
-        age = ageGenerator.generateAge();
         return age;
     }
     public String getLikes() {
-        likes = likesGenerator.generateLikes();
         return likes;
     }
 }
