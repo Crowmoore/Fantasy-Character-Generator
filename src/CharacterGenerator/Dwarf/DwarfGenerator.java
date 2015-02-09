@@ -5,46 +5,49 @@
  */
 package CharacterGenerator.Dwarf;
 
-import CharacterGenerator.Dwarf.Dwarf;
-import CharacterGenerator.Elf.*;
 import CharacterGenerator.Enums.Gender;
+import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Interfaces.CharacterGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 
 /**
  *
  * @author Greatmelons
  */
-public class DwarfGenerator implements CharacterGenerator{
+public class DwarfGenerator{
 
     /**
      *
      *
      * @return
      */
-    @Override
-    public String generateCharacter() {
+    public Dwarf generateCharacter() {
 
         Randomizer randomizer = new RandomNumberGenerator();
 
         Dwarf dwarf = new Dwarf(
+                new NeutralPersonalityGenerator(randomizer),
                 new NeutralGenderGenerator(randomizer),
                 new NeutralLikesGenerator(randomizer),
-                new ElfFirstnameGenerator(randomizer),
-                new ElfLastnameGenerator(randomizer),
-                new ElfAgeGenerator(randomizer),
-                new ElfCityGenerator(randomizer));
+                new DwarfFirstnameGenerator(randomizer),
+                new DwarfLastnameGenerator(randomizer),
+                new DwarfAgeGenerator(randomizer),
+                new DwarfCityGenerator(randomizer));
 
+        Personality personality = dwarf.getPersonality();
         Gender gender = dwarf.getGender();
+        String race = "Dwarf";
         String firstname = dwarf.getFirstname();
         String lastname = dwarf.getLastname();
         String city = dwarf.getCity();
         String likes = dwarf.getLikes();
         int age = dwarf.getAge();
-        return String.format ("%s %s, %s, %d\nCity of birth: %s\nLikes: %s", firstname, lastname, gender.getGenderAsText(), age, city, likes);
+        return dwarf;
+        //return String.format ("%s %s, %s %s, %d\nCity of birth: %s\nLikes: %s\nPersonality: %s", firstname, lastname, gender.getGenderAsText(),race , age, city, likes,personality.getPersonalityAsText());
     }
 
 }

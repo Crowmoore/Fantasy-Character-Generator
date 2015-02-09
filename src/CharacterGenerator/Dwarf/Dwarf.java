@@ -6,12 +6,14 @@
 package CharacterGenerator.Dwarf;
 
 import CharacterGenerator.Enums.Gender;
+import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Interfaces.AgeGenerator;
 import CharacterGenerator.Interfaces.CityGenerator;
 import CharacterGenerator.Interfaces.FirstnameGenerator;
 import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 
 /**
  *
@@ -19,6 +21,7 @@ import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
  */
 public class Dwarf {
 
+    private Personality personality;
     private String firstname;
     private String lastname;
     private String city;
@@ -27,19 +30,24 @@ public class Dwarf {
     private int age;
     
     public Dwarf(
+            NeutralPersonalityGenerator personalityGenerator,
             NeutralGenderGenerator genderGenerator,
             NeutralLikesGenerator likesGenerator,
-            FirstnameGenerator firstnameGenerator,
-            LastnameGenerator lastnameGenerator,
-            AgeGenerator ageGenerator,
-            CityGenerator cityGenerator) {
+            DwarfFirstnameGenerator firstnameGenerator,
+            DwarfLastnameGenerator lastnameGenerator,
+            DwarfAgeGenerator ageGenerator,
+            DwarfCityGenerator cityGenerator) {
 
+        personality = personalityGenerator.generatePersonality();
         gender = genderGenerator.generateGender();
         firstname = firstnameGenerator.generateFirstname(gender);
         lastname = lastnameGenerator.generateLastname();
         city = cityGenerator.generateCity();
         likes = likesGenerator.generateLikes();
         age = ageGenerator.generateAge();
+    }
+    public Personality getPersonality() {
+        return personality;
     }
     public Gender getGender() {
         return gender;

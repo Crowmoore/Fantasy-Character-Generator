@@ -6,9 +6,11 @@
 package CharacterGenerator.Elf;
 
 import CharacterGenerator.Enums.Gender;
+import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Interfaces.*;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 
 /**
  *
@@ -21,22 +23,28 @@ public class Elf {
     private String city;
     private String likes;
     private Gender gender;
+    private Personality personality;
     private int age;
     
     public Elf(
+            NeutralPersonalityGenerator personalityGenerator,
             NeutralGenderGenerator genderGenerator,
             NeutralLikesGenerator likesGenerator,
-            FirstnameGenerator firstnameGenerator,
-            LastnameGenerator lastnameGenerator,
-            AgeGenerator ageGenerator,
-            CityGenerator cityGenerator) {
+            ElfFirstnameGenerator firstnameGenerator,
+            ElfLastnameGenerator lastnameGenerator,
+            ElfAgeGenerator ageGenerator,
+            ElfCityGenerator cityGenerator) {
 
+        personality = personalityGenerator.generatePersonality();
         gender = genderGenerator.generateGender();
         firstname = firstnameGenerator.generateFirstname(gender);
         lastname = lastnameGenerator.generateLastname();
         city = cityGenerator.generateCity();
         likes = likesGenerator.generateLikes();
         age = ageGenerator.generateAge();
+    }
+    public Personality getPersonality() {
+        return personality;
     }
     public Gender getGender() {
         return gender;

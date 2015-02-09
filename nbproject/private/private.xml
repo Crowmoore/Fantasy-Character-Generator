@@ -3,11 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Enums/Gender.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Dwarf/DwarfFirstnameGenerator.java</file>
             <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Launcher.java</file>
-            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralRaceGenerator.java</file>
-            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralCharacterGenerator.java</file>
-            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralGenderGenerator.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Enums/Personality.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralStoryGenerator.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Test.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Dwarf/DwarfGenerator.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Dwarf/Dwarf.java</file>
             <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralLikesGenerator.java</file>
+            <file>file:/E:/Koulu/Olio%20ohjelmointi/Character-Generator/src/CharacterGenerator/Interfaces/StoryGenerator.java</file>
         </group>
     </open-files>
 </project-private>
