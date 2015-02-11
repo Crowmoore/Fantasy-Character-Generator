@@ -11,12 +11,14 @@ package CharacterGenerator.Enums;
  */
 public enum Personality {
     
-    CALM("Calm"),
-    AGGRESSIVE("Aggressive"),
-    INSANE("Insane"),
-    PEACEFULL("Peacefull"),
-    PARANOID("Paranoid"),
-    MAD("Mad");
+    CALM("calm"),
+    AGGRESSIVE("aggressive"),
+    INSANE("insane"),
+    PEACEFULL("peacefull"),
+    PARANOID("paranoid"),
+    MAD("mad"),
+    ADVENTUROUS("adventurous"),
+    PLAYFUL("playful");
     
     String personalityAsText;
     

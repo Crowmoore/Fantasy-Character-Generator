@@ -7,6 +7,7 @@ import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.SeededGenerator;
 import CharacterGenerator.Enums.Personality;
+import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 
 /**
@@ -24,6 +25,7 @@ public class ElfGenerator implements CharacterGenerator {
         Randomizer randomizer = new SeededGenerator(84365839);
 
         Elf elf = new Elf(
+                new NeutralDeityGenerator(randomizer),
                 new NeutralPersonalityGenerator(randomizer),
                 new NeutralGenderGenerator(randomizer),
                 new NeutralLikesGenerator(randomizer),
@@ -40,6 +42,7 @@ public class ElfGenerator implements CharacterGenerator {
             String city = elf.getCity();
             String likes = elf.getLikes();
             int age = elf.getAge();
+            String deity = elf.getDeity();
             return String.format("%s %s, %s %s, %d\nCity of birth: %s\nLikes: %s\nPersonality: %s",firstname,lastname,gender.getGenderAsText(),race ,age,city,likes,personality.getPersonalityAsText());
         }
 }

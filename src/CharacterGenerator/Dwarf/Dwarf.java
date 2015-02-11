@@ -7,10 +7,7 @@ package CharacterGenerator.Dwarf;
 
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Interfaces.AgeGenerator;
-import CharacterGenerator.Interfaces.CityGenerator;
-import CharacterGenerator.Interfaces.FirstnameGenerator;
-import CharacterGenerator.Interfaces.LastnameGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
@@ -28,8 +25,10 @@ public class Dwarf {
     private String likes;
     private Gender gender;
     private int age;
+    private String deity;
     
     public Dwarf(
+            NeutralDeityGenerator deityGenerator,
             NeutralPersonalityGenerator personalityGenerator,
             NeutralGenderGenerator genderGenerator,
             NeutralLikesGenerator likesGenerator,
@@ -45,6 +44,7 @@ public class Dwarf {
         city = cityGenerator.generateCity();
         likes = likesGenerator.generateLikes();
         age = ageGenerator.generateAge();
+        deity = deityGenerator.generateDeity();
     }
     public Personality getPersonality() {
         return personality;
@@ -66,5 +66,8 @@ public class Dwarf {
     }
     public String getLikes() {
         return likes;
+    }
+    public String getDeity() {
+        return deity;
     }
 }

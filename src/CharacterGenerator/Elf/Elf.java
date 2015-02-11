@@ -7,7 +7,7 @@ package CharacterGenerator.Elf;
 
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Interfaces.*;
+import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
@@ -25,8 +25,10 @@ public class Elf {
     private Gender gender;
     private Personality personality;
     private int age;
+    private String deity;
     
     public Elf(
+            NeutralDeityGenerator deityGenerator,
             NeutralPersonalityGenerator personalityGenerator,
             NeutralGenderGenerator genderGenerator,
             NeutralLikesGenerator likesGenerator,
@@ -63,5 +65,8 @@ public class Elf {
     }
     public String getLikes() {
         return likes;
+    }
+    public String getDeity() {
+        return deity;
     }
 }

@@ -27,9 +27,10 @@ public class Test {
         
         log.info("Starting");
         Randomizer randomizer = new RandomNumberGenerator();
+        StoryCleaner cleaner = new StoryCleaner(randomizer);
         ElfGenerator elfGenerator = new ElfGenerator();
         DwarfGenerator dwarfGenerator = new DwarfGenerator();
-        NeutralStoryGenerator storyGenerator = new NeutralStoryGenerator(randomizer);
+        NeutralStoryGenerator storyGenerator = new NeutralStoryGenerator(randomizer, cleaner);
         Dwarf dwarf = dwarfGenerator.generateCharacter();
         String elf = elfGenerator.generateCharacter();
         System.out.println(elf);
@@ -38,7 +39,9 @@ public class Test {
                                                     dwarf.getAge(),
                                                     dwarf.getGender(),
                                                     dwarf.getPersonality(),
-                                                    dwarf.getCity());
+                                                    dwarf.getCity(),
+                                                    dwarf.getLikes(),
+                                                    dwarf.getDeity());
         System.out.println(story);
     }
     

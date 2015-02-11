@@ -7,8 +7,8 @@ package CharacterGenerator.Dwarf;
 
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Interfaces.CharacterGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
+import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
@@ -30,6 +30,7 @@ public class DwarfGenerator{
         Randomizer randomizer = new RandomNumberGenerator();
 
         Dwarf dwarf = new Dwarf(
+                new NeutralDeityGenerator(randomizer),
                 new NeutralPersonalityGenerator(randomizer),
                 new NeutralGenderGenerator(randomizer),
                 new NeutralLikesGenerator(randomizer),
@@ -46,6 +47,7 @@ public class DwarfGenerator{
         String city = dwarf.getCity();
         String likes = dwarf.getLikes();
         int age = dwarf.getAge();
+        String deity = dwarf.getDeity();
         return dwarf;
         //return String.format ("%s %s, %s %s, %d\nCity of birth: %s\nLikes: %s\nPersonality: %s", firstname, lastname, gender.getGenderAsText(),race , age, city, likes,personality.getPersonalityAsText());
     }

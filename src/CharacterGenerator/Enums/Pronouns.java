@@ -9,14 +9,20 @@ package CharacterGenerator.Enums;
  *
  * @author Greatmelons
  */
-public enum ReflexivePronoun {
+public enum Pronouns {
     
+    HE("He"),
+    SHE("She"),
+    HIM("Him"),
+    HER("Her"),
+    HIS("His"),
+    HERS("Hers"),
     HIMSELF("Himself"),
     HERSELF("Herself");
     
     String pronounAsText;
     
-    ReflexivePronoun(String pronounAsText) {
+    Pronouns(String pronounAsText) {
         this.pronounAsText = pronounAsText;
     }
     public String getPronounAsText() {

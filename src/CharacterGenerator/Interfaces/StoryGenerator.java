@@ -14,6 +14,6 @@ import CharacterGenerator.Enums.Personality;
  */
 public interface StoryGenerator {
     
-    public String generateStory(String firstname, String lastname, int age, Gender gender, Personality personality, String city);
+    public String generateStory(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity);
     
 }
