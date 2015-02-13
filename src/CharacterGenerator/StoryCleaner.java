@@ -25,6 +25,9 @@ public class StoryCleaner {
     List<String> battles = Arrays.asList("The Battle of Styx Valley", "The Raid of Morg'or", "The Battle of Warrior's Fjord", "The Siege of Monument's Embrace");
     List<String> professions = Arrays.asList("a carpenter", "a blacksmith", "an alchemist", "a warrior", "a tinkerer", "an engineer", "a miner", "an animal trainer", "an archer");
     List<String> items = Arrays.asList("a rock", "a barrel", "a helmet", "a mining pick", "a sword", "a large book about folklore", "a boot", "an arrow", "a horseshoe", "a pickaxe");
+    List<String> adjectives = Arrays.asList("valiantly", "bravely", "cowardly", "boldly", "valorously");
+    List<String> weapons = Arrays.asList("sword", "greathammer", "dagger", "bow", "crossbow", "hammer", "bastard sword", "slingshot", "axe", "waraxe");
+    List<String> weather = Arrays.asList("warm", "cold", "bright", "stormy", "rainy");
     
     NeutralPronounsGenerator pronouns = new NeutralPronounsGenerator();
     Randomizer randomizer;
@@ -38,6 +41,7 @@ public class StoryCleaner {
         String finalSentence = sentence;
         
         finalSentence = finalSentence.replaceAll("HIS", pronouns.getPossessiveAdj(gender));
+        finalSentence = finalSentence.replaceAll("HIM", pronouns.getObjective(gender));
         finalSentence = finalSentence.replaceAll("HE", pronouns.getSubjective(gender));
         finalSentence = finalSentence.replaceAll("HIMSELF", pronouns.getReflexive(gender));
         finalSentence = finalSentence.replaceAll("NAME", (firstname + " " + lastname));
@@ -47,7 +51,10 @@ public class StoryCleaner {
         finalSentence = finalSentence.replaceAll("EVENT1", events1.get(randomizer.getRandomNumber(events1.size())));
         finalSentence = finalSentence.replaceAll("EVENT2", events2.get(randomizer.getRandomNumber(events2.size())));
         finalSentence = finalSentence.replaceAll("BATTLE", battles.get(randomizer.getRandomNumber(battles.size())));
+        finalSentence = finalSentence.replaceAll("ADJECTIVE", adjectives.get(randomizer.getRandomNumber(adjectives.size())));
         finalSentence = finalSentence.replaceAll("PROFESSION", professions.get(randomizer.getRandomNumber(professions.size())));
+        finalSentence = finalSentence.replaceAll("WEAPON", weapons.get(randomizer.getRandomNumber(weapons.size())));
+        finalSentence = finalSentence.replaceAll("DAY", weather.get(randomizer.getRandomNumber(weather.size())));
         finalSentence = finalSentence.replaceAll("ITEM", items.get(randomizer.getRandomNumber(items.size())));
         finalSentence = finalSentence.replaceAll("DEITY", deity);
         finalSentence = finalSentence.replaceAll("YEAR", Integer.toString(1850 - age));

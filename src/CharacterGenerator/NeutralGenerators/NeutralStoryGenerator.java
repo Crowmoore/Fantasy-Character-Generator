@@ -28,18 +28,23 @@ public class NeutralStoryGenerator implements StoryGenerator{
     }
     
     public String generateStory(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity) {
-        List part1 = Arrays.asList("On a cold winter morning in YEAR NAME was born. ",
-                                   "On a hot summer day in YEAR NAME was born. ",
+        List part1 = Arrays.asList("On a DAY winter morning in YEAR NAME was born. ",
+                                   "On a DAY summer day in YEAR NAME was born. ",
                                    "NAME was born during wartime in YEAR. ",
                                    "One year after EVENT2, NAME was born. ",
                                    "NAME was born during EVENT1 CITY. ",
+                                   "NAME was born from the ashes of CITY. ",
+                                   "NAME was born in the aftermath of EVENT1 CITY. ",
                                    "YEAR, on a night of blood moon, NAME was born. ");
         List part2 = Arrays.asList("HIS early years were uneventfull. ",
                                    "As a child HE was usually PERSONALITY. ",
+                                   "A single untold event in HIS childhood left HIM permanently PERSONALITY. ",
                                    "HIS love for LIKES was clear from the start. ",
                                    "HE spent HIS early years inside the walls of CITY. ",
                                    "As a child HE witnessed EVENT2. ",
                                    "As a child HE received a blessing from DEITY. ",
+                                   "Even as a child HE fought ADJECTIVE. ",
+                                   "As a child HE always practised fighting with WEAPON. ",
                                    "HE was a lonely child. ",
                                    "HIS father died at BATTLE. ",
                                    "HE lost HIS family in EVENT1 CITY. ",
@@ -50,12 +55,17 @@ public class NeutralStoryGenerator implements StoryGenerator{
                                    "When HE grew older, HE unwillingly participated in EVENT2. ",
                                    "EVENT2 was the greatest struggle of HIS life. ",
                                    "HE died during BATTLE at the age of AGE. ",
-                                   "HE was mortally wounded defending his liege at BATTLE. ",
-                                   "HE fought valiantly at BATTLE. ",
+                                   "During BATTLE HIS WEAPON broke, leaving HIM helpless on the battlefield. ",
+                                   "HE was mortally wounded defending HIS liege at BATTLE. ",
+                                   "HE fought ADJECTIVE at BATTLE. ",
                                    "At one point he decided to become PROFESSION. ",
                                    "HE became PROFESSION, but was lousy at it and decided to do something else. ",
                                    "HE spent most of HIS days drunk. ",
-                                   "During BATTLE HE tripped on HIS own weapon. HE died instantly. ",
+                                   "During BATTLE HE got overwhelmed by the enemy, but DEITY, intervened. ",
+                                   "DEITY, claimed HIS soul during BATTLE. ",
+                                   "At the age of AGE, HE got drunk and fell to HIS death from a cliff. ",
+                                   "During BATTLE HE tripped on HIS own WEAPON. HE died instantly. ",
+                                   "HE died defending HIS home CITY from goblin raiders. ",
                                    "When HE got older HE finally realised how much HE loved LIKES. ");
         
         String sentence1 = (String) part1.get(randomizer.getRandomNumber(part1.size()));

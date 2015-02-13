@@ -7,6 +7,7 @@ package CharacterGenerator;
 
 import CharacterGenerator.Dwarf.Dwarf;
 import CharacterGenerator.Dwarf.DwarfGenerator;
+import CharacterGenerator.Elf.Elf;
 import CharacterGenerator.Elf.ElfGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
@@ -22,19 +23,37 @@ import java.util.logging.Logger;
 public class Test {
 
     Logger log = Logger.getLogger(Test.class.getName());
-
+    Randomizer randomizer = new RandomNumberGenerator();
+    StoryCleaner cleaner = new StoryCleaner(randomizer);
+    ElfGenerator elfGenerator = new ElfGenerator();
+    DwarfGenerator dwarfGenerator = new DwarfGenerator();
+    NeutralStoryGenerator storyGenerator = new NeutralStoryGenerator(randomizer, cleaner);
+    
     public void run() {        
         
         log.info("Starting");
-        Randomizer randomizer = new RandomNumberGenerator();
-        StoryCleaner cleaner = new StoryCleaner(randomizer);
-        ElfGenerator elfGenerator = new ElfGenerator();
-        DwarfGenerator dwarfGenerator = new DwarfGenerator();
-        NeutralStoryGenerator storyGenerator = new NeutralStoryGenerator(randomizer, cleaner);
+        
         Dwarf dwarf = dwarfGenerator.generateCharacter();
-        String elf = elfGenerator.generateCharacter();
-        System.out.println(elf);
-        String story = storyGenerator.generateStory(dwarf.getFirstname(),
+        Elf elf = elfGenerator.generateCharacter();
+        String elfStory = generateElfStory(elf);
+        log.info("Generated a story for elf");
+        String dwarfStory = generateDwarfStory(dwarf);
+        log.info("Generated a story for dwarf");
+        System.out.printf("%s\n\n%s\n", elfStory, dwarfStory);
+    }
+    public String generateElfStory(Elf elf) {
+        String elfStory = storyGenerator.generateStory(elf.getFirstname(),
+                                                    elf.getLastname(),
+                                                    elf.getAge(),
+                                                    elf.getGender(),
+                                                    elf.getPersonality(),
+                                                    elf.getCity(),
+                                                    elf.getLikes(),
+                                                    elf.getDeity());
+        return elfStory;
+    }
+    public String generateDwarfStory(Dwarf dwarf) {
+        String dwarfStory = storyGenerator.generateStory(dwarf.getFirstname(),
                                                     dwarf.getLastname(),
                                                     dwarf.getAge(),
                                                     dwarf.getGender(),
@@ -42,7 +61,7 @@ public class Test {
                                                     dwarf.getCity(),
                                                     dwarf.getLikes(),
                                                     dwarf.getDeity());
-        System.out.println(story);
+        return dwarfStory;
     }
     
 }

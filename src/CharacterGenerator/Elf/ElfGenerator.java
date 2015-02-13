@@ -13,14 +13,13 @@ import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 /**
  * Created by Greatmelons on 5.2.2015.
  */
-public class ElfGenerator implements CharacterGenerator {
+public class ElfGenerator {
 
     /**
      *
      * @return
      */
-    @Override
-    public String generateCharacter() {
+    public Elf generateCharacter() {
 
         Randomizer randomizer = new SeededGenerator(84365839);
 
@@ -43,6 +42,7 @@ public class ElfGenerator implements CharacterGenerator {
             String likes = elf.getLikes();
             int age = elf.getAge();
             String deity = elf.getDeity();
-            return String.format("%s %s, %s %s, %d\nCity of birth: %s\nLikes: %s\nPersonality: %s",firstname,lastname,gender.getGenderAsText(),race ,age,city,likes,personality.getPersonalityAsText());
+            return elf;
+            //return String.format("%s %s, %s %s, %d\nCity of birth: %s\nLikes: %s\nPersonality: %s",firstname,lastname,gender.getGenderAsText(),race ,age,city,likes,personality.getPersonalityAsText());
         }
 }

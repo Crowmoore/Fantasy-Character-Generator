@@ -44,6 +44,7 @@ public class Elf {
         city = cityGenerator.generateCity();
         likes = likesGenerator.generateLikes();
         age = ageGenerator.generateAge();
+        deity = deityGenerator.generateDeity();
     }
     public Personality getPersonality() {
         return personality;
