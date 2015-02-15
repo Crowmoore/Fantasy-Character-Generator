@@ -38,7 +38,7 @@ pmd {
         "java-junit",
         "java-migrating",
         "java-naming",
-        "java-optimizations",
+        // "java-optimizations",
         "java-strictexception",
         "java-strings",
         "java-sunsecure",
