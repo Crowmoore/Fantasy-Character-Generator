@@ -1,6 +1,7 @@
 apply plugin: "java"
 apply plugin: "pmd"
 apply plugin: "findbugs"
+apply plugin: "application"
 
 repositories {
     mavenCentral()
@@ -16,6 +17,12 @@ task wrapper(type: Wrapper) {
 
 sourceSets.main.java.srcDirs = [ "src/" ]
 sourceSets.test.java.srcDirs = [ "src/" ]
+
+mainClassName = "CharacterGenerator.Launcher"
+
+jar {
+    manifest.attributes("Main-CLass": "CharacterGenerator.Launcher")
+}
 
 test {
     testLogging {
