@@ -6,9 +6,11 @@
 package CharacterGenerator.Elf;
 
 import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Interfaces.*;
+import CharacterGenerator.Enums.Personality;
+import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 
 /**
  *
@@ -21,22 +23,31 @@ public class Elf {
     private String city;
     private String likes;
     private Gender gender;
+    private Personality personality;
     private int age;
+    private String deity;
     
     public Elf(
+            NeutralDeityGenerator deityGenerator,
+            NeutralPersonalityGenerator personalityGenerator,
             NeutralGenderGenerator genderGenerator,
             NeutralLikesGenerator likesGenerator,
-            FirstnameGenerator firstnameGenerator,
-            LastnameGenerator lastnameGenerator,
-            AgeGenerator ageGenerator,
-            CityGenerator cityGenerator) {
+            ElfFirstnameGenerator firstnameGenerator,
+            ElfLastnameGenerator lastnameGenerator,
+            ElfAgeGenerator ageGenerator,
+            ElfCityGenerator cityGenerator) {
 
+        personality = personalityGenerator.generatePersonality();
         gender = genderGenerator.generateGender();
         firstname = firstnameGenerator.generateFirstname(gender);
         lastname = lastnameGenerator.generateLastname();
         city = cityGenerator.generateCity();
         likes = likesGenerator.generateLikes();
         age = ageGenerator.generateAge();
+        deity = deityGenerator.generateDeity();
+    }
+    public Personality getPersonality() {
+        return personality;
     }
     public Gender getGender() {
         return gender;
@@ -55,5 +66,8 @@ public class Elf {
     }
     public String getLikes() {
         return likes;
+    }
+    public String getDeity() {
+        return deity;
     }
 }

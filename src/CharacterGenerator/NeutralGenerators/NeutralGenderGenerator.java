@@ -9,7 +9,6 @@ import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,10 +18,8 @@ import java.util.List;
  */
 public class NeutralGenderGenerator implements GenderGenerator {
     
-    List<String> genderList = Arrays.asList("Male", "Female");
-
     Randomizer randomizer;
-
+    
     public NeutralGenderGenerator(Randomizer randomizer) {
         this.randomizer = randomizer;
     }
