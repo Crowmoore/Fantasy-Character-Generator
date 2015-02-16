@@ -21,7 +21,7 @@ sourceSets.test.java.srcDirs = [ "src/" ]
 mainClassName = "CharacterGenerator.Launcher"
 
 jar {
-    manifest.attributes("Main-CLass": "CharacterGenerator.Launcher")
+    manifest.attributes("Main-Class": "CharacterGenerator.Launcher")
 }
 
 test {
