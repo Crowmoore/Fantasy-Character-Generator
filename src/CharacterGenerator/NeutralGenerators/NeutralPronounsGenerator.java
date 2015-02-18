@@ -15,24 +15,34 @@ import CharacterGenerator.Enums.Pronouns;
 public class NeutralPronounsGenerator{
     
     public String getSubjective(Gender gender) {
-        if(gender.MALE == gender) { return Pronouns.HE.getPronounAsText(); }
-        else return Pronouns.SHE.getPronounAsText();
+        switch(gender) {
+            case MALE: return Pronouns.HE.getPronounAsText(); 
+            default: return Pronouns.SHE.getPronounAsText();
         }
-    public String getObjective(Gender gender) {
-        if(gender.MALE == gender) { return Pronouns.HIM.getPronounAsText(); }
-        else return Pronouns.HER.getPronounAsText();
     }
+    public String getObjective(Gender gender) {
+        switch(gender) {
+            case MALE: return Pronouns.HIM.getPronounAsText(); 
+            default: return Pronouns.HER.getPronounAsText();
+        }
+    }    
     public String getPossessive(Gender gender) {
-        if(gender.MALE == gender) { return Pronouns.HIS.getPronounAsText(); }
-        else return Pronouns.HERS.getPronounAsText();
+        switch(gender) {
+            case MALE: return Pronouns.HIS.getPronounAsText(); 
+            default: return Pronouns.HERS.getPronounAsText();
+        }
     }
     public String getPossessiveAdj(Gender gender) {
-        if(gender.MALE == gender) { return Pronouns.HIS.getPronounAsText(); }
-        else return Pronouns.HER.getPronounAsText();
+        switch(gender) {
+            case MALE: return Pronouns.HIS.getPronounAsText(); 
+            default: return Pronouns.HER.getPronounAsText();
+        }
     }
     public String getReflexive(Gender gender) {
-        if(gender.MALE == gender) { return Pronouns.HIMSELF.getPronounAsText(); }
-        else return Pronouns.HERSELF.getPronounAsText();
+        switch(gender) {
+            case MALE: return Pronouns.HIMSELF.getPronounAsText(); 
+            default: return Pronouns.HERSELF.getPronounAsText();
+        }
     }
     
 }

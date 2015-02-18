@@ -20,17 +20,19 @@ import java.util.List;
  */
 public class StoryCleaner {
     
-    List<String> events1 = Arrays.asList("The Siege of", "The Great Famine of", "The Flames of", "The Exodus from", "The Rise of");
-    List<String> events2 = Arrays.asList("The Reign of Bharag the Executor", "The Great Fall", "The Fall of Sek'har", "The Long Dark", "The Endless Winter");
-    List<String> battles = Arrays.asList("The Battle of Styx Valley", "The Raid of Morg'or", "The Battle of Warrior's Fjord", "The Siege of Monument's Embrace");
-    List<String> professions = Arrays.asList("a carpenter", "a blacksmith", "an alchemist", "a warrior", "a tinkerer", "an engineer", "a miner", "an animal trainer", "an archer");
+    List<String> events1 = Arrays.asList("The Siege of", "The Great Famine of", "The Flames of", "The Exodus from", "The Rise of", "The Culling of", "The Escape from");
+    List<String> events2 = Arrays.asList("The Reign of Bharag", "The Great Fall", "The Fall of Sek'har", "The Long Dark", "The Endless Winter", "The Scourge of the Risen", "The Dance of the Dragons", "The March of the Legion");
+    List<String> battles = Arrays.asList("The Battle of Styx Valley", "The Raid of Morg'or", "The Battle of Warrior's Fjord", "The Siege of Monument's Embrace", "The Battle for Warrior's Rest");
+    List<String> professions = Arrays.asList("carpenter", "blacksmith", "alchemist", "warrior", "tinkerer", "engineer", "miner", "animal trainer", "archer", "cook", "midwife", "seer");
     List<String> items = Arrays.asList("a rock", "a barrel", "a helmet", "a mining pick", "a sword", "a large book about folklore", "a boot", "an arrow", "a horseshoe", "a pickaxe");
     List<String> adjectives = Arrays.asList("valiantly", "bravely", "cowardly", "boldly", "valorously");
     List<String> weapons = Arrays.asList("sword", "greathammer", "dagger", "bow", "crossbow", "hammer", "bastard sword", "slingshot", "axe", "waraxe");
     List<String> weather = Arrays.asList("warm", "cold", "bright", "stormy", "rainy");
+    List<String> enemies = Arrays.asList("goblin", "orc", "undead", "troll", "Sik'har", "Morl'gur");
     
     NeutralPronounsGenerator pronouns = new NeutralPronounsGenerator();
     Randomizer randomizer;
+    private int year = 1850;
     
     public StoryCleaner(Randomizer randomizer) {
         this.randomizer = randomizer;
@@ -56,8 +58,9 @@ public class StoryCleaner {
         finalSentence = finalSentence.replaceAll("WEAPON", weapons.get(randomizer.getRandomNumber(weapons.size())));
         finalSentence = finalSentence.replaceAll("DAY", weather.get(randomizer.getRandomNumber(weather.size())));
         finalSentence = finalSentence.replaceAll("ITEM", items.get(randomizer.getRandomNumber(items.size())));
+        finalSentence = finalSentence.replaceAll("ENEMY", enemies.get(randomizer.getRandomNumber(enemies.size())));
         finalSentence = finalSentence.replaceAll("DEITY", deity);
-        finalSentence = finalSentence.replaceAll("YEAR", Integer.toString(1850 - age));
+        finalSentence = finalSentence.replaceAll("YEAR", Integer.toString(year - age));
         finalSentence = finalSentence.replaceAll("AGE", Integer.toString(age));
     
         return finalSentence;

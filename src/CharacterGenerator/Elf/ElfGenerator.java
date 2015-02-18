@@ -9,6 +9,7 @@ import CharacterGenerator.NeutralGenerators.SeededGenerator;
 import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
+import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 
 /**
  * Created by Greatmelons on 5.2.2015.
@@ -21,7 +22,7 @@ public class ElfGenerator {
      */
     public Elf generateCharacter() {
 
-        Randomizer randomizer = new SeededGenerator(84365839);
+        Randomizer randomizer = new RandomNumberGenerator();
 
         Elf elf = new Elf(
                 new NeutralDeityGenerator(randomizer),

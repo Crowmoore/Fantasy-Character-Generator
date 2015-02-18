@@ -33,13 +33,9 @@ public class DwarfFirstnameGenerator implements FirstnameGenerator{
     @Override
     public String generateFirstname(Gender gender) {
         String firstname;
-        if (Gender.MALE == gender) {
-            firstname = dwarfFirstnameListM.get(randomizer.getRandomNumber(dwarfFirstnameListM.size()));
-            return firstname;
-        }
-        else {
-            firstname = dwarfFirstnameListF.get(randomizer.getRandomNumber(dwarfFirstnameListF.size()));
-            return firstname;
+        switch(gender) {
+            case MALE: return dwarfFirstnameListM.get(randomizer.getRandomNumber(dwarfFirstnameListM.size()));
+            default: return dwarfFirstnameListF.get(randomizer.getRandomNumber(dwarfFirstnameListF.size()));
         }
     }
     
