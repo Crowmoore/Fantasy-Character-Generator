@@ -31,13 +31,9 @@ public class ElfFirstnameGenerator implements FirstnameGenerator{
      */
     @Override
     public String generateFirstname(Gender gender) {
-        if (Gender.MALE == gender) {
-            String firstname = elfFirstnameListM.get(randomizer.getRandomNumber(elfFirstnameListM.size()));
-            return firstname;
-        }
-        else {
-            String firstname = elfFirstnameListF.get(randomizer.getRandomNumber(elfFirstnameListF.size()));
-            return firstname;
+        switch(gender) {
+            case MALE: return elfFirstnameListM.get(randomizer.getRandomNumber(elfFirstnameListM.size()));
+            default: return elfFirstnameListF.get(randomizer.getRandomNumber(elfFirstnameListF.size()));
         }
     }
     
