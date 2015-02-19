@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class NeutralLikesGenerator implements LikesGenerator{
      
-    List<String> likesDislikesList = Arrays.asList("goblins", "dragons", "spiders", "insects", "fruits", "death", "animals", "swords", "legendary folklore", "drunkness", "ale", "rock punishing", "fighting", "birds", "shiny things", "torture", "nails", "sharp things", "holidays", "ugliness", "fish", "magic", "sorcerers", "undead things", "dungeon crawling", "looting", "raiding", "loud noises", "dark and wet places", "spirits of ancestors", "high places", "snow", "mining");
-
+    List<String> likesDislikesList;
     Randomizer randomizer;
 
-    public NeutralLikesGenerator(Randomizer randomizer) {
+    public NeutralLikesGenerator(Randomizer randomizer, List<String> likesDislikesList) {
         this.randomizer = randomizer;
+        this.likesDislikesList = likesDislikesList;
     }
     /**
      *

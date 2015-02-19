@@ -5,12 +5,9 @@
  */
 package CharacterGenerator.Elf;
 
+import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 
 /**
  *
@@ -27,24 +24,16 @@ public class Elf {
     private int age;
     private String deity;
     
-    public Elf(
-            NeutralDeityGenerator deityGenerator,
-            NeutralPersonalityGenerator personalityGenerator,
-            NeutralGenderGenerator genderGenerator,
-            NeutralLikesGenerator likesGenerator,
-            ElfFirstnameGenerator firstnameGenerator,
-            ElfLastnameGenerator lastnameGenerator,
-            ElfAgeGenerator ageGenerator,
-            ElfCityGenerator cityGenerator) {
+    public Elf(CharacterSetup setup) {
 
-        personality = personalityGenerator.generatePersonality();
-        gender = genderGenerator.generateGender();
-        firstname = firstnameGenerator.generateFirstname(gender);
-        lastname = lastnameGenerator.generateLastname();
-        city = cityGenerator.generateCity();
-        likes = likesGenerator.generateLikes();
-        age = ageGenerator.generateAge();
-        deity = deityGenerator.generateDeity();
+        personality = setup.getPersonalityGenerator().generatePersonality();
+        gender = setup.getGenderGenerator().generateGender();
+        firstname = setup.getFirstnameGenerator().generateFirstname(gender);
+        lastname = setup.getLastnameGenerator().generateLastname();
+        city = setup.getCityGenerator().generateCity();
+        likes = setup.getLikesGenerator().generateLikes();
+        age = setup.getAgeGenerator().generateAge();
+        deity = setup.getDeityGenerator().generateDeity();
     }
     public Personality getPersonality() {
         return personality;

@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Dwarf/DwarfFirstnameGenerator.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Test.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralPronounsGenerator.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Launcher.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Elf/ElfFirstnameGenerator.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralGenderGenerator.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/CharacterGenerator/NeutralGenerators/NewStoryGenerator.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralStoryGenerator.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/CharacterGenerator/Test.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/Story/StoryPart.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/CharacterGenerator/CharacterSetup.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/CharacterGenerator/Launcher.java</file>
+            <file>file:/E:/code/idea/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralLikesGenerator.java</file>
+            <file>file:/E:/code/idea/Character-Generator/test/CharacterGenerator/NeutralGenerators/NeutralLikesGeneratorTest.java</file>
+            <file>file:/E:/code/idea/Character-Generator/test/CharacterGenerator/Elf/ElfTest.java</file>
+            <file>file:/E:/code/idea/Character-Generator/test/CharacterGenerator/NeutralGenerators/NewStoryGeneratorTest.java</file>
         </group>
     </open-files>
 </project-private>

@@ -7,12 +7,14 @@ package CharacterGenerator.Dwarf;
 
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
+import CharacterGenerator.Interfaces.LikesGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
+import java.util.List;
 
 /**
  *
@@ -25,15 +27,13 @@ public class DwarfGenerator{
      *
      * @return
      */
-    public Dwarf generateCharacter() {
-
-        Randomizer randomizer = new RandomNumberGenerator();
+    public Dwarf generateCharacter(Randomizer randomizer, List<String> likeDislikeList) {
 
         Dwarf dwarf = new Dwarf(
                 new NeutralDeityGenerator(randomizer),
                 new NeutralPersonalityGenerator(randomizer),
                 new NeutralGenderGenerator(randomizer),
-                new NeutralLikesGenerator(randomizer),
+                new NeutralLikesGenerator(randomizer, likeDislikeList),
                 new DwarfFirstnameGenerator(randomizer),
                 new DwarfLastnameGenerator(randomizer),
                 new DwarfAgeGenerator(randomizer),
