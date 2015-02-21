@@ -7,10 +7,21 @@ repositories {
     mavenCentral()
 }
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "net.saliman:gradle-cobertura-plugin:2.2.5"
+    }
+}
+
 dependencies {
     testCompile "junit:junit:[4,)"
     testCompile "org.mockito:mockito-core:1.9.5"
 }
+
+apply plugin: "cobertura"
 
 task wrapper(type: Wrapper) {
     gradleVersion = "2.2"
@@ -73,4 +84,12 @@ findbugs {
     reportsDir = file("$project.buildDir/reports/findbugs")
     effort = "max"
 }
+
+cobertura {
+    coverageFormats = ["xml"]
+    coverageIgnoreTrivial = true
+    coverageReportDir = new File("$project.buildDir/reports/cobertura")
+}
+
+test.finalizedBy(project.tasks.cobertura)
 
