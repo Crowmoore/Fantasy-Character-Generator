@@ -9,6 +9,7 @@ repositories {
 
 dependencies {
     testCompile "junit:junit:[4,)"
+    testCompile "org.mockito:mockito-core:1.9.5"
 }
 
 task wrapper(type: Wrapper) {
@@ -16,7 +17,7 @@ task wrapper(type: Wrapper) {
 }
 
 sourceSets.main.java.srcDirs = [ "src/" ]
-sourceSets.test.java.srcDirs = [ "src/" ]
+sourceSets.test.java.srcDirs = [ "test/" ]
 
 mainClassName = "CharacterGenerator.Launcher"
 
