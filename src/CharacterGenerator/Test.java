@@ -27,8 +27,10 @@ import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralStoryGenerator;
+import CharacterGenerator.NeutralGenerators.NewStoryGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 import Characters.CharacterBase;
+import Story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
 
@@ -88,17 +90,28 @@ public class Test {
         log.info("Generated a story for elf");
         String dwarfStory = generateDwarfStory(dwarf);
         log.info("Generated a story for dwarf");
-        System.out.printf("%s\n\n%s\n", elfStory, dwarfStory);
+        System.out.printf("%s\n\n%s\n\n", elfStory, dwarfStory);
+        String story2 = generateCharacterStory(dwarf);
+        System.out.println(story2);
         
-        //****NewStoryGenerator tests****
-        /*StoryPart storypart1 = new StoryPart(part1);
+    }
+    //Generates a story by using the NewStoryGenerator class
+    public String generateCharacterStory(CharacterBase dwarf) {
+        NewStoryGenerator newStoryGenerator = new NewStoryGenerator();
+        ListReader reader = new ListReader();
+        part1 = reader.readFromFile("lists/story/part1.txt");
+        part2 = reader.readFromFile("lists/story/part2.txt");
+        part3 = reader.readFromFile("lists/story/part3.txt");
+        
+        StoryPart storypart1 = new StoryPart(part1);
         StoryPart storypart2 = new StoryPart(part2);
         StoryPart storypart3 = new StoryPart(part3);
         List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2, storypart3);
-        String story2 = newStoryGenerator.generateStory(storyparts, randomizer);
-        System.out.println(story2);*/
+        String story2 = newStoryGenerator.generateStory(storyparts, cleaner, randomizer, dwarf);
+        return story2;
         
     }
+    //Generates stories by using the old NeutralStoryGenerator
     public String generateElfStory(CharacterBase elf) {
         String elfStory = storyGenerator.generateStory(elf);
         return elfStory;

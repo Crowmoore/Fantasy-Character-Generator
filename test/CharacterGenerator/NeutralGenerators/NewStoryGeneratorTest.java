@@ -5,7 +5,10 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
+import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Interfaces.Randomizer;
+import CharacterGenerator.StoryCleaner;
+import Characters.CharacterBase;
 import Story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
@@ -24,10 +27,14 @@ import static org.mockito.Mockito.*;
 public class NewStoryGeneratorTest {
 
     Randomizer randomizer;
+    StoryCleaner cleaner;
+    CharacterBase character;
+    CharacterSetup characterSetup;
     
     @Before
     public void setup() {
         randomizer = mock(Randomizer.class);
+        cleaner = mock(StoryCleaner.class);
     }
             
     @Test
@@ -39,10 +46,12 @@ public class NewStoryGeneratorTest {
         List<String> sentences = Arrays.asList("I found an eagle.");
         StoryPart storypart = new StoryPart(sentences);
         List<StoryPart> storyparts = Arrays.asList(storypart);
+        when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(0);
         //Act
         NewStoryGenerator generator = new NewStoryGenerator();
-        String actualStory = generator.generateStory(storyparts, randomizer);
+        String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
+        actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
         assertEquals(expectedStory, actualStory);
     }
@@ -55,10 +64,12 @@ public class NewStoryGeneratorTest {
         List<String> sentences = Arrays.asList(sentence1, sentence2);
         StoryPart storypart = new StoryPart(sentences);
         List<StoryPart> storyparts = Arrays.asList(storypart);
+        when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(1);
         //Act
         NewStoryGenerator generator = new NewStoryGenerator();
-        String actualStory = generator.generateStory(storyparts, randomizer);
+        String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
+        actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
         assertEquals(expectedStory, actualStory);
     }
@@ -72,13 +83,13 @@ public class NewStoryGeneratorTest {
         StoryPart storypart1 = new StoryPart(sentenceForPart1);
         StoryPart storypart2 = new StoryPart(sentenceForPart2);
         List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2);
+        when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(0);
         //Act
         NewStoryGenerator generator = new NewStoryGenerator();
-        String actualStory = generator.generateStory(storyparts, randomizer);
+        String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
+        actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
-        System.out.println("'" + expectedStory + "'");
-        System.out.println("'" + actualStory + "'");
         assertEquals(expectedStory, actualStory);
     }
     @Test
@@ -90,13 +101,13 @@ public class NewStoryGeneratorTest {
         StoryPart storypart1 = new StoryPart(sentenceForPart1);
         StoryPart storypart2 = new StoryPart(sentenceForPart2);
         List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2);
+        when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(1);
         
         NewStoryGenerator generator = new NewStoryGenerator();
-        String actualStory = generator.generateStory(storyparts, randomizer);
+        String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
+        actualStory = cleaner.cleanSentence(expectedStory, character);
         
-        System.out.println("'" + expectedStory + "'");
-        System.out.println("'" + actualStory + "'");
         assertEquals(expectedStory, actualStory);
     }
 }

@@ -29,12 +29,12 @@ public class ListReader {
                 fileAsArray.add(currentLine);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.printf("File: %s could not be found. Sadness..", filename);
         } finally {
             try {
                 if (bufferedReader != null)bufferedReader.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            } catch (IOException e) {
+                System.out.printf("File: %s could not be closed.", filename);
             }
         }
         return fileAsArray;
