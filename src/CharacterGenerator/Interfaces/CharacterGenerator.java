@@ -11,6 +11,6 @@ package CharacterGenerator.Interfaces;
  */
 public interface CharacterGenerator {
     
-    public String generateCharacter();
+    public Character generateCharacter();
     
 }

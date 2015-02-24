@@ -34,9 +34,9 @@ public class NewStoryGeneratorTest {
     public void shouldReturnStoryWhenStorypartsHaveOnlyOneSentence() {
         //Arrange
         
-        String sentence = "I found a worm.";
+        String sentence = "I found an eagle.";
         String expectedStory = sentence + " ";
-        List<String> sentences = Arrays.asList("I found a worm.");
+        List<String> sentences = Arrays.asList("I found an eagle.");
         StoryPart storypart = new StoryPart(sentences);
         List<StoryPart> storyparts = Arrays.asList(storypart);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(0);
@@ -77,6 +77,24 @@ public class NewStoryGeneratorTest {
         NewStoryGenerator generator = new NewStoryGenerator();
         String actualStory = generator.generateStory(storyparts, randomizer);
         //Assert
+        System.out.println("'" + expectedStory + "'");
+        System.out.println("'" + actualStory + "'");
+        assertEquals(expectedStory, actualStory);
+    }
+    @Test
+    public void shouldReturnStoryWhenTwoStorypartsHaveTwoSentencesEach() {
+        int listSizeForBothLists = 2;
+        List<String> sentenceForPart1 = Arrays.asList("I saw a turtle.", "I found a stray dog.");
+        List<String> sentenceForPart2 = Arrays.asList("It was chasing a mouse.", "It was clearly looking for food.");
+        String expectedStory = "I found a stray dog. It was clearly looking for food. ";
+        StoryPart storypart1 = new StoryPart(sentenceForPart1);
+        StoryPart storypart2 = new StoryPart(sentenceForPart2);
+        List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2);
+        when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(1);
+        
+        NewStoryGenerator generator = new NewStoryGenerator();
+        String actualStory = generator.generateStory(storyparts, randomizer);
+        
         System.out.println("'" + expectedStory + "'");
         System.out.println("'" + actualStory + "'");
         assertEquals(expectedStory, actualStory);

@@ -17,12 +17,13 @@ import java.util.List;
  */
 public class ElfLastnameGenerator implements LastnameGenerator {
     
-    List<String> elfLastnameList = Arrays.asList("Rololinde", "Nhatanthar", "Isiliethor", "Mithlithdal", "Lartansel", "Neltanda", "Gwaeth", "Faelandalan", "Elerval", "Talbrinthor", "Nhaethelen");
+    List<String> elfLastnameList;
 
     Randomizer randomizer;
 
-    public ElfLastnameGenerator(Randomizer randomizer) {
+    public ElfLastnameGenerator(Randomizer randomizer, List<String> lastnameList) {
         this.randomizer = randomizer;
+        this.elfLastnameList = lastnameList;
     }
 
     public String generateLastname() {

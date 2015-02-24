@@ -10,6 +10,8 @@ import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.Interfaces.StoryGenerator;
 import CharacterGenerator.StoryCleaner;
+import Characters.CharacterBase;
+import Story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class NeutralStoryGenerator implements StoryGenerator{
         this.cleaner = cleaner;
     }
     
-    public String generateStory(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity) {
+    public String generateStory(CharacterBase characterBase){//(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity) {
         List part1 = Arrays.asList("On a DAY winter morning in YEAR NAME was born. ",
                                    "On a DAY summer day in YEAR NAME was born. ",
                                    "NAME was born during wartime in YEAR. ",
@@ -73,13 +75,13 @@ public class NeutralStoryGenerator implements StoryGenerator{
                                    "When HE got older HE finally realised how much HE loved LIKES. ");
         
         String sentence1 = (String) part1.get(randomizer.getRandomNumber(part1.size()));
-        String first = cleaner.cleanSentence(sentence1, firstname, lastname, age, gender, personality, city, likes, deity);
+        String first = cleaner.cleanSentence(sentence1, characterBase);//(sentence1, firstname, lastname, age, gender, personality, city, likes, deity);
         
         String sentence2 = (String) part2.get(randomizer.getRandomNumber(part2.size()));
-        String second = cleaner.cleanSentence(sentence2, firstname, lastname, age, gender, personality, city, likes, deity);
+        String second = cleaner.cleanSentence(sentence2, characterBase);//(sentence2, firstname, lastname, age, gender, personality, city, likes, deity);
         
         String sentence3 = (String) part3.get(randomizer.getRandomNumber(part3.size()));
-        String third = cleaner.cleanSentence(sentence3, firstname, lastname, age, gender, personality, city, likes, deity);
+        String third = cleaner.cleanSentence(sentence3, characterBase);//(sentence3, firstname, lastname, age, gender, personality, city, likes, deity);
         
         String story = String.format("%s%s\n%s", first, second, third);
         return story;

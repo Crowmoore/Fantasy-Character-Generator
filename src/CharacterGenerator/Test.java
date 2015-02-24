@@ -6,12 +6,17 @@
 package CharacterGenerator;
 
 import CharacterGenerator.Dwarf.Dwarf;
-import CharacterGenerator.Dwarf.DwarfGenerator;
+import CharacterGenerator.Dwarf.DwarfAgeGenerator;
+import CharacterGenerator.Dwarf.DwarfCityGenerator;
+import CharacterGenerator.Dwarf.DwarfFirstnameGenerator;
+import CharacterGenerator.Dwarf.DwarfLastnameGenerator;
 import CharacterGenerator.Elf.Elf;
 import CharacterGenerator.Elf.ElfAgeGenerator;
 import CharacterGenerator.Elf.ElfCityGenerator;
 import CharacterGenerator.Elf.ElfFirstnameGenerator;
 import CharacterGenerator.Elf.ElfLastnameGenerator;
+import CharacterGenerator.Enums.Gender;
+import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Interfaces.AgeGenerator;
 import CharacterGenerator.Interfaces.CityGenerator;
 import CharacterGenerator.Interfaces.FirstnameGenerator;
@@ -21,9 +26,9 @@ import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralStoryGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
+import Characters.CharacterBase;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,59 +39,97 @@ import java.util.logging.Logger;
  * @author Greatmelons
  */
 public class Test {
-
-    List<String> likesDislikesList = Arrays.asList("goblins", "dragons", "spiders", "insects", "fruits", "death", "animals", "swords", "legendary folklore", "drunkness", "ale", "rock punishing", "fighting", "birds", "shiny things", "torture", "nails", "sharp things", "holidays", "ugliness", "fish", "magic", "sorcerers", "undead things", "dungeon crawling", "looting", "raiding", "loud noises", "dark and wet places", "spirits of ancestors", "high places", "snow", "mining");
+    
+    List<Gender> genders = Arrays.asList(Gender.values());
+    List<Personality> personalities = Arrays.asList(Personality.values());
+    List<String> elfFirstnameListM;
+    List<String> elfFirstnameListF;
+    List<String> elfLastnameList;
+    List<String> elfCityList;
+    List<String> dwarfFirstnameListM;
+    List<String> dwarfFirstnameListF;
+    List<String> dwarfLastnamePrefixList;
+    List<String> dwarfLastnameSuffixList;
+    List<String> dwarfCityList;
+    List<String> deityList;
+    List<String> likesDislikesList;
+    List<String> part1;
+    List<String> part2;
+    List<String> part3;
     Logger log = Logger.getLogger(Test.class.getName());
     Randomizer randomizer = new RandomNumberGenerator();
     StoryCleaner cleaner = new StoryCleaner(randomizer);
-    DwarfGenerator dwarfGenerator = new DwarfGenerator();
+    //NewStoryGenerator newStoryGenerator = new NewStoryGenerator();
     NeutralStoryGenerator storyGenerator = new NeutralStoryGenerator(randomizer, cleaner);
     
     public void run() {        
         
         log.info("Starting");
-        
+        ListReader reader = new ListReader();
+        elfFirstnameListM = reader.readFromFile("lists/elf/elfFirstnamesM.txt");
+        elfFirstnameListF = reader.readFromFile("lists/elf/elfFirstnamesF.txt");
+        elfLastnameList = reader.readFromFile("lists/elf/elfLastnames.txt");
+        elfCityList = reader.readFromFile("lists/elf/elfCities.txt");
+        dwarfFirstnameListM = reader.readFromFile("lists/dwarf/dwarfFirstnamesM.txt");
+        dwarfFirstnameListF = reader.readFromFile("lists/dwarf/dwarfFirstnamesF.txt");
+        dwarfLastnamePrefixList = reader.readFromFile("lists/dwarf/dwarfLastnamePrefix.txt");
+        dwarfLastnameSuffixList = reader.readFromFile("lists/dwarf/dwarfLastnameSuffix.txt");
+        dwarfCityList = reader.readFromFile("lists/dwarf/dwarfCities.txt");
+        deityList = reader.readFromFile("lists/deities.txt");
+        likesDislikesList = reader.readFromFile("lists/likes.txt");
+        part1 = reader.readFromFile("lists/story/part1.txt");
+        part2 = reader.readFromFile("lists/story/part2.txt");
+        part3 = reader.readFromFile("lists/story/part3.txt");
         CharacterSetup elfSetup = getSetupForElf(randomizer);
-        Dwarf dwarf = dwarfGenerator.generateCharacter(randomizer, likesDislikesList);
-        Elf elf = new Elf(elfSetup);
+        CharacterSetup dwarfSetup = getSetupForDwarf(randomizer);
+        CharacterBase dwarf = new CharacterBase(dwarfSetup);
+        CharacterBase elf = new CharacterBase(elfSetup);
         String elfStory = generateElfStory(elf);
         log.info("Generated a story for elf");
         String dwarfStory = generateDwarfStory(dwarf);
         log.info("Generated a story for dwarf");
         System.out.printf("%s\n\n%s\n", elfStory, dwarfStory);
+        
+        //****NewStoryGenerator tests****
+        /*StoryPart storypart1 = new StoryPart(part1);
+        StoryPart storypart2 = new StoryPart(part2);
+        StoryPart storypart3 = new StoryPart(part3);
+        List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2, storypart3);
+        String story2 = newStoryGenerator.generateStory(storyparts, randomizer);
+        System.out.println(story2);*/
+        
     }
-    public String generateElfStory(Elf elf) {
-        String elfStory = storyGenerator.generateStory(elf.getFirstname(),
-                                                    elf.getLastname(),
-                                                    elf.getAge(),
-                                                    elf.getGender(),
-                                                    elf.getPersonality(),
-                                                    elf.getCity(),
-                                                    elf.getLikes(),
-                                                    elf.getDeity());
+    public String generateElfStory(CharacterBase elf) {
+        String elfStory = storyGenerator.generateStory(elf);
         return elfStory;
     }
-    public String generateDwarfStory(Dwarf dwarf) {
-        String dwarfStory = storyGenerator.generateStory(dwarf.getFirstname(),
-                                                    dwarf.getLastname(),
-                                                    dwarf.getAge(),
-                                                    dwarf.getGender(),
-                                                    dwarf.getPersonality(),
-                                                    dwarf.getCity(),
-                                                    dwarf.getLikes(),
-                                                    dwarf.getDeity());
+    public String generateDwarfStory(CharacterBase dwarf) {
+        String dwarfStory = storyGenerator.generateStory(dwarf);
         return dwarfStory;
     }
     public CharacterSetup getSetupForElf(Randomizer randomizer){
         
-        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer);
-        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer);
+        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, deityList);
+        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, genders);
         NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, likesDislikesList);
-        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer);
-        FirstnameGenerator firstnameGenerator = new ElfFirstnameGenerator(randomizer);
-        LastnameGenerator lastnameGenerator = new ElfLastnameGenerator(randomizer);
+        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, personalities);
+        FirstnameGenerator firstnameGenerator = new ElfFirstnameGenerator(randomizer, elfFirstnameListM, elfFirstnameListF);
+        LastnameGenerator lastnameGenerator = new ElfLastnameGenerator(randomizer, elfLastnameList);
         AgeGenerator ageGenerator = new ElfAgeGenerator(randomizer);
-        CityGenerator cityGenerator = new ElfCityGenerator(randomizer);
+        CityGenerator cityGenerator = new ElfCityGenerator(randomizer, elfCityList);
+        
+        return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
+    }
+    public CharacterSetup getSetupForDwarf(Randomizer randomizer){
+        
+        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, deityList);
+        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, genders);
+        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, likesDislikesList);
+        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, personalities);
+        FirstnameGenerator firstnameGenerator = new DwarfFirstnameGenerator(randomizer, dwarfFirstnameListM, dwarfFirstnameListF);
+        LastnameGenerator lastnameGenerator = new DwarfLastnameGenerator(randomizer, dwarfLastnamePrefixList, dwarfLastnameSuffixList);
+        AgeGenerator ageGenerator = new DwarfAgeGenerator(randomizer);
+        CityGenerator cityGenerator = new DwarfCityGenerator(randomizer, dwarfCityList);
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }

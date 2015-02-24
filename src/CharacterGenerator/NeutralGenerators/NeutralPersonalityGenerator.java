@@ -17,10 +17,12 @@ import java.util.List;
  */
 public class NeutralPersonalityGenerator implements PersonalityGenerator{
     
+    List<Personality> personalities;
     Randomizer randomizer;
     
-    public NeutralPersonalityGenerator(Randomizer randomizer) {
-        this.randomizer = randomizer;    
+    public NeutralPersonalityGenerator(Randomizer randomizer, List<Personality> personalities) {
+        this.randomizer = randomizer;
+        this.personalities = personalities;
     }
 
     /**
@@ -28,8 +30,7 @@ public class NeutralPersonalityGenerator implements PersonalityGenerator{
      * @return
      */
     @Override
-    public Personality generatePersonality() {
-        List<Personality> personalities = Arrays.asList(Personality.values());
+    public Personality generatePersonality() {        
         
         Personality personality = personalities.get(randomizer.getRandomNumber(personalities.size()));
         return personality;

@@ -17,12 +17,14 @@ import java.util.List;
  */
 public class ElfFirstnameGenerator implements FirstnameGenerator{
     
-    List<String> elfFirstnameListM = Arrays.asList("Aquilan", "Drannor", "Delsaran", "Khatar", "Ailmon", "Orym", "Ailmer", "Estelar", "Voron", "Teirist", "Mirthal", "Ralikanthae", "Ayen", "Falael", "Delmuth", "Erendriel");
-    List<String> elfFirstnameListF = Arrays.asList("Melladiel", "Amonthea", "Mordiliel", "Arwyn", "Aniel", "Amaranna", "Limya", "Minnathiel", "Tirenmiriel", "Issidhwen", "Melaleth");
+    List<String> elfFirstnameListM;
+    List<String> elfFirstnameListF;
     Randomizer randomizer;
 
-    public ElfFirstnameGenerator(Randomizer randomizer) {
+    public ElfFirstnameGenerator(Randomizer randomizer, List<String> maleNames, List<String> femaleNames) {
         this.randomizer = randomizer;
+        this.elfFirstnameListF = femaleNames;
+        this.elfFirstnameListM = maleNames;
     }
     /**
      *

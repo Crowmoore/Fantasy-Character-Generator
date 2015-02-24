@@ -18,10 +18,12 @@ import java.util.List;
  */
 public class NeutralGenderGenerator implements GenderGenerator {
     
+    List<Gender> genders;
     Randomizer randomizer;
     
-    public NeutralGenderGenerator(Randomizer randomizer) {
+    public NeutralGenderGenerator(Randomizer randomizer, List<Gender> genders) {
         this.randomizer = randomizer;
+        this.genders = genders;
     }
 
     /**
@@ -30,8 +32,6 @@ public class NeutralGenderGenerator implements GenderGenerator {
      */
     @Override
     public Gender generateGender() {
-
-        List<Gender> genders = Arrays.asList(Gender.values());
 
         Gender gender = genders.get(randomizer.getRandomNumber(genders.size()));
         return gender;

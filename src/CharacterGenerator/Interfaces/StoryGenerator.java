@@ -7,6 +7,7 @@ package CharacterGenerator.Interfaces;
 
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
+import Characters.CharacterBase;
 
 /**
  *
@@ -14,6 +15,6 @@ import CharacterGenerator.Enums.Personality;
  */
 public interface StoryGenerator {
     
-    public String generateStory(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity);
+    public String generateStory(CharacterBase characterBase);//(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity);
     
 }

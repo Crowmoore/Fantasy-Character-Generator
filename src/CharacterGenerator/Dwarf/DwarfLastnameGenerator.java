@@ -16,13 +16,15 @@ import java.util.List;
  */
 public class DwarfLastnameGenerator implements LastnameGenerator {
     
-    List<String> dwarfLastnamePrefixList = Arrays.asList("Oak", "Frost", "Thunder", "Fire", "Ground", "Iron", "Stone", "Sword", "Blood", "Red", "Anvil", "Gray", "Foe", "Strong", "Troll", "Orc", "Serpent", "Snake");
-    List<String> dwarfLastnameSuffixList = Arrays.asList("shield", "rock", "heart", "hammer", "forger", "shadow", "breaker", "beard", "axe", "fist", "bane", "caster", "crusher", "eye", "mind");
+    List<String> dwarfLastnamePrefixList;
+    List<String> dwarfLastnameSuffixList;
 
     Randomizer randomizer;
 
-    public DwarfLastnameGenerator(Randomizer randomizer) {
+    public DwarfLastnameGenerator(Randomizer randomizer, List<String> prefix, List<String> suffix) {
         this.randomizer = randomizer;
+        this.dwarfLastnamePrefixList = prefix;
+        this.dwarfLastnameSuffixList = suffix;
     }
 
     public String generateLastname() {

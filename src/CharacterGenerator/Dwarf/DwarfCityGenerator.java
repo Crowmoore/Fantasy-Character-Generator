@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class DwarfCityGenerator implements CityGenerator {
     
-    List<String> dwarfCityList = Arrays.asList("Gorndarum", "Birnkahldur", "Hig Faldir", "Bhom Buldor", "Haggrim", "Dugbihr", "Gol Durahl", "Bhogh Darohm", "Thoghbuldahr", "Veglodahr", "Kan Taruhm", "Ham Darul", "Vern Darim");
-
+    List<String> dwarfCityList;
     Randomizer randomizer;
 
-    public DwarfCityGenerator(Randomizer randomizer) {
+    public DwarfCityGenerator(Randomizer randomizer, List<String> cityList) {
         this.randomizer = randomizer;
+        this.dwarfCityList = cityList;
     }
     /**
      *

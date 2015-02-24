@@ -17,13 +17,15 @@ import java.util.List;
  */
 public class DwarfFirstnameGenerator implements FirstnameGenerator{
     
-    List<String> dwarfFirstnameListM = Arrays.asList("Thor", "Bjorn", "Lauger", "Ovur", "Varin", "Maof", "Garandas", "Vonthic", "Kilar", "Darnar", "Dwalbar", "Sundkas", "Garn", "Burgan", "Buror", "Donulf");
-    List<String> dwarfFirstnameListF = Arrays.asList("Frira", "Vomisi", "Mardu", "Keshgi", "Badisi", "Tali", "Delamaka", "Tili", "Rari", "Aglaak", "Tiresli", "Tah", "Rakeba", "Tefdeth", "Ionu", "Niyrin", "Belra");
+    List<String> dwarfFirstnameListM;
+    List<String> dwarfFirstnameListF;
 
     Randomizer randomizer;
 
-    public DwarfFirstnameGenerator(Randomizer randomizer) {
+    public DwarfFirstnameGenerator(Randomizer randomizer, List<String> firstnamesM, List<String> firstnamesF) {
         this.randomizer = randomizer;
+        this.dwarfFirstnameListM = firstnamesM;
+        this.dwarfFirstnameListF = firstnamesF;
     }
     /**
      *

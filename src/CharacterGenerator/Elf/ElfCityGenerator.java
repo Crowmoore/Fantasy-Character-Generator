@@ -16,11 +16,12 @@ import java.util.List;
  */
 public class ElfCityGenerator implements CityGenerator{
     
-    List<String> elfCityList = Arrays.asList("Amyenshys", "Shylve Entheas", "Emflin", "Amyfrion", "Mfe Asari", "Ellon", "Ins Lenora", "Emi Alora", "Onle Taesi", "Wailin", "Efan Esari");
+    List<String> elfCityList;
     Randomizer randomizer;
 
-    public ElfCityGenerator(Randomizer randomizer) {
+    public ElfCityGenerator(Randomizer randomizer, List<String> elfCities) {
         this.randomizer = randomizer;
+        this.elfCityList = elfCities;
     }
     /**
      *

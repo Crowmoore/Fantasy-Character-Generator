@@ -11,6 +11,7 @@ import CharacterGenerator.Enums.Pronouns;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralPronounsGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
+import Characters.CharacterBase;
 import java.util.Arrays;
 import java.util.List;
 
@@ -38,18 +39,18 @@ public class StoryCleaner {
         this.randomizer = randomizer;
     }
     
-    public String cleanSentence(String sentence, String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity) {
+    public String cleanSentence(String sentence, CharacterBase characterBase){//(String sentence, String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity) {
         
         String finalSentence = sentence;
         
-        finalSentence = finalSentence.replaceAll("HIS", pronouns.getPossessiveAdj(gender));
-        finalSentence = finalSentence.replaceAll("HIM", pronouns.getObjective(gender));
-        finalSentence = finalSentence.replaceAll("HE", pronouns.getSubjective(gender));
-        finalSentence = finalSentence.replaceAll("HIMSELF", pronouns.getReflexive(gender));
-        finalSentence = finalSentence.replaceAll("NAME", (firstname + " " + lastname));
-        finalSentence = finalSentence.replaceAll("PERSONALITY", personality.getPersonalityAsText());
-        finalSentence = finalSentence.replaceAll("LIKES", likes);
-        finalSentence = finalSentence.replaceAll("CITY", city);
+        finalSentence = finalSentence.replaceAll("HIS", pronouns.getPossessiveAdj(characterBase.getGender()));
+        finalSentence = finalSentence.replaceAll("HIM", pronouns.getObjective(characterBase.getGender()));
+        finalSentence = finalSentence.replaceAll("HE", pronouns.getSubjective(characterBase.getGender()));
+        finalSentence = finalSentence.replaceAll("HIMSELF", pronouns.getReflexive(characterBase.getGender()));
+        finalSentence = finalSentence.replaceAll("NAME", (characterBase.getFirstname() + " " + characterBase.getLastname()));
+        finalSentence = finalSentence.replaceAll("PERSONALITY", characterBase.getPersonality().getPersonalityAsText());
+        finalSentence = finalSentence.replaceAll("LIKES", characterBase.getLikes());
+        finalSentence = finalSentence.replaceAll("CITY", characterBase.getCity());
         finalSentence = finalSentence.replaceAll("EVENT1", events1.get(randomizer.getRandomNumber(events1.size())));
         finalSentence = finalSentence.replaceAll("EVENT2", events2.get(randomizer.getRandomNumber(events2.size())));
         finalSentence = finalSentence.replaceAll("BATTLE", battles.get(randomizer.getRandomNumber(battles.size())));
@@ -59,9 +60,9 @@ public class StoryCleaner {
         finalSentence = finalSentence.replaceAll("DAY", weather.get(randomizer.getRandomNumber(weather.size())));
         finalSentence = finalSentence.replaceAll("ITEM", items.get(randomizer.getRandomNumber(items.size())));
         finalSentence = finalSentence.replaceAll("ENEMY", enemies.get(randomizer.getRandomNumber(enemies.size())));
-        finalSentence = finalSentence.replaceAll("DEITY", deity);
-        finalSentence = finalSentence.replaceAll("YEAR", Integer.toString(year - age));
-        finalSentence = finalSentence.replaceAll("AGE", Integer.toString(age));
+        finalSentence = finalSentence.replaceAll("DEITY", characterBase.getDeity());
+        finalSentence = finalSentence.replaceAll("YEAR", Integer.toString(year - characterBase.getAge()));
+        finalSentence = finalSentence.replaceAll("AGE", Integer.toString(characterBase.getAge()));
     
         return finalSentence;
 

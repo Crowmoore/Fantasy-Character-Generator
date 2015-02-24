@@ -16,12 +16,13 @@ import java.util.List;
  */
 public class NeutralDeityGenerator implements DeityGenerator{
     
-    List<String> deityList = Arrays.asList("Cuvther, The Goddess of Fertility", "Mueyr, The God of Ale", "Qoldur, The God of Poetry", "Juxorr, The Goddess of Mercy", "Durlo, The God of Good Luck", "Kidorr, The God of Earth", "Nutdon, The God of Fire", "Wyeyar, The God of Night", "Emaos, The God of the Underworld", "Jidite, The God of Revenge");
+    List<String> deityList;
     
     Randomizer randomizer;
 
-    public NeutralDeityGenerator(Randomizer randomizer) {
+    public NeutralDeityGenerator(Randomizer randomizer, List<String> deityList) {
         this.randomizer = randomizer;
+        this.deityList = deityList;
     }
     public String generateDeity() {
         String deity = deityList.get(randomizer.getRandomNumber(deityList.size()));
