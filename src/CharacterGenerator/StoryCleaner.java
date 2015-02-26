@@ -13,7 +13,9 @@ import CharacterGenerator.NeutralGenerators.NeutralPronounsGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 import Characters.CharacterBase;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.*;
 
 /**
@@ -48,33 +50,40 @@ public class StoryCleaner {
         List<String> oralVerbs = reader.readFromFile("lists/story/oralVerbs.txt");
         
         String finalSentence = sentence;
+        Map<String,String> replacements = new HashMap<>();
         
-        finalSentence = finalSentence.replaceAll("HIS", pronouns.getPossessiveAdj(characterBase.getGender()));
-        finalSentence = finalSentence.replaceAll("HIM", pronouns.getObjective(characterBase.getGender()));
-        finalSentence = finalSentence.replaceAll("HE", pronouns.getSubjective(characterBase.getGender()));
-        finalSentence = finalSentence.replaceAll("HIMSELF", pronouns.getReflexive(characterBase.getGender()));
-        finalSentence = finalSentence.replaceAll("FULLNAME", (characterBase.getFirstname() + " " + characterBase.getLastname()));
-        finalSentence = finalSentence.replaceAll("PERSONALITY", characterBase.getPersonality().getPersonalityAsText());
-        finalSentence = finalSentence.replaceAll("LIKES", characterBase.getLikes());
-        finalSentence = finalSentence.replaceAll("CITY", characterBase.getCity());
-        finalSentence = finalSentence.replaceAll("SEASON", seasons.get(randomizer.getRandomNumber(seasons.size())));
-        finalSentence = finalSentence.replaceAll("DISEASE", diseases.get(randomizer.getRandomNumber(diseases.size())));
-        finalSentence = finalSentence.replaceAll("EVENT1", events1.get(randomizer.getRandomNumber(events1.size())));
-        finalSentence = finalSentence.replaceAll("EVENT2", events2.get(randomizer.getRandomNumber(events2.size())));
-        finalSentence = finalSentence.replaceAll("BATTLE", battles.get(randomizer.getRandomNumber(battles.size())));
-        finalSentence = finalSentence.replaceAll("ADJECTIVE", adjectives.get(randomizer.getRandomNumber(adjectives.size())));
-        finalSentence = finalSentence.replaceAll("PROFESSION", professions.get(randomizer.getRandomNumber(professions.size())));
-        finalSentence = finalSentence.replaceAll("WEAPON", weapons.get(randomizer.getRandomNumber(weapons.size())));
-        finalSentence = finalSentence.replaceAll("DAY", weather.get(randomizer.getRandomNumber(weather.size())));
-        finalSentence = finalSentence.replaceAll("ITEM", items.get(randomizer.getRandomNumber(items.size())));
-        finalSentence = finalSentence.replaceAll("ENEMY", enemies.get(randomizer.getRandomNumber(enemies.size())));
-        finalSentence = finalSentence.replaceAll("MOVEMENTVERB", movementVerbs.get(randomizer.getRandomNumber(movementVerbs.size())));
-        finalSentence = finalSentence.replaceAll("ORALVERB", oralVerbs.get(randomizer.getRandomNumber(oralVerbs.size())));
-        finalSentence = finalSentence.replaceAll("DEITY", characterBase.getDeity());
-        finalSentence = finalSentence.replaceAll("YEAR", Integer.toString(year - characterBase.getAge()));
-        finalSentence = finalSentence.replaceAll("AGE", Integer.toString(characterBase.getAge()));
-    
-        return finalSentence;
+        replacements.put("HIS", pronouns.getPossessiveAdj(characterBase.getGender()));
+        replacements.put("HIM", pronouns.getObjective(characterBase.getGender()));
+        replacements.put("HE", pronouns.getSubjective(characterBase.getGender()));
+        replacements.put("HIMSELF", pronouns.getReflexive(characterBase.getGender()));
+        replacements.put("FULLNAME", (characterBase.getFirstname() + " " + characterBase.getLastname()));
+        replacements.put("PERSONALITY", characterBase.getPersonality().getPersonalityAsText());
+        replacements.put("LIKES", characterBase.getLikes());
+        replacements.put("CITY", characterBase.getCity());
+        replacements.put("SEASON", seasons.get(randomizer.getRandomNumber(seasons.size())));
+        replacements.put("DISEASE", diseases.get(randomizer.getRandomNumber(diseases.size())));
+        replacements.put("EVENT1", events1.get(randomizer.getRandomNumber(events1.size())));
+        replacements.put("EVENT2", events2.get(randomizer.getRandomNumber(events2.size())));
+        replacements.put("BATTLE", battles.get(randomizer.getRandomNumber(battles.size())));
+        replacements.put("ADJECTIVE", adjectives.get(randomizer.getRandomNumber(adjectives.size())));
+        replacements.put("PROFESSION", professions.get(randomizer.getRandomNumber(professions.size())));
+        replacements.put("WEAPON", weapons.get(randomizer.getRandomNumber(weapons.size())));
+        replacements.put("DAY", weather.get(randomizer.getRandomNumber(weather.size())));
+        replacements.put("ITEM", items.get(randomizer.getRandomNumber(items.size())));
+        replacements.put("ENEMY", enemies.get(randomizer.getRandomNumber(enemies.size())));
+        replacements.put("MOVEMENTVERB", movementVerbs.get(randomizer.getRandomNumber(movementVerbs.size())));
+        replacements.put("ORALVERB", oralVerbs.get(randomizer.getRandomNumber(oralVerbs.size())));
+        replacements.put("DEITY", characterBase.getDeity());
+        replacements.put("YEAR", Integer.toString(year - characterBase.getAge()));
+        replacements.put("AGE", Integer.toString(characterBase.getAge()));
+        
+        return replaceTags(replacements, sentence);
 
+    }
+    private String replaceTags(Map<String,String> tags, String sentence) {
+        for(String key : tags.keySet()) {
+            sentence = sentence.replaceAll(key, tags.get(key));
+        }
+        return sentence;
     }
 }

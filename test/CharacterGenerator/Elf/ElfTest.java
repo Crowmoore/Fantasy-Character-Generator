@@ -8,6 +8,7 @@ package CharacterGenerator.Elf;
 import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
+import CharacterGenerator.Enums.Race;
 import CharacterGenerator.Interfaces.AgeGenerator;
 import CharacterGenerator.Interfaces.CityGenerator;
 import CharacterGenerator.Interfaces.DeityGenerator;
@@ -16,6 +17,7 @@ import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.Interfaces.LikesGenerator;
 import CharacterGenerator.Interfaces.PersonalityGenerator;
+import CharacterGenerator.Interfaces.RaceGenerator;
 import Characters.CharacterBase;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +41,7 @@ public class ElfTest {
     LastnameGenerator lastnameGenerator;
     AgeGenerator ageGenerator;
     CityGenerator cityGenerator;
+    RaceGenerator raceGenerator;
     
     @Before
     public void setup() {
@@ -50,6 +53,7 @@ public class ElfTest {
         lastnameGenerator = mock(LastnameGenerator.class);
         ageGenerator = mock(AgeGenerator.class);
         cityGenerator = mock(CityGenerator.class);
+        raceGenerator = mock(RaceGenerator.class);
         
                 
     }
@@ -58,6 +62,7 @@ public class ElfTest {
         //Arrange
         String expectedDeity = "God";
         Gender expectedGender = Gender.MALE;
+        Race expectedRace = Race.ELF;
         String expectedLike = "Fish";
         Personality expectedPersonality = Personality.CALM;
         String expectedFirstname = "Harry";
@@ -66,6 +71,7 @@ public class ElfTest {
         String expectedCity = "Helsinki";
         when(deityGenerator.generateDeity()).thenReturn(expectedDeity);
         when(genderGenerator.generateGender()).thenReturn(expectedGender);
+        when(raceGenerator.generateRace()).thenReturn(expectedRace);
         when(likesGenerator.generateLikes()).thenReturn(expectedLike);
         when(personalityGenerator.generatePersonality()).thenReturn(expectedPersonality);
         when(firstnameGenerator.generateFirstname(Gender.MALE)).thenReturn(expectedFirstname);
@@ -74,7 +80,7 @@ public class ElfTest {
         when(cityGenerator.generateCity()).thenReturn(expectedCity);
         CharacterSetup setup = new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
         //Act
-        CharacterBase elf = new CharacterBase(setup);
+        CharacterBase elf = new CharacterBase(setup, expectedGender, expectedRace);
         String actualDeity = elf.getDeity();
         Gender actualGender = elf.getGender();
         String actualLike = elf.getLikes();
