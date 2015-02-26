@@ -16,12 +16,7 @@ import CharacterGenerator.Elf.ElfLastnameGenerator;
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Enums.Race;
-import CharacterGenerator.Interfaces.AgeGenerator;
-import CharacterGenerator.Interfaces.CityGenerator;
-import CharacterGenerator.Interfaces.FirstnameGenerator;
-import CharacterGenerator.Interfaces.LastnameGenerator;
-import CharacterGenerator.Interfaces.RaceGenerator;
-import CharacterGenerator.Interfaces.Randomizer;
+import CharacterGenerator.Interfaces.*;
 import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
@@ -45,100 +40,51 @@ import javax.swing.JTextField;
  * @author Greatmelons
  */
 public class Mainframe extends javax.swing.JFrame {
-    
-    List<Gender> genders = Arrays.asList(Gender.values());
-    List<Race> races = Arrays.asList(Race.values());
-    List<Personality> personalities = Arrays.asList(Personality.values());
-    List<String> elfFirstnameListM;
-    List<String> elfFirstnameListF;
-    List<String> elfLastnameList;
-    List<String> elfCityList;
-    List<String> dwarfFirstnameListM;
-    List<String> dwarfFirstnameListF;
-    List<String> dwarfLastnamePrefixList;
-    List<String> dwarfLastnameSuffixList;
-    List<String> dwarfCityList;
-    List<String> deityList;
-    List<String> likesDislikesList;
-    List<String> part1;
-    List<String> part2;
-    List<String> part3;
-    List<String> part4;
-    List<String> part5;
-    long seed;
-    Randomizer randomizer;
-    Randomizer seededRandomizer;
-    StoryCleaner cleaner;
-    NeutralRaceGenerator raceGenerator;
-    NeutralGenderGenerator genderGenerator;
-    Race race;
-    Gender gender;
-    String userSeed;
 
-    
     /**
      * Creates new form Mainframe
      */
     public Mainframe() {
-        loadLists();
         initComponents();
     }
-    public void loadLists() {
-        ListReader reader = new ListReader();
-        elfFirstnameListM = reader.readFromFile("lists/elf/elfFirstnamesM.txt");
-        elfFirstnameListF = reader.readFromFile("lists/elf/elfFirstnamesF.txt");
-        elfLastnameList = reader.readFromFile("lists/elf/elfLastnames.txt");
-        elfCityList = reader.readFromFile("lists/elf/elfCities.txt");
-        dwarfFirstnameListM = reader.readFromFile("lists/dwarf/dwarfFirstnamesM.txt");
-        dwarfFirstnameListF = reader.readFromFile("lists/dwarf/dwarfFirstnamesF.txt");
-        dwarfLastnamePrefixList = reader.readFromFile("lists/dwarf/dwarfLastnamePrefix.txt");
-        dwarfLastnameSuffixList = reader.readFromFile("lists/dwarf/dwarfLastnameSuffix.txt");
-        dwarfCityList = reader.readFromFile("lists/dwarf/dwarfCities.txt");
-        deityList = reader.readFromFile("lists/deities.txt");
-        likesDislikesList = reader.readFromFile("lists/likes.txt");
-    }
+
     public CharacterSetup getSetupForElf(Randomizer randomizer){
-        
-        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, deityList);
-        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, genders);
-        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, likesDislikesList);
-        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, personalities);
-        FirstnameGenerator firstnameGenerator = new ElfFirstnameGenerator(randomizer, elfFirstnameListM, elfFirstnameListF);
-        LastnameGenerator lastnameGenerator = new ElfLastnameGenerator(randomizer, elfLastnameList);
+        ListProvider provider = new ListProviderImpl();
+        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
+        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, provider.getGenders());
+        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, provider.getLikesDislikesList());
+        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, provider.getPersonalities());
+        FirstnameGenerator firstnameGenerator = new ElfFirstnameGenerator(randomizer, provider.getElfFirstnameListM(), provider.getElfFirstnameListF());
+        LastnameGenerator lastnameGenerator = new ElfLastnameGenerator(randomizer, provider.getElfLastnameList());
         AgeGenerator ageGenerator = new ElfAgeGenerator(randomizer);
-        CityGenerator cityGenerator = new ElfCityGenerator(randomizer, elfCityList);
+        CityGenerator cityGenerator = new ElfCityGenerator(randomizer, provider.getElfCityList());
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }
     public CharacterSetup getSetupForDwarf(Randomizer randomizer){
-        
-        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, deityList);
-        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, genders);
-        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, likesDislikesList);
-        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, personalities);
-        FirstnameGenerator firstnameGenerator = new DwarfFirstnameGenerator(randomizer, dwarfFirstnameListM, dwarfFirstnameListF);
-        LastnameGenerator lastnameGenerator = new DwarfLastnameGenerator(randomizer, dwarfLastnamePrefixList, dwarfLastnameSuffixList);
+        ListProvider provider = new ListProviderImpl();
+        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
+        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, provider.getGenders());
+        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, provider.getLikesDislikesList());
+        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, provider.getPersonalities());
+        FirstnameGenerator firstnameGenerator = new DwarfFirstnameGenerator(randomizer, provider.getDwarfFirstnameListM(), provider.getDwarfFirstnameListF());
+        LastnameGenerator lastnameGenerator = new DwarfLastnameGenerator(randomizer, provider.getDwarfLastnamePrefixList(), provider.getDwarfLastnameSuffixList());
         AgeGenerator ageGenerator = new DwarfAgeGenerator(randomizer);
-        CityGenerator cityGenerator = new DwarfCityGenerator(randomizer, dwarfCityList);
+        CityGenerator cityGenerator = new DwarfCityGenerator(randomizer, provider.getDwarfCityList());
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }
     public String generateStory(CharacterBase character, Randomizer randomizer) {
-        this.randomizer = randomizer;
-        cleaner = new StoryCleaner(randomizer);
+        ListProvider provider = new ListProviderImpl();
+        StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
         StoryGenerator newStoryGenerator = new StoryGenerator();
         ListReader reader = new ListReader();
-        part1 = reader.readFromFile("lists/story/part1.txt");
-        part2 = reader.readFromFile("lists/story/part2.txt");
-        part3 = reader.readFromFile("lists/story/part3.txt");
-        part4 = reader.readFromFile("lists/story/part4.txt");
-        part5 = reader.readFromFile("lists/story/part5.txt");
         
-        StoryPart storypart1 = new StoryPart(part1);
-        StoryPart storypart2 = new StoryPart(part2);
-        StoryPart storypart3 = new StoryPart(part3);
-        StoryPart storypart4 = new StoryPart(part4);
-        StoryPart storypart5 = new StoryPart(part5);
+        StoryPart storypart1 = new StoryPart(provider.getPart1());
+        StoryPart storypart2 = new StoryPart(provider.getPart2());
+        StoryPart storypart3 = new StoryPart(provider.getPart3());
+        StoryPart storypart4 = new StoryPart(provider.getPart4());
+        StoryPart storypart5 = new StoryPart(provider.getPart5());
         List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2, storypart3, storypart4, storypart5);
         String story2 = newStoryGenerator.generateStory(storyparts, cleaner, randomizer, character);
         return story2;       
@@ -450,9 +396,9 @@ public class Mainframe extends javax.swing.JFrame {
 
     private void genButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genButtonActionPerformed
         CharacterBase character = null;
-        randomizer = new RandomNumberGenerator();
-        race = (Race)raceSelect.getSelectedItem();
-        gender = (Gender)genderSelect.getSelectedItem();
+        Randomizer randomizer = new RandomNumberGenerator();
+        Race race = (Race)raceSelect.getSelectedItem();
+        Gender gender = (Gender)genderSelect.getSelectedItem();
         switch(race) {
             case DWARF: character = generateDwarf(randomizer, gender, race);
                 break;
@@ -472,11 +418,11 @@ public class Mainframe extends javax.swing.JFrame {
     }//GEN-LAST:event_genButtonActionPerformed
 
     private void raceSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_raceSelectActionPerformed
-        race = (Race)raceSelect.getSelectedItem();
+
     }//GEN-LAST:event_raceSelectActionPerformed
 
     private void genderSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderSelectActionPerformed
-        gender = (Gender)genderSelect.getSelectedItem();
+
     }//GEN-LAST:event_genderSelectActionPerformed
 
     private void genderFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genderFieldActionPerformed
@@ -488,26 +434,27 @@ public class Mainframe extends javax.swing.JFrame {
     }//GEN-LAST:event_raceFieldActionPerformed
 
     private void seedGenButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seedGenButtonActionPerformed
-        CharacterBase seededCharacter = null;
+        ListProvider provider = new ListProviderImpl();
         long seed = 0;
-        userSeed = seedField.getText();
+        String userSeed = seedField.getText();
             try{
                 seed = Long.valueOf(userSeed);
             }catch(NumberFormatException e) {
                 storyArea.setText("Not a valid seed.");
             }
-        seededRandomizer = new SeededGenerator(seed);
-        raceGenerator = new NeutralRaceGenerator(seededRandomizer, races);
+        Randomizer seededRandomizer = new SeededGenerator(seed);
+        RaceGenerator raceGenerator = new NeutralRaceGenerator(seededRandomizer, provider.getRaces());
         Race seededRace = raceGenerator.generateRace();
-        genderGenerator = new NeutralGenderGenerator(seededRandomizer, genders);
+        GenderGenerator genderGenerator = new NeutralGenderGenerator(seededRandomizer, provider.getGenders());
         Gender seededGender = genderGenerator.generateGender();
+        CharacterBase seededCharacter;
         switch(seededRace) {
             case DWARF: seededCharacter = generateDwarf(seededRandomizer, seededGender, seededRace);
                 break;
             case ELF: seededCharacter = generateElf(seededRandomizer, seededGender, seededRace);
                 break;
-            default:
-                break;
+            default: 
+                throw new IllegalArgumentException("Not a valid race: " + seededRace);
         }
         nameField.setText(seededCharacter.getFirstname() + " " + seededCharacter.getLastname());
         raceField.setText(seededCharacter.getRace().getRaceAsText());
@@ -521,7 +468,7 @@ public class Mainframe extends javax.swing.JFrame {
     }//GEN-LAST:event_seedGenButtonActionPerformed
 
     private void seedFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seedFieldActionPerformed
-        userSeed = seedField.getText();
+
     }//GEN-LAST:event_seedFieldActionPerformed
 
     /**
