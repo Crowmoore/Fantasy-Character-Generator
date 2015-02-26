@@ -20,6 +20,7 @@ import CharacterGenerator.Interfaces.AgeGenerator;
 import CharacterGenerator.Interfaces.CityGenerator;
 import CharacterGenerator.Interfaces.FirstnameGenerator;
 import CharacterGenerator.Interfaces.LastnameGenerator;
+import CharacterGenerator.Interfaces.ListProvider;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
@@ -38,6 +39,7 @@ import java.util.logging.Logger;
  *
  * @author Greatmelons
  */
+@Deprecated
 public class Test {
     
     List<Gender> genders = Arrays.asList(Gender.values());
@@ -60,8 +62,9 @@ public class Test {
     List<String> part5;
     Logger log = Logger.getLogger(Test.class.getName());
     Randomizer randomizer = new RandomNumberGenerator();
-    StoryCleaner cleaner = new StoryCleaner(randomizer);
-    
+    ListProvider listProvider = new ListProviderImpl();
+    StoryCleaner cleaner = new StoryCleaner(randomizer, listProvider);
+
     public void run() {        
         
         log.info("Starting");

@@ -5,18 +5,13 @@
  */
 package CharacterGenerator;
 
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Enums.Pronouns;
+import CharacterGenerator.Interfaces.ListProvider;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralPronounsGenerator;
-import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 import Characters.CharacterBase;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.*;
 
 /**
  *
@@ -26,28 +21,29 @@ public class StoryCleaner {
     
     NeutralPronounsGenerator pronouns = new NeutralPronounsGenerator();
     Randomizer randomizer;
+    ListProvider listProvider;
     private int year = 6500;
     
-    public StoryCleaner(Randomizer randomizer) {
+    public StoryCleaner(Randomizer randomizer, ListProvider listProvider) {
         this.randomizer = randomizer;
+        this.listProvider = listProvider;
     }
     
     public String cleanSentence(String sentence, CharacterBase characterBase){
         
-        ListReader reader = new ListReader();
-        List<String> events1 = reader.readFromFile("lists/story/events1.txt");
-        List<String> events2 = reader.readFromFile("lists/story/events2.txt");
-        List<String> battles = reader.readFromFile("lists/story/battles.txt");
-        List<String> professions = reader.readFromFile("lists/story/professions.txt");
-        List<String> items = reader.readFromFile("lists/story/items.txt");
-        List<String> adjectives = reader.readFromFile("lists/story/adjectives.txt");
-        List<String> weapons = reader.readFromFile("lists/story/weapons.txt");
-        List<String> weather = reader.readFromFile("lists/story/weather.txt");
-        List<String> enemies = reader.readFromFile("lists/story/enemies.txt");
-        List<String> seasons = reader.readFromFile("lists/story/seasons.txt");
-        List<String> diseases = reader.readFromFile("lists/story/diseases.txt");
-        List<String> movementVerbs = reader.readFromFile("lists/story/movementVerbs.txt");
-        List<String> oralVerbs = reader.readFromFile("lists/story/oralVerbs.txt");
+        List<String> events1 = listProvider.getEvents1();
+        List<String> events2 = listProvider.getEvents2();
+        List<String> battles = listProvider.getBattles();
+        List<String> professions = listProvider.getProfessions();
+        List<String> items = listProvider.getItems();
+        List<String> adjectives = listProvider.getAdjectives();
+        List<String> weapons = listProvider.getWeapons();
+        List<String> weather = listProvider.getWeather();
+        List<String> enemies = listProvider.getEnemies();
+        List<String> seasons = listProvider.getSeasons();
+        List<String> diseases = listProvider.getDiseases();
+        List<String> movementVerbs = listProvider.getMovementVerbs();
+        List<String> oralVerbs = listProvider.getOralVerbs();
         
         String finalSentence = sentence;
         Map<String,String> replacements = new HashMap<>();
