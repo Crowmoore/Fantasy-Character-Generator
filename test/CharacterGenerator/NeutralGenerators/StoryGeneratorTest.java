@@ -5,6 +5,7 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
+import Story.StoryGenerator;
 import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.StoryCleaner;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Greatmelons
  */
-public class NewStoryGeneratorTest {
+public class StoryGeneratorTest {
 
     Randomizer randomizer;
     StoryCleaner cleaner;
@@ -49,7 +50,7 @@ public class NewStoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(0);
         //Act
-        NewStoryGenerator generator = new NewStoryGenerator();
+        StoryGenerator generator = new StoryGenerator();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
@@ -67,7 +68,7 @@ public class NewStoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(1);
         //Act
-        NewStoryGenerator generator = new NewStoryGenerator();
+        StoryGenerator generator = new StoryGenerator();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
@@ -86,7 +87,7 @@ public class NewStoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(0);
         //Act
-        NewStoryGenerator generator = new NewStoryGenerator();
+        StoryGenerator generator = new StoryGenerator();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
@@ -104,7 +105,7 @@ public class NewStoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(1);
         
-        NewStoryGenerator generator = new NewStoryGenerator();
+        StoryGenerator generator = new StoryGenerator();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         

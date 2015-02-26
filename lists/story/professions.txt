@@ -1,0 +1,14 @@
+a carpenter
+a blacksmith
+an alchemist
+a warrior
+a tinkerer
+an engineer
+a miner
+an animal trainer
+an archer
+a cook
+a midwife
+a seer
+a jeweler
+a military leader

@@ -16,6 +16,7 @@ import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.Interfaces.LikesGenerator;
 import CharacterGenerator.Interfaces.PersonalityGenerator;
+import Characters.CharacterBase;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
@@ -73,7 +74,7 @@ public class ElfTest {
         when(cityGenerator.generateCity()).thenReturn(expectedCity);
         CharacterSetup setup = new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
         //Act
-        Elf elf = new Elf(setup);
+        CharacterBase elf = new CharacterBase(setup);
         String actualDeity = elf.getDeity();
         Gender actualGender = elf.getGender();
         String actualLike = elf.getLikes();

@@ -25,7 +25,7 @@ public class DwarfAgeGenerator implements AgeGenerator {
      */
     @Override
     public int generateAge() {
-        int age = randomizer.getRandomNumber(300);
+        int age = randomizer.getRandomNumber(300-25) + 25;
         return age;
     }
     

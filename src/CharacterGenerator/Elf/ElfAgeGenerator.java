@@ -25,7 +25,7 @@ public class ElfAgeGenerator implements AgeGenerator {
      */
     @Override
     public int generateAge() {
-        int age = randomizer.getRandomNumber(5000);
+        int age = randomizer.getRandomNumber(5000 - 25) + 25;
         return age;
     }
     

@@ -8,7 +8,7 @@ package Characters;
 import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Interfaces.CharacterGenerator;
+import CharacterGenerator.Enums.Race;
 
 /**
  *
@@ -24,10 +24,12 @@ public class CharacterBase{
     private Gender gender;
     private int age;
     private String deity;
+    private Race race;
     
-    public CharacterBase(CharacterSetup setup) {
+    public CharacterBase(CharacterSetup setup, Gender gender, Race race) {
         personality = setup.getPersonalityGenerator().generatePersonality();
-        gender = setup.getGenderGenerator().generateGender();
+        this.gender = gender;
+        this.race = race;
         firstname = setup.getFirstnameGenerator().generateFirstname(gender);
         lastname = setup.getLastnameGenerator().generateLastname();
         city = setup.getCityGenerator().generateCity();
@@ -58,6 +60,9 @@ public class CharacterBase{
     }
     public String getDeity() {
         return deity;
+    }
+    public Race getRace() {
+        return race;
     }
     
 }

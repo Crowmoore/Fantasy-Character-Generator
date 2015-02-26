@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class StoryPart {
     
-    List<String> sentences;
+    private List<String> sentences;
     
     public StoryPart(List<String> sentences) {
         
@@ -22,7 +22,7 @@ public class StoryPart {
         
     }
     
-    public String getSentences(Randomizer randomizer) {
+    public String getSentence(Randomizer randomizer) {
         return sentences.get(randomizer.getRandomNumber(sentences.size()));
     }
 }

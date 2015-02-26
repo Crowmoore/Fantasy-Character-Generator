@@ -17,9 +17,9 @@ import java.util.List;
  */
 public class ListReader {
     
-    BufferedReader bufferedReader;
-    
     public List<String> readFromFile(String filename) {
+        
+        BufferedReader bufferedReader = null;
         
         List<String> fileAsArray = new ArrayList<>();
         try {

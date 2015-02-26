@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterGenerator.NeutralGenerators;
+package Story;
 
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.StoryCleaner;
@@ -15,16 +15,19 @@ import java.util.List;
  *
  * @author Greatmelons
  */
-public class NewStoryGenerator {
+public class StoryGenerator {
     
     
     public String generateStory(List<StoryPart> storyparts, StoryCleaner cleaner, Randomizer randomizer, CharacterBase character) {
         String story = "";
+        String finalStory = "";
         for(StoryPart storypart : storyparts) {
-            story += (storypart.getSentences(randomizer) + "\n");
+            story = (storypart.getSentence(randomizer) + "\n");
+            finalStory += cleaner.cleanSentence(story, character);
+            if(story.contains("died"))
+                break;
         }
-        story = cleaner.cleanSentence(story, character);
-        return story;
+        return finalStory;
     }
     
 }

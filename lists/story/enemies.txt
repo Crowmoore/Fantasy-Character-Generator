@@ -1,0 +1,6 @@
+goblin
+orc
+undead
+troll
+Sik'har
+Morl'gur

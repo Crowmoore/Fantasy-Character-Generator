@@ -1,0 +1,12 @@
+plaque
+rabies
+smallpox
+anthrax
+influenza
+pneumonia
+yellow fever
+tuberculosis
+tetanus
+chronic obstructive pulmonary disease
+syphilis
+leprosy

@@ -5,12 +5,14 @@
  */
 package CharacterGenerator.Interfaces;
 
+import CharacterGenerator.Enums.Race;
+
 /**
  *
  * @author Greatmelons
  */
 public interface RaceGenerator {
     
-    public String generateRace();
+    public Race generateRace();
     
 }

@@ -5,6 +5,7 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
+import CharacterGenerator.Enums.Race;
 import CharacterGenerator.Interfaces.RaceGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 import java.util.Arrays;
@@ -16,20 +17,21 @@ import java.util.List;
  */
 public class NeutralRaceGenerator implements RaceGenerator{
     
-    List<String> raceList = Arrays.asList("Dwarf", "Elf");
-
+    List<Race> races;
     Randomizer randomizer;
-    //Dependency injection = DI
-    public NeutralRaceGenerator(Randomizer randomizer) {
+    
+    public NeutralRaceGenerator(Randomizer randomizer, List<Race> races) {
         this.randomizer = randomizer;
+        this.races = races;
     }
+
     /**
      *
      * @return
      */
-    @Override
-    public String generateRace() {
-        String race = raceList.get(randomizer.getRandomNumber(raceList.size()));
+    public Race generateRace() {
+
+        Race race = races.get(randomizer.getRandomNumber(races.size()));
         return race;
     }
     

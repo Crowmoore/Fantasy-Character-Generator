@@ -3,29 +3,31 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterGenerator.Dwarf;
+package Characters;
 
-import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
+import CharacterGenerator.Enums.Race;
+import CharacterGenerator.SeededCharacterSetup;
 
 /**
  *
  * @author Greatmelons
  */
-public class Dwarf {
-
+public class SeededCharacterBase {
+   
     private Personality personality;
     private String firstname;
     private String lastname;
     private String city;
     private String likes;
     private Gender gender;
+    private Race race;
     private int age;
     private String deity;
     
-    public Dwarf(CharacterSetup setup) {
-
+    public SeededCharacterBase(SeededCharacterSetup setup) {
+        race = setup.getRaceGenerator().generateRace();
         personality = setup.getPersonalityGenerator().generatePersonality();
         gender = setup.getGenderGenerator().generateGender();
         firstname = setup.getFirstnameGenerator().generateFirstname(gender);
@@ -59,4 +61,9 @@ public class Dwarf {
     public String getDeity() {
         return deity;
     }
+    public Race getRace() {
+        return race;
+    }
+    
+    
 }
