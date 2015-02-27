@@ -3,16 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/GitHub/Character-Generator/src/Story/StoryGenerator.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/StoryCleaner.java</file>
             <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Test.java</file>
             <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Mainframe.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/Characters/CharacterBase.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Launcher.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/CharacterSetup.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/ListProviderImpl.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Interfaces/ListProvider.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/ListReader.java</file>
             <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/SeededCharacterSetup.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/NeutralGenerators/NeutralRaceGenerator.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/NeutralGenerators/SeededGenerator.java</file>
-            <file>file:/E:/GitHub/Character-Generator/src/Characters/SeededCharacterBase.java</file>
         </group>
     </open-files>
 </project-private>

@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author nikok
+ * @author Greatmelons
  */
 public interface ListProvider {
 
