@@ -13,6 +13,7 @@ import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.Interfaces.LikesGenerator;
 import CharacterGenerator.Interfaces.PersonalityGenerator;
+import Story.StoryGenerator;
 
 /**
  *
@@ -28,7 +29,7 @@ public class CharacterSetup {
     LastnameGenerator lastnameGenerator;
     AgeGenerator ageGenerator;
     CityGenerator cityGenerator;
-    
+    StoryGenerator storyGenerator;
     
     public CharacterSetup(
             DeityGenerator deityGenerator,

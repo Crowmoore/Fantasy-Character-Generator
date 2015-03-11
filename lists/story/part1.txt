@@ -1,8 +1,8 @@
-On a DAY SEASON morning in YEAR FULLNAME was born.
-On a DAY SEASON day in YEAR FULLNAME was born.
+On a WEATHER SEASON morning in YEAR FULLNAME was born.
+On a WEATHER SEASON day in YEAR FULLNAME was born.
 FULLNAME was born during wartime in YEAR. 
 One year after EVENT2, FULLNAME was born. It was a beautiful SEASON day.
-FULLNAME was born during EVENT1 CITY. It was a DAY night.
+FULLNAME was born during EVENT1 CITY. It was a WEATHER night.
 FULLNAME was born from the ashes of CITY. HE was feared from the start.
 FULLNAME was born in the aftermath of EVENT1 CITY.
 YEAR, on a night of blood moon, FULLNAME was born.

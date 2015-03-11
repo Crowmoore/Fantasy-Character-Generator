@@ -25,7 +25,6 @@ import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 import CharacterGenerator.NeutralGenerators.SeededGenerator;
 import Characters.CharacterBase;
-import Characters.SeededCharacterBase;
 import Story.StoryGenerator;
 import Story.StoryPart;
 import java.awt.Font;
@@ -60,7 +59,8 @@ public class Mainframe extends javax.swing.JFrame {
         CityGenerator cityGenerator = new ElfCityGenerator(randomizer, provider.getElfCityList());
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
-    }
+        
+        }
     public CharacterSetup getSetupForDwarf(Randomizer randomizer){
         ListProvider provider = new ListProviderImpl();
         NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
@@ -77,7 +77,7 @@ public class Mainframe extends javax.swing.JFrame {
     public String generateStory(CharacterBase character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
-        StoryGenerator newStoryGenerator = new StoryGenerator();
+        StoryGenerator storyGenerator = new StoryGenerator();
         ListReader reader = new ListReader();
         
         StoryPart storypart1 = new StoryPart(provider.getPart1());
@@ -86,7 +86,7 @@ public class Mainframe extends javax.swing.JFrame {
         StoryPart storypart4 = new StoryPart(provider.getPart4());
         StoryPart storypart5 = new StoryPart(provider.getPart5());
         List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2, storypart3, storypart4, storypart5);
-        String story2 = newStoryGenerator.generateStory(storyparts, cleaner, randomizer, character);
+        String story2 = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
         return story2;       
     }
     public CharacterBase generateDwarf(Randomizer randomizer, Gender gender, Race race) {

@@ -25,6 +25,7 @@ public class CharacterBase{
     private int age;
     private String deity;
     private Race race;
+    public String story;
     
     public CharacterBase(CharacterSetup setup, Gender gender, Race race) {
         personality = setup.getPersonalityGenerator().generatePersonality();
@@ -36,6 +37,7 @@ public class CharacterBase{
         likes = setup.getLikesGenerator().generateLikes();
         age = setup.getAgeGenerator().generateAge();
         deity = setup.getDeityGenerator().generateDeity();
+        story = "";
     }
     public Personality getPersonality() {
         return personality;
@@ -63,6 +65,9 @@ public class CharacterBase{
     }
     public Race getRace() {
         return race;
+    }
+    public String getStory() {
+        return story;
     }
     
 }
