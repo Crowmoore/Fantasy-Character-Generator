@@ -5,37 +5,19 @@
  */
 package CharacterGenerator;
 
-import CharacterGenerator.Dwarf.DwarfAgeGenerator;
-import CharacterGenerator.Dwarf.DwarfCityGenerator;
-import CharacterGenerator.Dwarf.DwarfFirstnameGenerator;
-import CharacterGenerator.Dwarf.DwarfLastnameGenerator;
-import CharacterGenerator.Elf.ElfAgeGenerator;
-import CharacterGenerator.Elf.ElfCityGenerator;
-import CharacterGenerator.Elf.ElfFirstnameGenerator;
-import CharacterGenerator.Elf.ElfLastnameGenerator;
 import CharacterGenerator.Enums.Race;
 import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Interfaces.AgeGenerator;
-import CharacterGenerator.Interfaces.CityGenerator;
-import CharacterGenerator.Interfaces.FirstnameGenerator;
 import CharacterGenerator.Interfaces.GenderGenerator;
-import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.Interfaces.ListProvider;
 import CharacterGenerator.Interfaces.RaceGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
-import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
 import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
 import CharacterGenerator.NeutralGenerators.SeededGenerator;
 import Characters.CharacterBase;
-import Story.StoryGenerator;
-import Story.StoryPart;
 import java.awt.Font;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 
@@ -47,6 +29,7 @@ public class NewMainFrame extends javax.swing.JFrame {
     
     List<CharacterBase> characterList = new ArrayList<>();
     int currentCharacter = -1;
+    GuiFunctions guiFunctions = new GuiFunctions();
 
     /**
      * Creates new form NewMainFrame
@@ -59,58 +42,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         nextChar.setToolTipText("Shows next character.");
         deleteChar.setToolTipText("Deletes current character.");
     }
-        public CharacterSetup getSetupForElf(Randomizer randomizer){
-        ListProvider provider = new ListProviderImpl();
-        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
-        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, provider.getGenders());
-        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, provider.getLikesDislikesList());
-        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, provider.getPersonalities());
-        FirstnameGenerator firstnameGenerator = new ElfFirstnameGenerator(randomizer, provider.getElfFirstnameListM(), provider.getElfFirstnameListF());
-        LastnameGenerator lastnameGenerator = new ElfLastnameGenerator(randomizer, provider.getElfLastnameList());
-        AgeGenerator ageGenerator = new ElfAgeGenerator(randomizer);
-        CityGenerator cityGenerator = new ElfCityGenerator(randomizer, provider.getElfCityList());
-        
-        return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
-        
-        }
-    public CharacterSetup getSetupForDwarf(Randomizer randomizer){
-        ListProvider provider = new ListProviderImpl();
-        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
-        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, provider.getGenders());
-        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, provider.getLikesDislikesList());
-        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, provider.getPersonalities());
-        FirstnameGenerator firstnameGenerator = new DwarfFirstnameGenerator(randomizer, provider.getDwarfFirstnameListM(), provider.getDwarfFirstnameListF());
-        LastnameGenerator lastnameGenerator = new DwarfLastnameGenerator(randomizer, provider.getDwarfLastnamePrefixList(), provider.getDwarfLastnameSuffixList());
-        AgeGenerator ageGenerator = new DwarfAgeGenerator(randomizer);
-        CityGenerator cityGenerator = new DwarfCityGenerator(randomizer, provider.getDwarfCityList());
-        
-        return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
-    }
-    public String generateStory(CharacterBase character, Randomizer randomizer) {
-        ListProvider provider = new ListProviderImpl();
-        StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
-        StoryGenerator storyGenerator = new StoryGenerator();
-        ListReader reader = new ListReader();
-        
-        StoryPart storypart1 = new StoryPart(provider.getPart1());
-        StoryPart storypart2 = new StoryPart(provider.getPart2());
-        StoryPart storypart3 = new StoryPart(provider.getPart3());
-        StoryPart storypart4 = new StoryPart(provider.getPart4());
-        StoryPart storypart5 = new StoryPart(provider.getPart5());
-        List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2, storypart3, storypart4, storypart5);
-        String story2 = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
-        return story2;       
-    }
-    public CharacterBase generateDwarf(Randomizer randomizer, Gender gender, Race race) {
-        CharacterSetup characterSetup = getSetupForDwarf(randomizer);
-        CharacterBase character = new CharacterBase(characterSetup, gender, race);
-        return character;
-    }
-    public CharacterBase generateElf(Randomizer randomizer, Gender gender, Race race) {
-        CharacterSetup characterSetup = getSetupForElf(randomizer);
-        CharacterBase character = new CharacterBase(characterSetup, gender, race);
-        return character;
-    }
+    
     public void displayCharacter(CharacterBase character) {
         characterNumberField.setText(Integer.toString(currentCharacter + 1));
         nameField.setText(character.getFirstname() + " " + character.getLastname());
@@ -409,13 +341,14 @@ public class NewMainFrame extends javax.swing.JFrame {
         Race race = (Race)raceSelect.getSelectedItem();
         Gender gender = (Gender)genderSelect.getSelectedItem();
         switch(race) {
-            case DWARF: character = generateDwarf(randomizer, gender, race);
+            case DWARF: character = guiFunctions.generateDwarf(randomizer, gender, race);
                 break;
-            case ELF: character = generateElf(randomizer, gender, race);
+            case ELF: character = guiFunctions.generateElf(randomizer, gender, race);
                 break;
-            default: System.out.print("woop");
+            default: 
+                throw new IllegalArgumentException("Not a valid race: " + race);
         }
-        character.story = generateStory(character, randomizer);
+        character.story = guiFunctions.generateStory(character, randomizer);
         characterList.add(character);
         currentCharacter = characterList.size() - 1;
         displayCharacter(character);
@@ -437,14 +370,14 @@ public class NewMainFrame extends javax.swing.JFrame {
         Gender seededGender = genderGenerator.generateGender();
         CharacterBase seededCharacter;
         switch(seededRace) {
-            case DWARF: seededCharacter = generateDwarf(seededRandomizer, seededGender, seededRace);
+            case DWARF: seededCharacter = guiFunctions.generateDwarf(seededRandomizer, seededGender, seededRace);
                 break;
-            case ELF: seededCharacter = generateElf(seededRandomizer, seededGender, seededRace);
+            case ELF: seededCharacter = guiFunctions.generateElf(seededRandomizer, seededGender, seededRace);
                 break;
             default: 
                 throw new IllegalArgumentException("Not a valid race: " + seededRace);
         }
-        seededCharacter.story = generateStory(seededCharacter, seededRandomizer);
+        seededCharacter.story = guiFunctions.generateStory(seededCharacter, seededRandomizer);
         characterList.add(seededCharacter);
         currentCharacter = characterList.size() - 1;
         displayCharacter(seededCharacter);
@@ -471,22 +404,28 @@ public class NewMainFrame extends javax.swing.JFrame {
 
     private void deleteCharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCharActionPerformed
 
-        if(!characterList.isEmpty()) {
+        if(currentCharacter > 0 && characterList.size() > 1) {
             characterList.remove(currentCharacter);
-            try {    
-                currentCharacter--;
-                CharacterBase character = characterList.get(currentCharacter);
-                displayCharacter(character);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                characterNumberField.setText("");
-                nameField.setText("");
-                raceField.setText("");
-                genderField.setText("");
-                ageField.setText("");
-                cityField.setText("");
-                storyField.setText("");
-                }
-            }
+            currentCharacter--;
+            CharacterBase character = characterList.get(currentCharacter);
+            displayCharacter(character);
+        }
+        else if(currentCharacter == 0 && characterList.size() == 1) {
+            characterList.remove(currentCharacter);
+            currentCharacter--;
+            characterNumberField.setText("");
+            nameField.setText("");
+            raceField.setText("");
+            genderField.setText("");
+            ageField.setText("");
+            cityField.setText("");
+            storyField.setText("");            
+        }
+        else if(currentCharacter == 0 && characterList.size() > 1) {
+            characterList.remove(currentCharacter);
+            CharacterBase character = characterList.get(currentCharacter);
+            displayCharacter(character);
+        }
     }//GEN-LAST:event_deleteCharActionPerformed
 
     /**
