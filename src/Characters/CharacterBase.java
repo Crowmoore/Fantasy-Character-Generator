@@ -9,12 +9,13 @@ import CharacterGenerator.CharacterSetup;
 import CharacterGenerator.Enums.Gender;
 import CharacterGenerator.Enums.Personality;
 import CharacterGenerator.Enums.Race;
+import java.io.Serializable;
 
 /**
  *
  * @author Greatmelons
  */
-public class CharacterBase{
+public class CharacterBase implements Serializable {
     
     private Personality personality;
     private String firstname;

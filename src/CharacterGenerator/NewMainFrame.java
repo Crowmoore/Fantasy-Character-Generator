@@ -7,14 +7,6 @@ package CharacterGenerator;
 
 import CharacterGenerator.Enums.Race;
 import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Interfaces.GenderGenerator;
-import CharacterGenerator.Interfaces.ListProvider;
-import CharacterGenerator.Interfaces.RaceGenerator;
-import CharacterGenerator.Interfaces.Randomizer;
-import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
-import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
-import CharacterGenerator.NeutralGenerators.SeededGenerator;
 import Characters.CharacterBase;
 import java.awt.Font;
 import java.util.ArrayList;
@@ -28,7 +20,7 @@ import javax.swing.DefaultComboBoxModel;
 public class NewMainFrame extends javax.swing.JFrame {
     
     List<CharacterBase> characterList = new ArrayList<>();
-    int currentCharacter = -1;
+    int currentCharacter = 0;
     GuiFunctions guiFunctions = new GuiFunctions();
 
     /**
@@ -36,12 +28,24 @@ public class NewMainFrame extends javax.swing.JFrame {
      */
     public NewMainFrame() {
         initComponents();
+        //loadCharacters();
         generateBtn.setToolTipText("Generates a character based on the values above.");
         seedGenerationBtn.setToolTipText("Generates a character based on seed. Seed must be an integer.");
         previousChar.setToolTipText("Shows previous character.");
         nextChar.setToolTipText("Shows next character.");
         deleteChar.setToolTipText("Deletes current character.");
     }
+    
+    /*public final void loadCharacters() {
+        CharacterReader reader = new CharacterReader();
+        try {
+            characterList = reader.readCharactersFromFile();
+        } catch (Exception e) {
+            System.out.println("Could not read from file");
+        }
+        CharacterBase character = characterList.get(characterList.size());
+        displayCharacter(character);
+    }*/
     
     public void displayCharacter(CharacterBase character) {
         characterNumberField.setText(Integer.toString(currentCharacter + 1));
@@ -88,6 +92,8 @@ public class NewMainFrame extends javax.swing.JFrame {
         deleteChar = new javax.swing.JButton();
         characterNumberLbl = new javax.swing.JLabel();
         characterNumberField = new javax.swing.JTextField();
+        saveButton = new javax.swing.JButton();
+        loadButton = new javax.swing.JButton();
         seededGenerationPanel = new javax.swing.JPanel();
         seedLabel = new javax.swing.JLabel();
         seedField = new javax.swing.JTextField();
@@ -273,6 +279,22 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         characterPanel.add(characterNumberField, gridBagConstraints);
 
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+        characterPanel.add(saveButton, new java.awt.GridBagConstraints());
+
+        loadButton.setText("Load");
+        loadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                loadButtonActionPerformed(evt);
+            }
+        });
+        characterPanel.add(loadButton, new java.awt.GridBagConstraints());
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -336,48 +358,25 @@ public class NewMainFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
-        CharacterBase character = null;
-        Randomizer randomizer = new RandomNumberGenerator();
+
         Race race = (Race)raceSelect.getSelectedItem();
         Gender gender = (Gender)genderSelect.getSelectedItem();
-        switch(race) {
-            case DWARF: character = guiFunctions.generateDwarf(randomizer, gender, race);
-                break;
-            case ELF: character = guiFunctions.generateElf(randomizer, gender, race);
-                break;
-            default: 
-                throw new IllegalArgumentException("Not a valid race: " + race);
-        }
-        character.story = guiFunctions.generateStory(character, randomizer);
+        CharacterBase character = guiFunctions.generateCharacter(race, gender);
         characterList.add(character);
         currentCharacter = characterList.size() - 1;
         displayCharacter(character);
     }//GEN-LAST:event_generateBtnActionPerformed
 
     private void seedGenerationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seedGenerationBtnActionPerformed
-        ListProvider provider = new ListProviderImpl();
+
         long seed = 0;
         String userSeed = seedField.getText();
             try{
                 seed = Long.valueOf(userSeed);
             }catch(NumberFormatException e) {
-                storyField.setText("Not a valid seed.");
+                System.out.println("Not a valid seed.");
             }
-        Randomizer seededRandomizer = new SeededGenerator(seed);
-        RaceGenerator raceGenerator = new NeutralRaceGenerator(seededRandomizer, provider.getRaces());
-        Race seededRace = raceGenerator.generateRace();
-        GenderGenerator genderGenerator = new NeutralGenderGenerator(seededRandomizer, provider.getGenders());
-        Gender seededGender = genderGenerator.generateGender();
-        CharacterBase seededCharacter;
-        switch(seededRace) {
-            case DWARF: seededCharacter = guiFunctions.generateDwarf(seededRandomizer, seededGender, seededRace);
-                break;
-            case ELF: seededCharacter = guiFunctions.generateElf(seededRandomizer, seededGender, seededRace);
-                break;
-            default: 
-                throw new IllegalArgumentException("Not a valid race: " + seededRace);
-        }
-        seededCharacter.story = guiFunctions.generateStory(seededCharacter, seededRandomizer);
+        CharacterBase seededCharacter = guiFunctions.generateSeededCharacter(seed);
         characterList.add(seededCharacter);
         currentCharacter = characterList.size() - 1;
         displayCharacter(seededCharacter);
@@ -427,6 +426,27 @@ public class NewMainFrame extends javax.swing.JFrame {
             displayCharacter(character);
         }
     }//GEN-LAST:event_deleteCharActionPerformed
+
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        CharacterWriter writer = new CharacterWriter();
+        try {
+            writer.writeCharacterToFile(characterList);
+        } catch (Exception e) {
+            System.out.println("Could not save characters");
+        }
+        System.out.println("All characters successfully saved");
+    }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
+        CharacterReader reader = new CharacterReader();
+        try {
+            characterList = reader.readCharactersFromFile();
+        } catch (Exception e) {
+            System.out.println("Could not read from file");
+        }
+        CharacterBase character = characterList.get(characterList.size() - 1);
+        displayCharacter(character);
+    }//GEN-LAST:event_loadButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -480,6 +500,7 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel generationPanel;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton loadButton;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JButton nextChar;
@@ -488,6 +509,7 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel raceLabel;
     private javax.swing.JLabel raceLbl;
     private javax.swing.JComboBox raceSelect;
+    private javax.swing.JButton saveButton;
     private javax.swing.JTextField seedField;
     private javax.swing.JButton seedGenerationBtn;
     private javax.swing.JLabel seedLabel;

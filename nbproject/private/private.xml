@@ -2,16 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-            <file>file:/D:/korjo/Character-Generator/src/CharacterGenerator/NewMainFrame.java</file>
-            <file>file:/D:/korjo/Character-Generator/src/CharacterGenerator/ListReader.java</file>
-            <file>file:/D:/korjo/Character-Generator/src/CharacterGenerator/StoryCleaner.java</file>
-            <file>file:/D:/korjo/Character-Generator/src/CharacterGenerator/GuiFunctions.java</file>
-            <file>file:/D:/korjo/Character-Generator/src/CharacterGenerator/ListProviderImpl.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/NewMainFrame.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/CharacterWriter.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/Test.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/Characters/CharacterBase.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/ListReader.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/CharacterReader.java</file>
+            <file>file:/E:/GitHub/Character-Generator/src/CharacterGenerator/GuiFunctions.java</file>
         </group>
->>>>>>> origin/master
     </open-files>
 </project-private>

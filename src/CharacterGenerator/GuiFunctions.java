@@ -18,13 +18,18 @@ import CharacterGenerator.Enums.Race;
 import CharacterGenerator.Interfaces.AgeGenerator;
 import CharacterGenerator.Interfaces.CityGenerator;
 import CharacterGenerator.Interfaces.FirstnameGenerator;
+import CharacterGenerator.Interfaces.GenderGenerator;
 import CharacterGenerator.Interfaces.LastnameGenerator;
 import CharacterGenerator.Interfaces.ListProvider;
+import CharacterGenerator.Interfaces.RaceGenerator;
 import CharacterGenerator.Interfaces.Randomizer;
 import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
 import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
+import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
+import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
+import CharacterGenerator.NeutralGenerators.SeededGenerator;
 import Characters.CharacterBase;
 import Story.StoryGenerator;
 import Story.StoryPart;
@@ -87,5 +92,38 @@ public class GuiFunctions {
         CharacterSetup characterSetup = getSetupForElf(randomizer);
         CharacterBase character = new CharacterBase(characterSetup, gender, race);
         return character;
-    }    
+    }
+    public CharacterBase generateSeededCharacter(long seed) {
+        ListProvider provider = new ListProviderImpl();
+        Randomizer seededRandomizer = new SeededGenerator(seed);
+        RaceGenerator raceGenerator = new NeutralRaceGenerator(seededRandomizer, provider.getRaces());
+        Race seededRace = raceGenerator.generateRace();
+        GenderGenerator genderGenerator = new NeutralGenderGenerator(seededRandomizer, provider.getGenders());
+        Gender seededGender = genderGenerator.generateGender();
+        CharacterBase seededCharacter;
+        switch(seededRace) {
+            case DWARF: seededCharacter = generateDwarf(seededRandomizer, seededGender, seededRace);
+                break;
+            case ELF: seededCharacter = generateElf(seededRandomizer, seededGender, seededRace);
+                break;
+            default: 
+                throw new IllegalArgumentException("Not a valid race: " + seededRace);
+        }
+        seededCharacter.story = generateStory(seededCharacter, seededRandomizer);
+        return seededCharacter;
+    }
+    public CharacterBase generateCharacter(Race race, Gender gender) {
+        CharacterBase character = null;
+        Randomizer randomizer = new RandomNumberGenerator();
+        switch(race) {
+            case DWARF: character = generateDwarf(randomizer, gender, race);
+                break;
+            case ELF: character = generateElf(randomizer, gender, race);
+                break;
+            default: 
+                throw new IllegalArgumentException("Not a valid race: " + race);
+        }
+        character.story = generateStory(character, randomizer);
+        return character;
+    }
 }
