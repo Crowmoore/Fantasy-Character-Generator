@@ -3,36 +3,39 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterGenerator;
+package characterGenerator;
 
-import CharacterGenerator.Dwarf.DwarfAgeGenerator;
-import CharacterGenerator.Dwarf.DwarfCityGenerator;
-import CharacterGenerator.Dwarf.DwarfFirstnameGenerator;
-import CharacterGenerator.Dwarf.DwarfLastnameGenerator;
-import CharacterGenerator.Elf.ElfAgeGenerator;
-import CharacterGenerator.Elf.ElfCityGenerator;
-import CharacterGenerator.Elf.ElfFirstnameGenerator;
-import CharacterGenerator.Elf.ElfLastnameGenerator;
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Enums.Race;
-import CharacterGenerator.Interfaces.AgeGenerator;
-import CharacterGenerator.Interfaces.CityGenerator;
-import CharacterGenerator.Interfaces.FirstnameGenerator;
-import CharacterGenerator.Interfaces.GenderGenerator;
-import CharacterGenerator.Interfaces.LastnameGenerator;
-import CharacterGenerator.Interfaces.ListProvider;
-import CharacterGenerator.Interfaces.RaceGenerator;
-import CharacterGenerator.Interfaces.Randomizer;
-import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
-import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
-import CharacterGenerator.NeutralGenerators.SeededGenerator;
-import Characters.CharacterBase;
-import Story.StoryGenerator;
-import Story.StoryPart;
+import character.CharacterSetup;
+import story.ListProviderImpl;
+import story.StoryCleaner;
+import dwarf.DwarfAgeGenerator;
+import dwarf.DwarfCityGenerator;
+import dwarf.DwarfFirstnameGenerator;
+import dwarf.DwarfLastnameGenerator;
+import elf.ElfAgeGenerator;
+import elf.ElfCityGenerator;
+import elf.ElfFirstnameGenerator;
+import elf.ElfLastnameGenerator;
+import enums.Gender;
+import enums.Race;
+import interfaces.AgeGenerator;
+import interfaces.CityGenerator;
+import interfaces.FirstnameGenerator;
+import interfaces.GenderGenerator;
+import interfaces.LastnameGenerator;
+import interfaces.ListProvider;
+import interfaces.RaceGenerator;
+import interfaces.Randomizer;
+import neutralGenerators.NeutralDeityGenerator;
+import neutralGenerators.NeutralGenderGenerator;
+import neutralGenerators.NeutralLikesGenerator;
+import neutralGenerators.NeutralPersonalityGenerator;
+import neutralGenerators.NeutralRaceGenerator;
+import neutralGenerators.RandomNumberGenerator;
+import neutralGenerators.SeededGenerator;
+import character.Character;
+import story.StoryGenerator;
+import story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,11 +71,10 @@ public class GuiFunctions {
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }
-    public String generateStory(CharacterBase character, Randomizer randomizer) {
+    public String generateStory(Character character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
         StoryGenerator storyGenerator = new StoryGenerator();
-        ListReader reader = new ListReader();
         
         StoryPart storypart1 = new StoryPart(provider.getPart1());
         StoryPart storypart2 = new StoryPart(provider.getPart2());
@@ -83,24 +85,24 @@ public class GuiFunctions {
         String story2 = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
         return story2;       
     }
-    public CharacterBase generateDwarf(Randomizer randomizer, Gender gender, Race race) {
+    public Character generateDwarf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForDwarf(randomizer);
-        CharacterBase character = new CharacterBase(characterSetup, gender, race);
+        Character character = new Character(characterSetup, gender, race);
         return character;
     }
-    public CharacterBase generateElf(Randomizer randomizer, Gender gender, Race race) {
+    public Character generateElf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForElf(randomizer);
-        CharacterBase character = new CharacterBase(characterSetup, gender, race);
+        Character character = new Character(characterSetup, gender, race);
         return character;
     }
-    public CharacterBase generateSeededCharacter(long seed) {
+    public Character generateSeededCharacter(long seed) {
         ListProvider provider = new ListProviderImpl();
         Randomizer seededRandomizer = new SeededGenerator(seed);
         RaceGenerator raceGenerator = new NeutralRaceGenerator(seededRandomizer, provider.getRaces());
         Race seededRace = raceGenerator.generateRace();
         GenderGenerator genderGenerator = new NeutralGenderGenerator(seededRandomizer, provider.getGenders());
         Gender seededGender = genderGenerator.generateGender();
-        CharacterBase seededCharacter;
+        Character seededCharacter;
         switch(seededRace) {
             case DWARF: seededCharacter = generateDwarf(seededRandomizer, seededGender, seededRace);
                 break;
@@ -112,8 +114,8 @@ public class GuiFunctions {
         seededCharacter.story = generateStory(seededCharacter, seededRandomizer);
         return seededCharacter;
     }
-    public CharacterBase generateCharacter(Race race, Gender gender) {
-        CharacterBase character = null;
+    public Character generateCharacter(Race race, Gender gender) {
+        Character character = null;
         Randomizer randomizer = new RandomNumberGenerator();
         switch(race) {
             case DWARF: character = generateDwarf(randomizer, gender, race);

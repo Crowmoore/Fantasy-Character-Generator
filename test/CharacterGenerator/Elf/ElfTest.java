@@ -5,20 +5,20 @@
  */
 package CharacterGenerator.Elf;
 
-import CharacterGenerator.CharacterSetup;
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Enums.Race;
-import CharacterGenerator.Interfaces.AgeGenerator;
-import CharacterGenerator.Interfaces.CityGenerator;
-import CharacterGenerator.Interfaces.DeityGenerator;
-import CharacterGenerator.Interfaces.FirstnameGenerator;
-import CharacterGenerator.Interfaces.GenderGenerator;
-import CharacterGenerator.Interfaces.LastnameGenerator;
-import CharacterGenerator.Interfaces.LikesGenerator;
-import CharacterGenerator.Interfaces.PersonalityGenerator;
-import CharacterGenerator.Interfaces.RaceGenerator;
-import Characters.CharacterBase;
+import character.CharacterSetup;
+import enums.Gender;
+import enums.Personality;
+import enums.Race;
+import interfaces.AgeGenerator;
+import interfaces.CityGenerator;
+import interfaces.DeityGenerator;
+import interfaces.FirstnameGenerator;
+import interfaces.GenderGenerator;
+import interfaces.LastnameGenerator;
+import interfaces.LikesGenerator;
+import interfaces.PersonalityGenerator;
+import interfaces.RaceGenerator;
+import character.Character;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Assert;
@@ -80,7 +80,7 @@ public class ElfTest {
         when(cityGenerator.generateCity()).thenReturn(expectedCity);
         CharacterSetup setup = new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
         //Act
-        CharacterBase elf = new CharacterBase(setup, expectedGender, expectedRace);
+        Character elf = new Character(setup, expectedGender, expectedRace);
         String actualDeity = elf.getDeity();
         Gender actualGender = elf.getGender();
         String actualLike = elf.getLikes();

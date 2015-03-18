@@ -5,12 +5,12 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
-import Story.StoryGenerator;
-import CharacterGenerator.CharacterSetup;
-import CharacterGenerator.Interfaces.Randomizer;
-import CharacterGenerator.StoryCleaner;
-import Characters.CharacterBase;
-import Story.StoryPart;
+import story.StoryGenerator;
+import character.CharacterSetup;
+import interfaces.Randomizer;
+import story.StoryCleaner;
+import character.Character;
+import story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
@@ -29,7 +29,7 @@ public class StoryGeneratorTest {
 
     Randomizer randomizer;
     StoryCleaner cleaner;
-    CharacterBase character;
+    Character character;
     CharacterSetup characterSetup;
     
     @Before

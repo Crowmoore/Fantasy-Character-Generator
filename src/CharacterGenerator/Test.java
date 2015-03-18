@@ -3,33 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterGenerator;
+package characterGenerator;
 
-import CharacterGenerator.Dwarf.DwarfAgeGenerator;
-import CharacterGenerator.Dwarf.DwarfCityGenerator;
-import CharacterGenerator.Dwarf.DwarfFirstnameGenerator;
-import CharacterGenerator.Dwarf.DwarfLastnameGenerator;
-import CharacterGenerator.Elf.ElfAgeGenerator;
-import CharacterGenerator.Elf.ElfCityGenerator;
-import CharacterGenerator.Elf.ElfFirstnameGenerator;
-import CharacterGenerator.Elf.ElfLastnameGenerator;
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Enums.Race;
-import CharacterGenerator.Interfaces.AgeGenerator;
-import CharacterGenerator.Interfaces.CityGenerator;
-import CharacterGenerator.Interfaces.FirstnameGenerator;
-import CharacterGenerator.Interfaces.LastnameGenerator;
-import CharacterGenerator.Interfaces.ListProvider;
-import CharacterGenerator.Interfaces.Randomizer;
-import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
-import Story.StoryGenerator;
-import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
-import Characters.CharacterBase;
-import Story.StoryPart;
+import character.CharacterSetup;
+import story.ListReader;
+import story.ListProviderImpl;
+import story.StoryCleaner;
+import dwarf.DwarfAgeGenerator;
+import dwarf.DwarfCityGenerator;
+import dwarf.DwarfFirstnameGenerator;
+import dwarf.DwarfLastnameGenerator;
+import elf.ElfAgeGenerator;
+import elf.ElfCityGenerator;
+import elf.ElfFirstnameGenerator;
+import elf.ElfLastnameGenerator;
+import enums.Gender;
+import enums.Personality;
+import enums.Race;
+import interfaces.AgeGenerator;
+import interfaces.CityGenerator;
+import interfaces.FirstnameGenerator;
+import interfaces.LastnameGenerator;
+import interfaces.ListProvider;
+import interfaces.Randomizer;
+import neutralGenerators.NeutralDeityGenerator;
+import neutralGenerators.NeutralGenderGenerator;
+import neutralGenerators.NeutralLikesGenerator;
+import neutralGenerators.NeutralPersonalityGenerator;
+import story.StoryGenerator;
+import neutralGenerators.RandomNumberGenerator;
+import character.Character;
+import story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
 
@@ -82,14 +86,14 @@ public class Test {
         likesDislikesList = reader.readFromFile("lists/likes.txt");
         CharacterSetup elfSetup = getSetupForElf(randomizer);
         CharacterSetup dwarfSetup = getSetupForDwarf(randomizer);
-        CharacterBase dwarf = new CharacterBase(dwarfSetup, Gender.FEMALE, Race.DWARF);
-        CharacterBase elf = new CharacterBase(elfSetup, Gender.MALE, Race.ELF);
+        Character dwarf = new Character(dwarfSetup, Gender.FEMALE, Race.DWARF);
+        Character elf = new Character(elfSetup, Gender.MALE, Race.ELF);
         String story2 = generateCharacterStory(dwarf);
         System.out.println(story2);
         
     }
     //Generates a story by using the NewStoryGenerator class
-    public String generateCharacterStory(CharacterBase dwarf) {
+    public String generateCharacterStory(Character dwarf) {
         StoryGenerator newStoryGenerator = new StoryGenerator();
         ListReader reader = new ListReader();
         part1 = reader.readFromFile("lists/story/part1.txt");

@@ -3,30 +3,41 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterGenerator;
+package characterGenerator;
 
-import CharacterGenerator.Dwarf.DwarfAgeGenerator;
-import CharacterGenerator.Dwarf.DwarfCityGenerator;
-import CharacterGenerator.Dwarf.DwarfFirstnameGenerator;
-import CharacterGenerator.Dwarf.DwarfLastnameGenerator;
-import CharacterGenerator.Elf.ElfAgeGenerator;
-import CharacterGenerator.Elf.ElfCityGenerator;
-import CharacterGenerator.Elf.ElfFirstnameGenerator;
-import CharacterGenerator.Elf.ElfLastnameGenerator;
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Enums.Personality;
-import CharacterGenerator.Enums.Race;
-import CharacterGenerator.Interfaces.*;
-import CharacterGenerator.NeutralGenerators.NeutralDeityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralGenderGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralLikesGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralPersonalityGenerator;
-import CharacterGenerator.NeutralGenerators.NeutralRaceGenerator;
-import CharacterGenerator.NeutralGenerators.RandomNumberGenerator;
-import CharacterGenerator.NeutralGenerators.SeededGenerator;
-import Characters.CharacterBase;
-import Story.StoryGenerator;
-import Story.StoryPart;
+import character.CharacterSetup;
+import story.ListReader;
+import story.ListProviderImpl;
+import story.StoryCleaner;
+import interfaces.RaceGenerator;
+import interfaces.ListProvider;
+import interfaces.AgeGenerator;
+import interfaces.GenderGenerator;
+import interfaces.FirstnameGenerator;
+import interfaces.CityGenerator;
+import interfaces.LastnameGenerator;
+import interfaces.Randomizer;
+import dwarf.DwarfAgeGenerator;
+import dwarf.DwarfCityGenerator;
+import dwarf.DwarfFirstnameGenerator;
+import dwarf.DwarfLastnameGenerator;
+import elf.ElfAgeGenerator;
+import elf.ElfCityGenerator;
+import elf.ElfFirstnameGenerator;
+import elf.ElfLastnameGenerator;
+import enums.Gender;
+import enums.Personality;
+import enums.Race;
+import neutralGenerators.NeutralDeityGenerator;
+import neutralGenerators.NeutralGenderGenerator;
+import neutralGenerators.NeutralLikesGenerator;
+import neutralGenerators.NeutralPersonalityGenerator;
+import neutralGenerators.NeutralRaceGenerator;
+import neutralGenerators.RandomNumberGenerator;
+import neutralGenerators.SeededGenerator;
+import character.Character;
+import story.StoryGenerator;
+import story.StoryPart;
 import java.awt.Font;
 import java.util.Arrays;
 import java.util.List;
@@ -74,7 +85,7 @@ public class Mainframe extends javax.swing.JFrame {
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }
-    public String generateStory(CharacterBase character, Randomizer randomizer) {
+    public String generateStory(Character character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
         StoryGenerator storyGenerator = new StoryGenerator();
@@ -89,14 +100,14 @@ public class Mainframe extends javax.swing.JFrame {
         String story2 = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
         return story2;       
     }
-    public CharacterBase generateDwarf(Randomizer randomizer, Gender gender, Race race) {
+    public Character generateDwarf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForDwarf(randomizer);
-        CharacterBase character = new CharacterBase(characterSetup, gender, race);
+        Character character = new Character(characterSetup, gender, race);
         return character;
     }
-    public CharacterBase generateElf(Randomizer randomizer, Gender gender, Race race) {
+    public Character generateElf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForElf(randomizer);
-        CharacterBase character = new CharacterBase(characterSetup, gender, race);
+        Character character = new Character(characterSetup, gender, race);
         return character;
     } 
 
@@ -167,7 +178,6 @@ public class Mainframe extends javax.swing.JFrame {
         ageField.setEditable(false);
 
         raceField.setEditable(false);
-        raceField.setBackground(new java.awt.Color(240, 240, 240));
         raceField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 raceFieldActionPerformed(evt);
@@ -395,7 +405,7 @@ public class Mainframe extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void genButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genButtonActionPerformed
-        CharacterBase character = null;
+        Character character = null;
         Randomizer randomizer = new RandomNumberGenerator();
         Race race = (Race)raceSelect.getSelectedItem();
         Gender gender = (Gender)genderSelect.getSelectedItem();
@@ -447,7 +457,7 @@ public class Mainframe extends javax.swing.JFrame {
         Race seededRace = raceGenerator.generateRace();
         GenderGenerator genderGenerator = new NeutralGenderGenerator(seededRandomizer, provider.getGenders());
         Gender seededGender = genderGenerator.generateGender();
-        CharacterBase seededCharacter;
+        Character seededCharacter;
         switch(seededRace) {
             case DWARF: seededCharacter = generateDwarf(seededRandomizer, seededGender, seededRace);
                 break;

@@ -3,14 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Story;
+package story;
 
-import CharacterGenerator.Interfaces.ListProvider;
-import CharacterGenerator.Interfaces.Randomizer;
-import CharacterGenerator.ListProviderImpl;
-import CharacterGenerator.ListReader;
-import CharacterGenerator.StoryCleaner;
-import Characters.CharacterBase;
+import interfaces.ListProvider;
+import interfaces.Randomizer;
+import character.Character;
 import java.util.Arrays;
 import java.util.List;
 
@@ -20,7 +17,7 @@ import java.util.List;
  */
 public class StorySetup {
     
-    public String generateStory(CharacterBase character, Randomizer randomizer) {
+    public String generateStory(Character character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
         StoryGenerator storyGenerator = new StoryGenerator();

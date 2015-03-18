@@ -5,7 +5,8 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
-import CharacterGenerator.Interfaces.Randomizer;
+import neutralGenerators.NeutralDeityGenerator;
+import interfaces.Randomizer;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;

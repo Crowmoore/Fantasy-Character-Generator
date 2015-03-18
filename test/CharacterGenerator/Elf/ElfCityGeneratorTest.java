@@ -5,7 +5,8 @@
  */
 package CharacterGenerator.Elf;
 
-import CharacterGenerator.Interfaces.Randomizer;
+import elf.ElfCityGenerator;
+import interfaces.Randomizer;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.After;

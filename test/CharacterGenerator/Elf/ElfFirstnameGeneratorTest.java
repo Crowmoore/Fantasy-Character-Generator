@@ -5,8 +5,9 @@
  */
 package CharacterGenerator.Elf;
 
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Interfaces.Randomizer;
+import elf.ElfFirstnameGenerator;
+import enums.Gender;
+import interfaces.Randomizer;
 import java.util.Arrays;
 import java.util.List;
 import static org.junit.Assert.assertEquals;

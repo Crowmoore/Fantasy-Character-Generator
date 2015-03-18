@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Story;
+package story;
 
-import CharacterGenerator.Interfaces.Randomizer;
+import interfaces.Randomizer;
 import java.util.List;
 
 /**

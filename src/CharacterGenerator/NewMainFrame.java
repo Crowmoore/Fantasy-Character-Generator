@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package CharacterGenerator;
+package characterGenerator;
 
-import CharacterGenerator.Enums.Race;
-import CharacterGenerator.Enums.Gender;
-import Characters.CharacterBase;
+import character.CharacterWriter;
+import character.CharacterReader;
+import enums.Race;
+import enums.Gender;
+import character.Character;
 import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,16 +21,13 @@ import javax.swing.DefaultComboBoxModel;
  */
 public class NewMainFrame extends javax.swing.JFrame {
     
-    List<CharacterBase> characterList = new ArrayList<>();
+    List<Character> characterList = new ArrayList<>();
     int currentCharacter = 0;
     GuiFunctions guiFunctions = new GuiFunctions();
 
-    /**
-     * Creates new form NewMainFrame
-     */
     public NewMainFrame() {
         initComponents();
-        //loadCharacters();
+        loadCharacters();
         generateBtn.setToolTipText("Generates a character based on the values above.");
         seedGenerationBtn.setToolTipText("Generates a character based on seed. Seed must be an integer.");
         previousChar.setToolTipText("Shows previous character.");
@@ -36,18 +35,30 @@ public class NewMainFrame extends javax.swing.JFrame {
         deleteChar.setToolTipText("Deletes current character.");
     }
     
-    /*public final void loadCharacters() {
+    public final void loadCharacters() {
         CharacterReader reader = new CharacterReader();
         try {
             characterList = reader.readCharactersFromFile();
         } catch (Exception e) {
             System.out.println("Could not read from file");
         }
-        CharacterBase character = characterList.get(characterList.size());
-        displayCharacter(character);
-    }*/
+        if(!characterList.isEmpty()) {
+        Character character = characterList.get(characterList.size() - 1);
+        currentCharacter = characterList.size() - 1;
+        displayCharacter(character); 
+        }
+        else {
+            characterNumberField.setText("");
+            nameField.setText("");
+            raceField.setText("");
+            genderField.setText("");
+            ageField.setText("");
+            cityField.setText("");
+            storyField.setText("");
+        }
+    }
     
-    public void displayCharacter(CharacterBase character) {
+    public void displayCharacter(Character character) {
         characterNumberField.setText(Integer.toString(currentCharacter + 1));
         nameField.setText(character.getFirstname() + " " + character.getLastname());
         raceField.setText(character.getRace().getRaceAsText());
@@ -86,27 +97,26 @@ public class NewMainFrame extends javax.swing.JFrame {
         raceField = new javax.swing.JTextField();
         genderField = new javax.swing.JTextField();
         cityField = new javax.swing.JTextField();
-        characterPanel = new javax.swing.JPanel();
-        previousChar = new javax.swing.JButton();
-        nextChar = new javax.swing.JButton();
-        deleteChar = new javax.swing.JButton();
+        characterNumberPanel = new javax.swing.JPanel();
         characterNumberLbl = new javax.swing.JLabel();
         characterNumberField = new javax.swing.JTextField();
         saveButton = new javax.swing.JButton();
-        loadButton = new javax.swing.JButton();
         seededGenerationPanel = new javax.swing.JPanel();
         seedLabel = new javax.swing.JLabel();
         seedField = new javax.swing.JTextField();
         seedGenerationBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         storyField = new javax.swing.JTextArea();
+        browsePanel = new javax.swing.JPanel();
+        previousChar = new javax.swing.JButton();
+        nextChar = new javax.swing.JButton();
+        deleteChar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FCC");
         setBounds(new java.awt.Rectangle(400, 400, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(700, 500));
-        setPreferredSize(new java.awt.Dimension(700, 500));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         generationPanel.setLayout(new java.awt.GridBagLayout());
@@ -228,56 +238,27 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 0);
         getContentPane().add(infoPanel, gridBagConstraints);
 
-        characterPanel.setLayout(new java.awt.GridBagLayout());
-
-        previousChar.setText("Previous");
-        previousChar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                previousCharActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(40, 0, 40, 0);
-        characterPanel.add(previousChar, gridBagConstraints);
-
-        nextChar.setText("Next");
-        nextChar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextCharActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(40, 0, 40, 0);
-        characterPanel.add(nextChar, gridBagConstraints);
-
-        deleteChar.setText("Delete");
-        deleteChar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteCharActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.insets = new java.awt.Insets(40, 0, 40, 0);
-        characterPanel.add(deleteChar, gridBagConstraints);
+        characterNumberPanel.setLayout(new java.awt.GridBagLayout());
 
         characterNumberLbl.setText("Character number");
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.insets = new java.awt.Insets(40, 0, 40, 0);
-        characterPanel.add(characterNumberLbl, gridBagConstraints);
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
+        characterNumberPanel.add(characterNumberLbl, gridBagConstraints);
 
         characterNumberField.setEditable(false);
+        characterNumberField.setColumns(2);
+        characterNumberField.setMinimumSize(new java.awt.Dimension(20, 20));
+        characterNumberField.setName(""); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        characterPanel.add(characterNumberField, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 44, 0);
+        characterNumberPanel.add(characterNumberField, gridBagConstraints);
 
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
@@ -285,23 +266,18 @@ public class NewMainFrame extends javax.swing.JFrame {
                 saveButtonActionPerformed(evt);
             }
         });
-        characterPanel.add(saveButton, new java.awt.GridBagConstraints());
-
-        loadButton.setText("Load");
-        loadButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadButtonActionPerformed(evt);
-            }
-        });
-        characterPanel.add(loadButton, new java.awt.GridBagConstraints());
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 0, 44, 0);
+        characterNumberPanel.add(saveButton, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.weightx = 1.0;
-        getContentPane().add(characterPanel, gridBagConstraints);
+        getContentPane().add(characterNumberPanel, gridBagConstraints);
 
         seededGenerationPanel.setLayout(new java.awt.GridBagLayout());
 
@@ -334,7 +310,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(47, 0, 47, 0);
+        gridBagConstraints.insets = new java.awt.Insets(100, 0, 0, 0);
         getContentPane().add(seededGenerationPanel, gridBagConstraints);
 
         storyField.setEditable(false);
@@ -354,6 +330,36 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
 
+        previousChar.setText("Previous");
+        previousChar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousCharActionPerformed(evt);
+            }
+        });
+        browsePanel.add(previousChar);
+
+        nextChar.setText("Next");
+        nextChar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextCharActionPerformed(evt);
+            }
+        });
+        browsePanel.add(nextChar);
+
+        deleteChar.setText("Delete");
+        deleteChar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCharActionPerformed(evt);
+            }
+        });
+        browsePanel.add(deleteChar);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(100, 0, 0, 0);
+        getContentPane().add(browsePanel, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -361,7 +367,7 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         Race race = (Race)raceSelect.getSelectedItem();
         Gender gender = (Gender)genderSelect.getSelectedItem();
-        CharacterBase character = guiFunctions.generateCharacter(race, gender);
+        Character character = guiFunctions.generateCharacter(race, gender);
         characterList.add(character);
         currentCharacter = characterList.size() - 1;
         displayCharacter(character);
@@ -376,7 +382,7 @@ public class NewMainFrame extends javax.swing.JFrame {
             }catch(NumberFormatException e) {
                 System.out.println("Not a valid seed.");
             }
-        CharacterBase seededCharacter = guiFunctions.generateSeededCharacter(seed);
+        Character seededCharacter = guiFunctions.generateSeededCharacter(seed);
         characterList.add(seededCharacter);
         currentCharacter = characterList.size() - 1;
         displayCharacter(seededCharacter);
@@ -384,10 +390,9 @@ public class NewMainFrame extends javax.swing.JFrame {
 
     private void previousCharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousCharActionPerformed
 
-        CharacterBase character;
         if(currentCharacter > 0) {
             currentCharacter--;
-            character = characterList.get(currentCharacter);
+            Character character = characterList.get(currentCharacter);
             displayCharacter(character);            
         }
     }//GEN-LAST:event_previousCharActionPerformed
@@ -396,7 +401,7 @@ public class NewMainFrame extends javax.swing.JFrame {
 
         if(currentCharacter < characterList.size() - 1) {
             currentCharacter++;
-            CharacterBase character = characterList.get(currentCharacter);
+            Character character = characterList.get(currentCharacter);
             displayCharacter(character);
         }
     }//GEN-LAST:event_nextCharActionPerformed
@@ -406,7 +411,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         if(currentCharacter > 0 && characterList.size() > 1) {
             characterList.remove(currentCharacter);
             currentCharacter--;
-            CharacterBase character = characterList.get(currentCharacter);
+            Character character = characterList.get(currentCharacter);
             displayCharacter(character);
         }
         else if(currentCharacter == 0 && characterList.size() == 1) {
@@ -422,7 +427,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         }
         else if(currentCharacter == 0 && characterList.size() > 1) {
             characterList.remove(currentCharacter);
-            CharacterBase character = characterList.get(currentCharacter);
+            Character character = characterList.get(currentCharacter);
             displayCharacter(character);
         }
     }//GEN-LAST:event_deleteCharActionPerformed
@@ -436,17 +441,6 @@ public class NewMainFrame extends javax.swing.JFrame {
         }
         System.out.println("All characters successfully saved");
     }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void loadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loadButtonActionPerformed
-        CharacterReader reader = new CharacterReader();
-        try {
-            characterList = reader.readCharactersFromFile();
-        } catch (Exception e) {
-            System.out.println("Could not read from file");
-        }
-        CharacterBase character = characterList.get(characterList.size() - 1);
-        displayCharacter(character);
-    }//GEN-LAST:event_loadButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -486,9 +480,10 @@ public class NewMainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField ageField;
     private javax.swing.JLabel ageLbl;
+    private javax.swing.JPanel browsePanel;
     private javax.swing.JTextField characterNumberField;
     private javax.swing.JLabel characterNumberLbl;
-    private javax.swing.JPanel characterPanel;
+    private javax.swing.JPanel characterNumberPanel;
     private javax.swing.JTextField cityField;
     private javax.swing.JLabel cityLbl;
     private javax.swing.JButton deleteChar;
@@ -500,7 +495,6 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel generationPanel;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JButton loadButton;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLbl;
     private javax.swing.JButton nextChar;

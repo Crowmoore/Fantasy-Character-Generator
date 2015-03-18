@@ -5,9 +5,10 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
-import CharacterGenerator.Enums.Gender;
-import CharacterGenerator.Interfaces.GenderGenerator;
-import CharacterGenerator.Interfaces.Randomizer;
+import neutralGenerators.NeutralGenderGenerator;
+import enums.Gender;
+import interfaces.GenderGenerator;
+import interfaces.Randomizer;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Before;

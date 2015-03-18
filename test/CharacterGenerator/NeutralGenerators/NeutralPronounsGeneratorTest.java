@@ -5,7 +5,8 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
-import CharacterGenerator.Enums.Gender;
+import neutralGenerators.NeutralPronounsGenerator;
+import enums.Gender;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
