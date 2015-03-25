@@ -1,5 +1,4 @@
 goblin
-orc
 undead
 troll
 Sik'har

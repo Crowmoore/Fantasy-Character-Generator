@@ -1,0 +1,13 @@
+crusher
+snarl
+scream
+bringer
+rage
+blade
+hand
+slasher
+hammer
+sword
+maul
+axe
+basher

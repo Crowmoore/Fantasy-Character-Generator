@@ -33,7 +33,17 @@ public interface ListProvider {
     List<String> getDwarfLastnamePrefixList();
 
     List<String> getDwarfLastnameSuffixList();
+    
+    List<String> getOrcCityList();
 
+    List<String> getOrcFirstnameListF();
+
+    List<String> getOrcFirstnameListM();
+
+    List<String> getOrcLastnamePrefixList();
+
+    List<String> getOrcLastnameSuffixList();
+    
     List<String> getElfCityList();
 
     List<String> getElfFirstnameListF();

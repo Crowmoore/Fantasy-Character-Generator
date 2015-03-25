@@ -28,13 +28,14 @@ public class NewMainFrame extends javax.swing.JFrame {
     public NewMainFrame() {
         initComponents();
         loadCharacters();
-        generateBtn.setToolTipText("Generates a character based on the values above.");
-        seedGenerationBtn.setToolTipText("Generates a character based on seed. Seed must be an integer.");
-        previousChar.setToolTipText("Shows previous character.");
-        nextChar.setToolTipText("Shows next character.");
-        deleteChar.setToolTipText("Deletes current character.");
+        generateBtn.setToolTipText("Generate a character based on the values above.");
+        seedGenerationBtn.setToolTipText("Generate a character based on seed. Seed must be an integer. Empty is considered as 0.");
+        previousChar.setToolTipText("Show previous character.");
+        nextChar.setToolTipText("Show next character.");
+        deleteChar.setToolTipText("Delete current character.");
+        saveButton.setToolTipText("Save all characters.");
     }
-    
+
     public final void loadCharacters() {
         CharacterReader reader = new CharacterReader();
         try {
@@ -100,7 +101,6 @@ public class NewMainFrame extends javax.swing.JFrame {
         characterNumberPanel = new javax.swing.JPanel();
         characterNumberLbl = new javax.swing.JLabel();
         characterNumberField = new javax.swing.JTextField();
-        saveButton = new javax.swing.JButton();
         seededGenerationPanel = new javax.swing.JPanel();
         seedLabel = new javax.swing.JLabel();
         seedField = new javax.swing.JTextField();
@@ -110,13 +110,14 @@ public class NewMainFrame extends javax.swing.JFrame {
         browsePanel = new javax.swing.JPanel();
         previousChar = new javax.swing.JButton();
         nextChar = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
         deleteChar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("FCC");
         setBounds(new java.awt.Rectangle(400, 400, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setMinimumSize(new java.awt.Dimension(700, 500));
+        setMinimumSize(new java.awt.Dimension(700, 600));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         generationPanel.setLayout(new java.awt.GridBagLayout());
@@ -156,7 +157,6 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(generationPanel, gridBagConstraints);
@@ -190,7 +190,6 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.gridy = 4;
         infoPanel.add(cityLbl, gridBagConstraints);
 
-        nameField.setEditable(false);
         nameField.setColumns(20);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -198,32 +197,24 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(nameField, gridBagConstraints);
-
-        ageField.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(ageField, gridBagConstraints);
-
-        raceField.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(raceField, gridBagConstraints);
-
-        genderField.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(genderField, gridBagConstraints);
-
-        cityField.setEditable(false);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -234,11 +225,8 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 100, 0);
         getContentPane().add(infoPanel, gridBagConstraints);
 
         characterNumberPanel.setLayout(new java.awt.GridBagLayout());
@@ -253,6 +241,11 @@ public class NewMainFrame extends javax.swing.JFrame {
         characterNumberField.setColumns(2);
         characterNumberField.setMinimumSize(new java.awt.Dimension(20, 20));
         characterNumberField.setName(""); // NOI18N
+        characterNumberField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                characterNumberFieldActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -260,23 +253,12 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 44, 0);
         characterNumberPanel.add(characterNumberField, gridBagConstraints);
 
-        saveButton.setText("Save");
-        saveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveButtonActionPerformed(evt);
-            }
-        });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 44, 0);
-        characterNumberPanel.add(saveButton, gridBagConstraints);
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(characterNumberPanel, gridBagConstraints);
 
         seededGenerationPanel.setLayout(new java.awt.GridBagLayout());
@@ -310,13 +292,11 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.3;
-        gridBagConstraints.insets = new java.awt.Insets(100, 0, 0, 0);
         getContentPane().add(seededGenerationPanel, gridBagConstraints);
 
-        storyField.setEditable(false);
         storyField.setColumns(20);
         storyField.setLineWrap(true);
-        storyField.setRows(5);
+        storyField.setRows(8);
         storyField.setWrapStyleWord(true);
         jScrollPane1.setViewportView(storyField);
 
@@ -336,7 +316,6 @@ public class NewMainFrame extends javax.swing.JFrame {
                 previousCharActionPerformed(evt);
             }
         });
-        browsePanel.add(previousChar);
 
         nextChar.setText("Next");
         nextChar.addActionListener(new java.awt.event.ActionListener() {
@@ -344,7 +323,13 @@ public class NewMainFrame extends javax.swing.JFrame {
                 nextCharActionPerformed(evt);
             }
         });
-        browsePanel.add(nextChar);
+
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
 
         deleteChar.setText("Delete");
         deleteChar.addActionListener(new java.awt.event.ActionListener() {
@@ -352,12 +337,39 @@ public class NewMainFrame extends javax.swing.JFrame {
                 deleteCharActionPerformed(evt);
             }
         });
-        browsePanel.add(deleteChar);
+
+        javax.swing.GroupLayout browsePanelLayout = new javax.swing.GroupLayout(browsePanel);
+        browsePanel.setLayout(browsePanelLayout);
+        browsePanelLayout.setHorizontalGroup(
+            browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(browsePanelLayout.createSequentialGroup()
+                .addComponent(previousChar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextChar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteChar)
+                .addContainerGap())
+        );
+        browsePanelLayout.setVerticalGroup(
+            browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(browsePanelLayout.createSequentialGroup()
+                .addContainerGap(87, Short.MAX_VALUE)
+                .addGroup(browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(previousChar)
+                    .addComponent(nextChar)
+                    .addComponent(saveButton)
+                    .addComponent(deleteChar))
+                .addGap(36, 36, 36))
+        );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.insets = new java.awt.Insets(100, 0, 0, 0);
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(browsePanel, gridBagConstraints);
 
         pack();
@@ -441,6 +453,10 @@ public class NewMainFrame extends javax.swing.JFrame {
         }
         System.out.println("All characters successfully saved");
     }//GEN-LAST:event_saveButtonActionPerformed
+
+    private void characterNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_characterNumberFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_characterNumberFieldActionPerformed
 
     /**
      * @param args the command line arguments

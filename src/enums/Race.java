@@ -12,7 +12,8 @@ package enums;
 public enum Race {
     
     DWARF("Dwarf"),
-    ELF("Elf");
+    ELF("Elf"),
+    ORC("Orc");
     
     String raceAsText;
     

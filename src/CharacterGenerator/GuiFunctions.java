@@ -38,6 +38,10 @@ import story.StoryGenerator;
 import story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
+import orc.OrcAgeGenerator;
+import orc.OrcCityGenerator;
+import orc.OrcFirstnameGenerator;
+import orc.OrcLastnameGenerator;
 
 /**
  *
@@ -71,6 +75,19 @@ public class GuiFunctions {
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }
+    public CharacterSetup getSetupForOrc(Randomizer randomizer){
+        ListProvider provider = new ListProviderImpl();
+        NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
+        NeutralGenderGenerator genderGenerator = new NeutralGenderGenerator(randomizer, provider.getGenders());
+        NeutralLikesGenerator likesGenerator = new NeutralLikesGenerator(randomizer, provider.getLikesDislikesList());
+        NeutralPersonalityGenerator personalityGenerator = new NeutralPersonalityGenerator(randomizer, provider.getPersonalities());
+        FirstnameGenerator firstnameGenerator = new OrcFirstnameGenerator(randomizer, provider.getOrcFirstnameListM(), provider.getOrcFirstnameListF());
+        LastnameGenerator lastnameGenerator = new OrcLastnameGenerator(randomizer, provider.getOrcLastnamePrefixList(),  provider.getOrcLastnameSuffixList());
+        AgeGenerator ageGenerator = new OrcAgeGenerator(randomizer);
+        CityGenerator cityGenerator = new OrcCityGenerator(randomizer, provider.getOrcCityList());
+        
+        return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);        
+        }
     public String generateStory(Character character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
@@ -95,6 +112,11 @@ public class GuiFunctions {
         Character character = new Character(characterSetup, gender, race);
         return character;
     }
+    public Character generateOrc(Randomizer randomizer, Gender gender, Race race) {
+        CharacterSetup characterSetup = getSetupForOrc(randomizer);
+        Character character = new Character(characterSetup, gender, race);
+        return character;
+    }
     public Character generateSeededCharacter(long seed) {
         ListProvider provider = new ListProviderImpl();
         Randomizer seededRandomizer = new SeededGenerator(seed);
@@ -107,6 +129,8 @@ public class GuiFunctions {
             case DWARF: seededCharacter = generateDwarf(seededRandomizer, seededGender, seededRace);
                 break;
             case ELF: seededCharacter = generateElf(seededRandomizer, seededGender, seededRace);
+                break;
+            case ORC: seededCharacter = generateOrc(seededRandomizer, seededGender, seededRace);
                 break;
             default: 
                 throw new IllegalArgumentException("Not a valid race: " + seededRace);
@@ -121,6 +145,8 @@ public class GuiFunctions {
             case DWARF: character = generateDwarf(randomizer, gender, race);
                 break;
             case ELF: character = generateElf(randomizer, gender, race);
+                break;
+            case ORC: character = generateOrc(randomizer, gender, race);
                 break;
             default: 
                 throw new IllegalArgumentException("Not a valid race: " + race);

@@ -77,10 +77,33 @@ public class ListProviderImpl implements ListProvider{
     public List<String> getDwarfLastnameSuffixList() {
         return reader.readFromFile("lists/dwarf/dwarfLastnameSuffix.txt");
     }
-
     @Override
     public List<String> getDwarfCityList() {
         return reader.readFromFile("lists/dwarf/dwarfCities.txt");
+    }
+    @Override
+    public List<String> getOrcFirstnameListM() {
+        return reader.readFromFile("lists/orc/orcFirstnamesM.txt");
+    }
+
+    @Override
+    public List<String> getOrcFirstnameListF() {
+        return reader.readFromFile("lists/orc/orcFirstnamesF.txt");
+    }
+
+    @Override
+    public List<String> getOrcLastnamePrefixList() {
+        return reader.readFromFile("lists/orc/orcLastnamePrefix.txt");
+    }
+
+    @Override
+    public List<String> getOrcLastnameSuffixList() {
+        return reader.readFromFile("lists/orc/orcLastnameSuffix.txt");
+    }
+
+    @Override
+    public List<String> getOrcCityList() {
+        return reader.readFromFile("lists/orc/orcCities.txt");
     }
 
     @Override
