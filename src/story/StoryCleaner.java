@@ -29,7 +29,7 @@ public class StoryCleaner {
         this.listProvider = listProvider;
     }
     
-    public String cleanSentence(String sentence, Character characterBase){
+    public String cleanSentence(String sentence, Character character){
         
         List<String> events1 = listProvider.getEvents1();
         List<String> events2 = listProvider.getEvents2();
@@ -44,23 +44,23 @@ public class StoryCleaner {
         List<String> diseases = listProvider.getDiseases();
         List<String> movementVerbs = listProvider.getMovementVerbs();
         List<String> oralVerbs = listProvider.getOralVerbs();
+        List<String> likes = listProvider.getLikesDislikesList();
 
         Map<String,String> replacements = new HashMap<>();
         
-        replacements.put("^HIS\\b", pronouns.getPossessiveAdj(characterBase.getGender()));
-        replacements.put("\\sHIS\\b", " " + pronouns.getPossessiveAdj(characterBase.getGender()).toLowerCase());
-        replacements.put("\\.\\sHIS\\b", ". " + pronouns.getPossessiveAdj(characterBase.getGender()));
-        replacements.put("^HIM\\b", pronouns.getObjective(characterBase.getGender()));
-        replacements.put("\\sHIM\\b", " " + pronouns.getObjective(characterBase.getGender()).toLowerCase());
-        replacements.put("\\.\\sHIM\\b", ". " + pronouns.getObjective(characterBase.getGender()));
-        replacements.put("^HE\\b", pronouns.getSubjective(characterBase.getGender()));
-        replacements.put("\\sHE\\b", " " + pronouns.getSubjective(characterBase.getGender()).toLowerCase());
-        replacements.put("\\.\\sHE\\b", ". " + pronouns.getSubjective(characterBase.getGender()));
-        replacements.put("\\bHIMSELF\\b", pronouns.getReflexive(characterBase.getGender()).toLowerCase());
-        replacements.put("\\bFULLNAME\\b", (characterBase.getFirstname() + " " + characterBase.getLastname()));
-        replacements.put("\\bPERSONALITY\\b", characterBase.getPersonality().getPersonalityAsText());
-        replacements.put("\\bLIKES\\b", characterBase.getLikes());
-        replacements.put("\\bCITY\\b", characterBase.getCity());
+        replacements.put("^HIS\\b", pronouns.getPossessiveAdj(character.getGender()));
+        replacements.put("\\sHIS\\b", " " + pronouns.getPossessiveAdj(character.getGender()).toLowerCase());
+        replacements.put("\\.\\sHIS\\b", ". " + pronouns.getPossessiveAdj(character.getGender()));
+        replacements.put("^HIM\\b", pronouns.getObjective(character.getGender()));
+        replacements.put("\\sHIM\\b", " " + pronouns.getObjective(character.getGender()).toLowerCase());
+        replacements.put("^HE\\b", pronouns.getSubjective(character.getGender()));
+        replacements.put("\\sHE\\b", " " + pronouns.getSubjective(character.getGender()).toLowerCase());
+        replacements.put("\\.\\sHE\\b", ". " + pronouns.getSubjective(character.getGender()));
+        replacements.put("\\bHIMSELF\\b", pronouns.getReflexive(character.getGender()).toLowerCase());
+        replacements.put("\\bFULLNAME\\b", (character.getFirstname() + " " + character.getLastname()));
+        replacements.put("\\bPERSONALITY\\b", character.getPersonality().getPersonalityAsText());
+        replacements.put("\\bLIKES\\b", likes.get(randomizer.getRandomNumber(likes.size())));
+        replacements.put("\\bCITY\\b", character.getCity());
         replacements.put("\\bSEASON\\b", seasons.get(randomizer.getRandomNumber(seasons.size())));
         replacements.put("\\bDISEASE\\b", diseases.get(randomizer.getRandomNumber(diseases.size())));
         replacements.put("\\bEVENT1\\b", events1.get(randomizer.getRandomNumber(events1.size())));
@@ -74,9 +74,9 @@ public class StoryCleaner {
         replacements.put("\\bENEMY\\b", enemies.get(randomizer.getRandomNumber(enemies.size())));
         replacements.put("\\bMOVEMENTVERB\\b", movementVerbs.get(randomizer.getRandomNumber(movementVerbs.size())));
         replacements.put("\\bORALVERB\\b", oralVerbs.get(randomizer.getRandomNumber(oralVerbs.size())));
-        replacements.put("\\bDEITY\\b", characterBase.getDeity());
-        replacements.put("\\bYEAR\\b", Integer.toString(year - characterBase.getAge()));
-        replacements.put("\\bAGE\\b", Integer.toString(characterBase.getAge()));
+        replacements.put("\\bDEITY\\b", character.getDeity());
+        replacements.put("\\bYEAR\\b", Integer.toString(year - character.getAge()));
+        replacements.put("\\bAGE\\b", Integer.toString(character.getAge()));
         
         return replaceTags(replacements, sentence);
 

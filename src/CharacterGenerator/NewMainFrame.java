@@ -10,20 +10,23 @@ import character.CharacterReader;
 import enums.Race;
 import enums.Gender;
 import character.Character;
-import java.awt.Font;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author Greatmelons
  */
-public class NewMainFrame extends javax.swing.JFrame {
+public class NewMainFrame extends javax.swing.JFrame{
     
     List<Character> characterList = new ArrayList<>();
     int currentCharacter = 0;
     GuiFunctions guiFunctions = new GuiFunctions();
+    Logger logger = Logger.getLogger(NewMainFrame.class.getName());
 
     public NewMainFrame() {
         initComponents();
@@ -34,29 +37,29 @@ public class NewMainFrame extends javax.swing.JFrame {
         nextChar.setToolTipText("Show next character.");
         deleteChar.setToolTipText("Delete current character.");
         saveButton.setToolTipText("Save all characters.");
+        saveModifiedtBtn.setToolTipText("Save modified character");
+        this.getContentPane().setBackground(Color.black);
     }
 
     public final void loadCharacters() {
         CharacterReader reader = new CharacterReader();
-        try {
-            characterList = reader.readCharactersFromFile();
-        } catch (Exception e) {
-            System.out.println("Could not read from file");
-        }
+        characterList = reader.readCharactersFromFile();
         if(!characterList.isEmpty()) {
-        Character character = characterList.get(characterList.size() - 1);
-        currentCharacter = characterList.size() - 1;
-        displayCharacter(character); 
-        }
-        else {
-            characterNumberField.setText("");
-            nameField.setText("");
-            raceField.setText("");
-            genderField.setText("");
-            ageField.setText("");
-            cityField.setText("");
-            storyField.setText("");
-        }
+            Character character = characterList.get(characterList.size() - 1);
+            currentCharacter = characterList.size() - 1;
+            displayCharacter(character);
+            logger.log(Level.INFO, String.format("Characterlist loaded. Size: %d", characterList.size()));
+            }
+            else {
+                characterNumberField.setText("");
+                nameField.setText("");
+                raceField.setText("");
+                genderField.setText("");
+                ageField.setText("");
+                cityField.setText("");
+                storyField.setText("");
+                logger.log(Level.INFO, "Characterlist is empty");
+            }
     }
     
     public void displayCharacter(Character character) {
@@ -66,8 +69,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         genderField.setText(character.getGender().getGenderAsText());
         ageField.setText(Integer.toString(character.getAge()));
         cityField.setText(character.getCity());
-        Font font = new Font("Book Antiqua", Font.PLAIN, 14);
-        storyField.setFont(font);
+        deityField.setText(character.getDeity());
         storyField.setText(character.getStory());
     }    
 
@@ -81,6 +83,7 @@ public class NewMainFrame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         generationPanel = new javax.swing.JPanel();
         raceLabel = new javax.swing.JLabel();
         genderLabel = new javax.swing.JLabel();
@@ -98,6 +101,9 @@ public class NewMainFrame extends javax.swing.JFrame {
         raceField = new javax.swing.JTextField();
         genderField = new javax.swing.JTextField();
         cityField = new javax.swing.JTextField();
+        saveModifiedtBtn = new javax.swing.JButton();
+        deityLbl = new javax.swing.JLabel();
+        deityField = new javax.swing.JTextField();
         characterNumberPanel = new javax.swing.JPanel();
         characterNumberLbl = new javax.swing.JLabel();
         characterNumberField = new javax.swing.JTextField();
@@ -114,17 +120,21 @@ public class NewMainFrame extends javax.swing.JFrame {
         deleteChar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("FCC");
+        setTitle("Fantasy Character Generator");
         setBounds(new java.awt.Rectangle(400, 400, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(java.awt.Color.white);
         setMinimumSize(new java.awt.Dimension(700, 600));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
+        generationPanel.setBackground(new java.awt.Color(0, 0, 0));
         generationPanel.setLayout(new java.awt.GridBagLayout());
 
+        raceLabel.setForeground(new java.awt.Color(255, 255, 255));
         raceLabel.setText("Race");
         generationPanel.add(raceLabel, new java.awt.GridBagConstraints());
 
+        genderLabel.setForeground(new java.awt.Color(255, 255, 255));
         genderLabel.setText("Gender");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -157,33 +167,40 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(generationPanel, gridBagConstraints);
 
+        infoPanel.setBackground(new java.awt.Color(0, 0, 0));
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
+        nameLbl.setForeground(new java.awt.Color(255, 255, 255));
         nameLbl.setText("Name");
         infoPanel.add(nameLbl, new java.awt.GridBagConstraints());
 
+        ageLbl.setForeground(new java.awt.Color(255, 255, 255));
         ageLbl.setText("Age");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         infoPanel.add(ageLbl, gridBagConstraints);
 
+        raceLbl.setForeground(new java.awt.Color(255, 255, 255));
         raceLbl.setText("Race");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
         infoPanel.add(raceLbl, gridBagConstraints);
 
+        genderLbl.setForeground(new java.awt.Color(255, 255, 255));
         genderLbl.setText("Gender");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         infoPanel.add(genderLbl, gridBagConstraints);
 
+        cityLbl.setForeground(new java.awt.Color(255, 255, 255));
         cityLbl.setText("City");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -191,30 +208,41 @@ public class NewMainFrame extends javax.swing.JFrame {
         infoPanel.add(cityLbl, gridBagConstraints);
 
         nameField.setColumns(20);
+        nameField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(nameField, gridBagConstraints);
+
+        ageField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(ageField, gridBagConstraints);
+
+        raceField.setEditable(false);
+        raceField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(raceField, gridBagConstraints);
+
+        genderField.setEditable(false);
+        genderField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(genderField, gridBagConstraints);
+
+        cityField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
@@ -222,15 +250,44 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(cityField, gridBagConstraints);
 
+        saveModifiedtBtn.setText("Save changes");
+        saveModifiedtBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveModifiedtBtnActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        infoPanel.add(saveModifiedtBtn, gridBagConstraints);
+
+        deityLbl.setForeground(new java.awt.Color(255, 255, 255));
+        deityLbl.setText("Deity");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        infoPanel.add(deityLbl, gridBagConstraints);
+
+        deityField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        infoPanel.add(deityField, gridBagConstraints);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(infoPanel, gridBagConstraints);
 
+        characterNumberPanel.setBackground(new java.awt.Color(0, 0, 0));
         characterNumberPanel.setLayout(new java.awt.GridBagLayout());
 
+        characterNumberLbl.setForeground(new java.awt.Color(255, 255, 255));
         characterNumberLbl.setText("Character number");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
@@ -256,23 +313,16 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(characterNumberPanel, gridBagConstraints);
 
-        seededGenerationPanel.setLayout(new java.awt.GridBagLayout());
+        seededGenerationPanel.setBackground(new java.awt.Color(0, 0, 0));
 
+        seedLabel.setForeground(new java.awt.Color(255, 255, 255));
         seedLabel.setText("Seed");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        seededGenerationPanel.add(seedLabel, gridBagConstraints);
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        seededGenerationPanel.add(seedField, gridBagConstraints);
 
         seedGenerationBtn.setText("Generate");
         seedGenerationBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -280,21 +330,49 @@ public class NewMainFrame extends javax.swing.JFrame {
                 seedGenerationBtnActionPerformed(evt);
             }
         });
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 1;
-        seededGenerationPanel.add(seedGenerationBtn, gridBagConstraints);
+
+        javax.swing.GroupLayout seededGenerationPanelLayout = new javax.swing.GroupLayout(seededGenerationPanel);
+        seededGenerationPanel.setLayout(seededGenerationPanelLayout);
+        seededGenerationPanelLayout.setHorizontalGroup(
+            seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seededGenerationPanelLayout.createSequentialGroup()
+                .addGroup(seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seededGenerationPanelLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(seedGenerationBtn))
+                    .addGroup(seededGenerationPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(seedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        seededGenerationPanelLayout.setVerticalGroup(
+            seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seededGenerationPanelLayout.createSequentialGroup()
+                .addGroup(seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seedLabel)
+                    .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seedGenerationBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.3;
         getContentPane().add(seededGenerationPanel, gridBagConstraints);
 
+        jScrollPane1.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
+
+        storyField.setBackground(new java.awt.Color(0, 0, 0));
         storyField.setColumns(20);
+        storyField.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
+        storyField.setForeground(new java.awt.Color(255, 255, 255));
         storyField.setLineWrap(true);
         storyField.setRows(8);
         storyField.setWrapStyleWord(true);
@@ -309,6 +387,8 @@ public class NewMainFrame extends javax.swing.JFrame {
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        browsePanel.setBackground(new java.awt.Color(0, 0, 0));
 
         previousChar.setText("Previous");
         previousChar.addActionListener(new java.awt.event.ActionListener() {
@@ -355,19 +435,19 @@ public class NewMainFrame extends javax.swing.JFrame {
         browsePanelLayout.setVerticalGroup(
             browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(browsePanelLayout.createSequentialGroup()
-                .addContainerGap(87, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(previousChar)
                     .addComponent(nextChar)
                     .addComponent(saveButton)
                     .addComponent(deleteChar))
-                .addGap(36, 36, 36))
+                .addContainerGap())
         );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
         gridBagConstraints.weighty = 1.0;
         getContentPane().add(browsePanel, gridBagConstraints);
@@ -383,6 +463,7 @@ public class NewMainFrame extends javax.swing.JFrame {
         characterList.add(character);
         currentCharacter = characterList.size() - 1;
         displayCharacter(character);
+        logger.log(Level.INFO, String.format("Character %s %s created", character.getFirstname(), character.getLastname()));
     }//GEN-LAST:event_generateBtnActionPerformed
 
     private void seedGenerationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seedGenerationBtnActionPerformed
@@ -392,12 +473,13 @@ public class NewMainFrame extends javax.swing.JFrame {
             try{
                 seed = Long.valueOf(userSeed);
             }catch(NumberFormatException e) {
-                System.out.println("Not a valid seed.");
+                logger.log(Level.WARNING, "Not a valid seed.");
             }
         Character seededCharacter = guiFunctions.generateSeededCharacter(seed);
         characterList.add(seededCharacter);
         currentCharacter = characterList.size() - 1;
         displayCharacter(seededCharacter);
+        logger.log(Level.INFO, String.format("Seeded character %s %s created", seededCharacter.getFirstname(), seededCharacter.getLastname()));
     }//GEN-LAST:event_seedGenerationBtnActionPerformed
 
     private void previousCharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousCharActionPerformed
@@ -425,6 +507,7 @@ public class NewMainFrame extends javax.swing.JFrame {
             currentCharacter--;
             Character character = characterList.get(currentCharacter);
             displayCharacter(character);
+            logger.log(Level.INFO, "Character deleted");
         }
         else if(currentCharacter == 0 && characterList.size() == 1) {
             characterList.remove(currentCharacter);
@@ -435,28 +518,41 @@ public class NewMainFrame extends javax.swing.JFrame {
             genderField.setText("");
             ageField.setText("");
             cityField.setText("");
-            storyField.setText("");            
+            storyField.setText("");
+            logger.log(Level.INFO, "Character deleted");
         }
         else if(currentCharacter == 0 && characterList.size() > 1) {
             characterList.remove(currentCharacter);
             Character character = characterList.get(currentCharacter);
             displayCharacter(character);
+            logger.log(Level.INFO, "Character deleted");
         }
     }//GEN-LAST:event_deleteCharActionPerformed
 
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         CharacterWriter writer = new CharacterWriter();
-        try {
-            writer.writeCharacterToFile(characterList);
-        } catch (Exception e) {
-            System.out.println("Could not save characters");
-        }
-        System.out.println("All characters successfully saved");
+        writer.writeCharacterToFile(characterList);
+        logger.log(Level.INFO, String.format("Characterlist saved. Size: %d", characterList.size()));
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void characterNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_characterNumberFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_characterNumberFieldActionPerformed
+
+    private void saveModifiedtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModifiedtBtnActionPerformed
+        CharacterWriter writer = new CharacterWriter();
+        Character character = characterList.get(currentCharacter);       
+        character.setAge(Integer.parseInt(ageField.getText()));
+        character.setCity(cityField.getText());
+        String[] name = nameField.getText().split("[\\s]");
+        character.setFirstname(name[0]);
+        character.setLastname(name[1]);
+        character.setDeity(deityField.getText());
+        character.setStory(storyField.getText());
+        displayCharacter(character);
+        writer.writeCharacterToFile(characterList);
+        logger.log(Level.INFO, "Modified character saved");
+    }//GEN-LAST:event_saveModifiedtBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -502,6 +598,8 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JPanel characterNumberPanel;
     private javax.swing.JTextField cityField;
     private javax.swing.JLabel cityLbl;
+    private javax.swing.JTextField deityField;
+    private javax.swing.JLabel deityLbl;
     private javax.swing.JButton deleteChar;
     private javax.swing.JTextField genderField;
     private javax.swing.JLabel genderLabel;
@@ -510,6 +608,7 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JButton generateBtn;
     private javax.swing.JPanel generationPanel;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
     private javax.swing.JLabel nameLbl;
@@ -520,6 +619,7 @@ public class NewMainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel raceLbl;
     private javax.swing.JComboBox raceSelect;
     private javax.swing.JButton saveButton;
+    private javax.swing.JButton saveModifiedtBtn;
     private javax.swing.JTextField seedField;
     private javax.swing.JButton seedGenerationBtn;
     private javax.swing.JLabel seedLabel;

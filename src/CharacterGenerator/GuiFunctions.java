@@ -99,8 +99,8 @@ public class GuiFunctions {
         StoryPart storypart4 = new StoryPart(provider.getPart4());
         StoryPart storypart5 = new StoryPart(provider.getPart5());
         List<StoryPart> storyparts = Arrays.asList(storypart1, storypart2, storypart3, storypart4, storypart5);
-        String story2 = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
-        return story2;       
+        String story = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
+        return story;       
     }
     public Character generateDwarf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForDwarf(randomizer);

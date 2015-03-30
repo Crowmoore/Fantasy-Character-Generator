@@ -22,6 +22,7 @@ public class Character implements Serializable {
     private String city;
     private String likes;
     private Gender gender;
+
     private int age;
     private String deity;
     private Race race;
@@ -69,5 +70,43 @@ public class Character implements Serializable {
     public String getStory() {
         return story;
     }
-    
+    public void setPersonality(Personality personality) {
+        this.personality = personality;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setLikes(String likes) {
+        this.likes = likes;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setDeity(String deity) {
+        this.deity = deity;
+    }
+
+    public void setRace(Race race) {
+        this.race = race;
+    }
+
+    public void setStory(String story) {
+        this.story = story;
+    }    
 }

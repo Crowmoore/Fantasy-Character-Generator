@@ -10,6 +10,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +22,7 @@ public class ListReader {
     public List<String> readFromFile(String filename) {
         
         BufferedReader bufferedReader = null;
+        Logger logger = Logger.getLogger(ListReader.class.getName());
         
         List<String> fileAsArray = new ArrayList<>();
         try {
@@ -29,12 +32,12 @@ public class ListReader {
                 fileAsArray.add(currentLine);
             }
         } catch (IOException e) {
-            System.out.printf("File: %s could not be found. Sadness..", filename);
+            logger.log(Level.SEVERE, "File could not be found. Sadness..", e);
         } finally {
             try {
                 if (bufferedReader != null) { bufferedReader.close(); }
             } catch (IOException e) {
-                System.out.printf("File: %s could not be closed.", filename);
+                logger.log(Level.SEVERE, "File: %s could not be closed.", e);
             }
         }
         return fileAsArray;
