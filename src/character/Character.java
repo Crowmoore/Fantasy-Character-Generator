@@ -8,6 +8,7 @@ package character;
 import enums.Gender;
 import enums.Personality;
 import enums.Race;
+import java.awt.Image;
 import java.io.Serializable;
 
 /**

@@ -11,11 +11,17 @@ import enums.Race;
 import enums.Gender;
 import character.Character;
 import java.awt.Color;
+import java.awt.Image;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
 
 /**
  *
@@ -38,6 +44,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         deleteChar.setToolTipText("Delete current character.");
         saveButton.setToolTipText("Save all characters.");
         saveModifiedtBtn.setToolTipText("Save modified character");
+        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
         this.getContentPane().setBackground(Color.black);
     }
 
@@ -51,7 +58,6 @@ public class NewMainFrame extends javax.swing.JFrame{
             logger.log(Level.INFO, String.format("Characterlist loaded. Size: %d", characterList.size()));
             }
             else {
-                characterNumberField.setText("");
                 nameField.setText("");
                 raceField.setText("");
                 genderField.setText("");
@@ -63,7 +69,6 @@ public class NewMainFrame extends javax.swing.JFrame{
     }
     
     public void displayCharacter(Character character) {
-        characterNumberField.setText(Integer.toString(currentCharacter + 1));
         nameField.setText(character.getFirstname() + " " + character.getLastname());
         raceField.setText(character.getRace().getRaceAsText());
         genderField.setText(character.getGender().getGenderAsText());
@@ -71,6 +76,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         cityField.setText(character.getCity());
         deityField.setText(character.getDeity());
         storyField.setText(character.getStory());
+        
     }    
 
     /**
@@ -106,7 +112,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         deityField = new javax.swing.JTextField();
         characterNumberPanel = new javax.swing.JPanel();
         characterNumberLbl = new javax.swing.JLabel();
-        characterNumberField = new javax.swing.JTextField();
+        imageLbl = new javax.swing.JLabel();
         seededGenerationPanel = new javax.swing.JPanel();
         seedLabel = new javax.swing.JLabel();
         seedField = new javax.swing.JTextField();
@@ -121,10 +127,11 @@ public class NewMainFrame extends javax.swing.JFrame{
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Fantasy Character Generator");
+        setBackground(new java.awt.Color(0, 0, 0));
         setBounds(new java.awt.Rectangle(400, 400, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        setForeground(java.awt.Color.white);
-        setMinimumSize(new java.awt.Dimension(700, 600));
+        setForeground(new java.awt.Color(0, 0, 0));
+        setMinimumSize(new java.awt.Dimension(750, 650));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         generationPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -288,27 +295,20 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterNumberPanel.setLayout(new java.awt.GridBagLayout());
 
         characterNumberLbl.setForeground(new java.awt.Color(255, 255, 255));
+        characterNumberLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         characterNumberLbl.setText("Character number");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridy = 0;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
         characterNumberPanel.add(characterNumberLbl, gridBagConstraints);
 
-        characterNumberField.setEditable(false);
-        characterNumberField.setColumns(2);
-        characterNumberField.setMinimumSize(new java.awt.Dimension(20, 20));
-        characterNumberField.setName(""); // NOI18N
-        characterNumberField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                characterNumberFieldActionPerformed(evt);
-            }
-        });
+        imageLbl.setForeground(new java.awt.Color(255, 255, 255));
+        imageLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 44, 0);
-        characterNumberPanel.add(characterNumberField, gridBagConstraints);
+        characterNumberPanel.add(imageLbl, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -462,7 +462,19 @@ public class NewMainFrame extends javax.swing.JFrame{
         Character character = guiFunctions.generateCharacter(race, gender);
         characterList.add(character);
         currentCharacter = characterList.size() - 1;
+        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+        //Need a JSON parser
+        try {
+            URL imageURL = new URL("http://enliighten.com/wp-content/uploads/2011/10/dwarf_slayer_web.jpg");      
+            Image image = ImageIO.read(imageURL);
+            Image resized = image.getScaledInstance(200, 200, 0);
+            imageLbl.setIcon(new ImageIcon(resized));
+            
+        } catch (Exception e) {
+            logger.log(Level.WARNING, "Invalid URL", e);
+        }
         displayCharacter(character);
+                
         logger.log(Level.INFO, String.format("Character %s %s created", character.getFirstname(), character.getLastname()));
     }//GEN-LAST:event_generateBtnActionPerformed
 
@@ -478,6 +490,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         Character seededCharacter = guiFunctions.generateSeededCharacter(seed);
         characterList.add(seededCharacter);
         currentCharacter = characterList.size() - 1;
+        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
         displayCharacter(seededCharacter);
         logger.log(Level.INFO, String.format("Seeded character %s %s created", seededCharacter.getFirstname(), seededCharacter.getLastname()));
     }//GEN-LAST:event_seedGenerationBtnActionPerformed
@@ -486,6 +499,7 @@ public class NewMainFrame extends javax.swing.JFrame{
 
         if(currentCharacter > 0) {
             currentCharacter--;
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             Character character = characterList.get(currentCharacter);
             displayCharacter(character);            
         }
@@ -495,6 +509,7 @@ public class NewMainFrame extends javax.swing.JFrame{
 
         if(currentCharacter < characterList.size() - 1) {
             currentCharacter++;
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             Character character = characterList.get(currentCharacter);
             displayCharacter(character);
         }
@@ -507,24 +522,26 @@ public class NewMainFrame extends javax.swing.JFrame{
             currentCharacter--;
             Character character = characterList.get(currentCharacter);
             displayCharacter(character);
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             logger.log(Level.INFO, "Character deleted");
         }
         else if(currentCharacter == 0 && characterList.size() == 1) {
             characterList.remove(currentCharacter);
             currentCharacter--;
-            characterNumberField.setText("");
             nameField.setText("");
             raceField.setText("");
             genderField.setText("");
             ageField.setText("");
             cityField.setText("");
             storyField.setText("");
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             logger.log(Level.INFO, "Character deleted");
         }
         else if(currentCharacter == 0 && characterList.size() > 1) {
             characterList.remove(currentCharacter);
             Character character = characterList.get(currentCharacter);
             displayCharacter(character);
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             logger.log(Level.INFO, "Character deleted");
         }
     }//GEN-LAST:event_deleteCharActionPerformed
@@ -534,10 +551,6 @@ public class NewMainFrame extends javax.swing.JFrame{
         writer.writeCharacterToFile(characterList);
         logger.log(Level.INFO, String.format("Characterlist saved. Size: %d", characterList.size()));
     }//GEN-LAST:event_saveButtonActionPerformed
-
-    private void characterNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_characterNumberFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_characterNumberFieldActionPerformed
 
     private void saveModifiedtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModifiedtBtnActionPerformed
         CharacterWriter writer = new CharacterWriter();
@@ -593,7 +606,6 @@ public class NewMainFrame extends javax.swing.JFrame{
     private javax.swing.JTextField ageField;
     private javax.swing.JLabel ageLbl;
     private javax.swing.JPanel browsePanel;
-    private javax.swing.JTextField characterNumberField;
     private javax.swing.JLabel characterNumberLbl;
     private javax.swing.JPanel characterNumberPanel;
     private javax.swing.JTextField cityField;
@@ -607,6 +619,7 @@ public class NewMainFrame extends javax.swing.JFrame{
     private javax.swing.JComboBox genderSelect;
     private javax.swing.JButton generateBtn;
     private javax.swing.JPanel generationPanel;
+    private javax.swing.JLabel imageLbl;
     private javax.swing.JPanel infoPanel;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;

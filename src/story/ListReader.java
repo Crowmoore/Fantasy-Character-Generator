@@ -37,7 +37,7 @@ public class ListReader {
             try {
                 if (bufferedReader != null) { bufferedReader.close(); }
             } catch (IOException e) {
-                logger.log(Level.SEVERE, "File: %s could not be closed.", e);
+                logger.log(Level.SEVERE, "File could not be closed.", e);
             }
         }
         return fileAsArray;
