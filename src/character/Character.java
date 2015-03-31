@@ -10,6 +10,7 @@ import enums.Personality;
 import enums.Race;
 import java.awt.Image;
 import java.io.Serializable;
+import javax.swing.ImageIcon;
 
 /**
  *
@@ -23,6 +24,7 @@ public class Character implements Serializable {
     private String city;
     private String likes;
     private Gender gender;
+    private ImageIcon image;
 
     private int age;
     private String deity;
@@ -70,6 +72,13 @@ public class Character implements Serializable {
     }
     public String getStory() {
         return story;
+    }
+    public ImageIcon getImage() {
+        return image;
+    }
+
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
     public void setPersonality(Personality personality) {
         this.personality = personality;

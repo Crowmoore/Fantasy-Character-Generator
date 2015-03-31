@@ -5,6 +5,7 @@
  */
 package characterGenerator;
 
+import CharacterGenerator.ImageLoader;
 import character.CharacterWriter;
 import character.CharacterReader;
 import enums.Race;
@@ -12,8 +13,8 @@ import enums.Gender;
 import character.Character;
 import java.awt.Color;
 import java.awt.Image;
-import java.net.MalformedURLException;
-import java.net.URL;
+import java.awt.image.BufferedImage;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -47,7 +48,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
         this.getContentPane().setBackground(Color.black);
     }
-
+    
     public final void loadCharacters() {
         CharacterReader reader = new CharacterReader();
         characterList = reader.readCharactersFromFile();
@@ -64,6 +65,7 @@ public class NewMainFrame extends javax.swing.JFrame{
                 ageField.setText("");
                 cityField.setText("");
                 storyField.setText("");
+                imageLbl.setIcon(null);
                 logger.log(Level.INFO, "Characterlist is empty");
             }
     }
@@ -76,6 +78,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         cityField.setText(character.getCity());
         deityField.setText(character.getDeity());
         storyField.setText(character.getStory());
+        imageLbl.setIcon(character.getImage());
         
     }    
 
@@ -456,25 +459,18 @@ public class NewMainFrame extends javax.swing.JFrame{
     }// </editor-fold>//GEN-END:initComponents
 
     private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
-
+        ImageLoader loader = new ImageLoader();
         Race race = (Race)raceSelect.getSelectedItem();
         Gender gender = (Gender)genderSelect.getSelectedItem();
         Character character = guiFunctions.generateCharacter(race, gender);
         characterList.add(character);
         currentCharacter = characterList.size() - 1;
         characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
-        //Need a JSON parser
-        try {
-            URL imageURL = new URL("http://enliighten.com/wp-content/uploads/2011/10/dwarf_slayer_web.jpg");      
-            Image image = ImageIO.read(imageURL);
-            Image resized = image.getScaledInstance(200, 200, 0);
-            imageLbl.setIcon(new ImageIcon(resized));
-            
-        } catch (Exception e) {
-            logger.log(Level.WARNING, "Invalid URL", e);
-        }
+
+        ImageIcon image = loader.loadImage(character);
+        character.setImage(image);
         displayCharacter(character);
-                
+        loader.loadImage(character);
         logger.log(Level.INFO, String.format("Character %s %s created", character.getFirstname(), character.getLastname()));
     }//GEN-LAST:event_generateBtnActionPerformed
 
@@ -534,6 +530,7 @@ public class NewMainFrame extends javax.swing.JFrame{
             ageField.setText("");
             cityField.setText("");
             storyField.setText("");
+            imageLbl.setIcon(null);
             characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             logger.log(Level.INFO, "Character deleted");
         }
