@@ -7,7 +7,6 @@ package dwarf;
 
 import interfaces.CityGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**

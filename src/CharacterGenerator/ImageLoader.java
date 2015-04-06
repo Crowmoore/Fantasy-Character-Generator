@@ -19,7 +19,6 @@ import java.util.regex.Pattern;
 import character.Character;
 import interfaces.Randomizer;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URLConnection;
 import javax.imageio.ImageIO;
@@ -32,23 +31,22 @@ import neutralGenerators.RandomNumberGenerator;
 public class ImageLoader {
     
     Logger logger = Logger.getLogger(ImageLoader.class.getName());
-    BufferedReader reader = null;
-    String result;
     Randomizer randomizer = new RandomNumberGenerator();
     
     public ImageIcon loadImage(Character character) {
-
-        try {
-            URL imageURL = new URL("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=fantasy%20" + character.getRace().getRaceAsText() + "%20" + character.getGender().getGenderAsText());
-            URLConnection connection = imageURL.openConnection();
+        BufferedReader reader = null;
+        String jsonAsString = "";
+        try {           
+            URL search = new URL("http://ajax.googleapis.com/ajax/services/search/images?v=1.0&q=fantasy%20artistic%20" + character.getRace().getRaceAsText() + "%20" + character.getGender().getGenderAsText());
+            URLConnection connection = search.openConnection();
             connection.addRequestProperty("Referer", "https://github.com/Crowmoore/Character-Generator");
             reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-            logger.log(Level.INFO, "Search URL: " + imageURL.toString());
+            logger.log(Level.INFO, "Search URL: {0}", search.toString());
             String line;
             while((line = reader.readLine()) != null) {
-                result += line;
+                jsonAsString += line;
             }
-            System.out.println(result);
+            System.out.println(jsonAsString);
             
         } catch (Exception e) {
             logger.log(Level.WARNING, "Invalid URL", e);
@@ -62,25 +60,23 @@ public class ImageLoader {
         
         }
         Pattern pattern = Pattern.compile("\"unescapedUrl\":\"([^\"]*)\"");
-        Matcher matcher = pattern.matcher(result);
+        Matcher matcher = pattern.matcher(jsonAsString);
         List imageURLs = new ArrayList<String>();
         while(matcher.find()) {
             imageURLs.add(matcher.group(1));
         }
         ImageIcon icon = null;
-        Image errorImg = null;
         ImageIcon errorIcon = null;
         try {
-            URL url = new URL(imageURLs.get(randomizer.getRandomNumber(imageURLs.size())).toString());
-            logger.log(Level.INFO, "Image URL: " + url.toString());
-            Image image = ImageIO.read(url);            
-            Image finalImage = image.getScaledInstance(200, 200, 0);
-            icon = new ImageIcon(finalImage);
+            URL imageURL = new URL(imageURLs.get(randomizer.getRandomNumber(imageURLs.size())).toString());
+            logger.log(Level.INFO, "Image URL: " + imageURL.toString());
+            Image image = ImageIO.read(imageURL);            
+            Image resizedImage = image.getScaledInstance(200, 200, 0);
+            icon = new ImageIcon(resizedImage);
         } catch (Exception e) {
             logger.log(Level.WARNING, "Invalid URL", e);            
             try {
-                File file = new File("not-sure-if-this-is-a-bug-or-a-feature.jpg");
-                errorImg = ImageIO.read(file);
+                Image errorImg = ImageIO.read(new File("not-sure-if-this-is-a-bug-or-a-feature.jpg"));
                 Image error = errorImg.getScaledInstance(200, 200, 0);
                 errorIcon = new ImageIcon(error);
             } catch (Exception ex) {
@@ -90,4 +86,15 @@ public class ImageLoader {
         if(icon != null) { return icon; }
         else { return errorIcon; }
     }
+    public ImageIcon loadFrame() {
+        ImageIcon frame = null;
+        try {
+                Image frameImg = ImageIO.read(new File("frame.jpg"));
+                frame = new ImageIcon(frameImg);
+            } catch (Exception ex) {
+                logger.log(Level.SEVERE, "Could not open file", ex);
+            }
+        return frame;
+        }
 }
+

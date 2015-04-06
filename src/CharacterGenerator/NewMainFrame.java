@@ -12,14 +12,10 @@ import enums.Race;
 import enums.Gender;
 import character.Character;
 import java.awt.Color;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 
@@ -34,10 +30,12 @@ public class NewMainFrame extends javax.swing.JFrame{
     int currentCharacter = 0;
     GuiFunctions guiFunctions = new GuiFunctions();
     Logger logger = Logger.getLogger(NewMainFrame.class.getName());
+    
 
     public NewMainFrame() {
         initComponents();
         loadCharacters();
+        loadFrame();
         generateBtn.setToolTipText("Generate a character based on the values above.");
         seedGenerationBtn.setToolTipText("Generate a character based on seed. Seed must be an integer. Empty is considered as 0.");
         previousChar.setToolTipText("Show previous character.");
@@ -48,6 +46,12 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
         this.getContentPane().setBackground(Color.black);
     }
+    public void loadFrame() {
+        ImageLoader loader = new ImageLoader();
+        ImageIcon frame = loader.loadFrame();
+        frameLbl.setIcon(frame);
+    }
+    
     
     public final void loadCharacters() {
         CharacterReader reader = new CharacterReader();
@@ -116,6 +120,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterNumberPanel = new javax.swing.JPanel();
         characterNumberLbl = new javax.swing.JLabel();
         imageLbl = new javax.swing.JLabel();
+        frameLbl = new javax.swing.JLabel();
         seededGenerationPanel = new javax.swing.JPanel();
         seedLabel = new javax.swing.JLabel();
         seedField = new javax.swing.JTextField();
@@ -177,7 +182,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 1.0;
         getContentPane().add(generationPanel, gridBagConstraints);
@@ -301,8 +306,8 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterNumberLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         characterNumberLbl.setText("Character number");
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 40, 0);
         characterNumberPanel.add(characterNumberLbl, gridBagConstraints);
 
         imageLbl.setForeground(new java.awt.Color(255, 255, 255));
@@ -310,8 +315,16 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(40, 0, 0, 0);
         characterNumberPanel.add(imageLbl, gridBagConstraints);
+
+        frameLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        frameLbl.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(40, 44, 0, 0);
+        characterNumberPanel.add(frameLbl, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -365,7 +378,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 0.3;
         getContentPane().add(seededGenerationPanel, gridBagConstraints);
@@ -470,12 +483,11 @@ public class NewMainFrame extends javax.swing.JFrame{
         ImageIcon image = loader.loadImage(character);
         character.setImage(image);
         displayCharacter(character);
-        loader.loadImage(character);
         logger.log(Level.INFO, String.format("Character %s %s created", character.getFirstname(), character.getLastname()));
     }//GEN-LAST:event_generateBtnActionPerformed
 
     private void seedGenerationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seedGenerationBtnActionPerformed
-
+        ImageLoader loader = new ImageLoader();
         long seed = 0;
         String userSeed = seedField.getText();
             try{
@@ -487,6 +499,8 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterList.add(seededCharacter);
         currentCharacter = characterList.size() - 1;
         characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+        ImageIcon image = loader.loadImage(seededCharacter);
+        seededCharacter.setImage(image);
         displayCharacter(seededCharacter);
         logger.log(Level.INFO, String.format("Seeded character %s %s created", seededCharacter.getFirstname(), seededCharacter.getLastname()));
     }//GEN-LAST:event_seedGenerationBtnActionPerformed
@@ -610,6 +624,7 @@ public class NewMainFrame extends javax.swing.JFrame{
     private javax.swing.JTextField deityField;
     private javax.swing.JLabel deityLbl;
     private javax.swing.JButton deleteChar;
+    private javax.swing.JLabel frameLbl;
     private javax.swing.JTextField genderField;
     private javax.swing.JLabel genderLabel;
     private javax.swing.JLabel genderLbl;

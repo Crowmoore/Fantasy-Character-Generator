@@ -32,7 +32,7 @@ public class ListReader {
                 fileAsArray.add(currentLine);
             }
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "File could not be found. Sadness..", e);
+            logger.log(Level.SEVERE, "File could not be found.", e);
         } finally {
             try {
                 if (bufferedReader != null) { bufferedReader.close(); }
