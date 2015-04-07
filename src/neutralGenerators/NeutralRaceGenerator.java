@@ -8,7 +8,6 @@ package neutralGenerators;
 import enums.Race;
 import interfaces.RaceGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,15 +19,21 @@ public class NeutralRaceGenerator implements RaceGenerator{
     List<Race> races;
     Randomizer randomizer;
     
+    /**
+     * Constructor for NeutralRaceGenerator
+     * @param randomizer
+     * @param races 
+     */
     public NeutralRaceGenerator(Randomizer randomizer, List<Race> races) {
         this.randomizer = randomizer;
         this.races = races;
     }
 
     /**
-     *
-     * @return
+     * Generates race for characters from the values of Race enumerator
+     * @return Race race
      */
+    @Override
     public Race generateRace() {
 
         Race race = races.get(randomizer.getRandomNumber(races.size()));

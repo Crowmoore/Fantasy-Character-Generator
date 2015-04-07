@@ -16,12 +16,16 @@ public class ElfAgeGenerator implements AgeGenerator {
 
     Randomizer randomizer;
 
+    /**
+     * Constructor for ElfAgeGenerator
+     * @param randomizer 
+     */
     public ElfAgeGenerator(Randomizer randomizer) {
         this.randomizer = randomizer;
     }
     /**
-     *
-     * @return
+     * Gets a random age between 25 and 5000 years for elf
+     * @return int age
      */
     @Override
     public int generateAge() {

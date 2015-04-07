@@ -20,20 +20,24 @@ public class OrcFirstnameGenerator implements FirstnameGenerator{
     List<String> orcFirstnameListF;
 
     Randomizer randomizer;
-
+    /**
+     * Constructor for OrcFirstnameGenerator
+     * @param randomizer
+     * @param firstnamesM
+     * @param firstnamesF 
+     */
     public OrcFirstnameGenerator(Randomizer randomizer, List<String> firstnamesM, List<String> firstnamesF) {
         this.randomizer = randomizer;
         this.orcFirstnameListM = firstnamesM;
         this.orcFirstnameListF = firstnamesF;
     }
     /**
-     *
+     * Gets a random firstname for an orc based on gender 
      * @param gender
-     * @return
+     * @return String firstname
      */
     @Override
     public String generateFirstname(Gender gender) {
-        String firstname;
         switch(gender) {
             case MALE: return orcFirstnameListM.get(randomizer.getRandomNumber(orcFirstnameListM.size()));
             default: return orcFirstnameListF.get(randomizer.getRandomNumber(orcFirstnameListF.size()));

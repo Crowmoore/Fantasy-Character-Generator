@@ -29,7 +29,7 @@ public class NewMainFrame extends javax.swing.JFrame{
     List<Character> characterList = new ArrayList<>();
     int currentCharacter = 0;
     GuiFunctions guiFunctions = new GuiFunctions();
-    Logger logger = Logger.getLogger(NewMainFrame.class.getName());
+    static final Logger logger = Logger.getLogger(NewMainFrame.class.getName());
     
 
     public NewMainFrame() {
@@ -145,10 +145,12 @@ public class NewMainFrame extends javax.swing.JFrame{
         generationPanel.setBackground(new java.awt.Color(0, 0, 0));
         generationPanel.setLayout(new java.awt.GridBagLayout());
 
+        raceLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         raceLabel.setForeground(new java.awt.Color(255, 255, 255));
         raceLabel.setText("Race");
         generationPanel.add(raceLabel, new java.awt.GridBagConstraints());
 
+        genderLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         genderLabel.setForeground(new java.awt.Color(255, 255, 255));
         genderLabel.setText("Gender");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -156,11 +158,13 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridy = 1;
         generationPanel.add(genderLabel, gridBagConstraints);
 
+        raceSelect.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         raceSelect.setModel(new DefaultComboBoxModel(Race.values()));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         generationPanel.add(raceSelect, gridBagConstraints);
 
+        genderSelect.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         genderSelect.setModel(new DefaultComboBoxModel(Gender.values()));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -168,6 +172,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         generationPanel.add(genderSelect, gridBagConstraints);
 
+        generateBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         generateBtn.setText("Generate");
         generateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,10 +195,12 @@ public class NewMainFrame extends javax.swing.JFrame{
         infoPanel.setBackground(new java.awt.Color(0, 0, 0));
         infoPanel.setLayout(new java.awt.GridBagLayout());
 
+        nameLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         nameLbl.setForeground(new java.awt.Color(255, 255, 255));
         nameLbl.setText("Name");
         infoPanel.add(nameLbl, new java.awt.GridBagConstraints());
 
+        ageLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         ageLbl.setForeground(new java.awt.Color(255, 255, 255));
         ageLbl.setText("Age");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -201,6 +208,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridy = 1;
         infoPanel.add(ageLbl, gridBagConstraints);
 
+        raceLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         raceLbl.setForeground(new java.awt.Color(255, 255, 255));
         raceLbl.setText("Race");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -208,6 +216,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridy = 2;
         infoPanel.add(raceLbl, gridBagConstraints);
 
+        genderLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         genderLbl.setForeground(new java.awt.Color(255, 255, 255));
         genderLbl.setText("Gender");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -215,6 +224,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridy = 3;
         infoPanel.add(genderLbl, gridBagConstraints);
 
+        cityLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         cityLbl.setForeground(new java.awt.Color(255, 255, 255));
         cityLbl.setText("City");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -265,6 +275,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         infoPanel.add(cityField, gridBagConstraints);
 
+        saveModifiedtBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         saveModifiedtBtn.setText("Save changes");
         saveModifiedtBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +287,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridy = 6;
         infoPanel.add(saveModifiedtBtn, gridBagConstraints);
 
+        deityLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         deityLbl.setForeground(new java.awt.Color(255, 255, 255));
         deityLbl.setText("Deity");
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -302,6 +314,7 @@ public class NewMainFrame extends javax.swing.JFrame{
         characterNumberPanel.setBackground(new java.awt.Color(0, 0, 0));
         characterNumberPanel.setLayout(new java.awt.GridBagLayout());
 
+        characterNumberLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         characterNumberLbl.setForeground(new java.awt.Color(255, 255, 255));
         characterNumberLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         characterNumberLbl.setText("Character number");
@@ -337,9 +350,11 @@ public class NewMainFrame extends javax.swing.JFrame{
 
         seededGenerationPanel.setBackground(new java.awt.Color(0, 0, 0));
 
+        seedLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         seedLabel.setForeground(new java.awt.Color(255, 255, 255));
         seedLabel.setText("Seed");
 
+        seedGenerationBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         seedGenerationBtn.setText("Generate");
         seedGenerationBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -406,6 +421,7 @@ public class NewMainFrame extends javax.swing.JFrame{
 
         browsePanel.setBackground(new java.awt.Color(0, 0, 0));
 
+        previousChar.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         previousChar.setText("Previous");
         previousChar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -413,6 +429,7 @@ public class NewMainFrame extends javax.swing.JFrame{
             }
         });
 
+        nextChar.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         nextChar.setText("Next");
         nextChar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -420,6 +437,7 @@ public class NewMainFrame extends javax.swing.JFrame{
             }
         });
 
+        saveButton.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         saveButton.setText("Save");
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -427,6 +445,7 @@ public class NewMainFrame extends javax.swing.JFrame{
             }
         });
 
+        deleteChar.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         deleteChar.setText("Delete");
         deleteChar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

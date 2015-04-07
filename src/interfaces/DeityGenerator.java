@@ -11,6 +11,10 @@ package interfaces;
  */
 public interface DeityGenerator {
     
+    /**
+     * Abstract method generateDeity
+     * @return String
+     */    
     public String generateDeity();
     
 }

@@ -26,11 +26,11 @@ import javax.swing.ImageIcon;
 import neutralGenerators.RandomNumberGenerator;
 /**
  *
- * @author h3090
+ * @author Greatmelons
  */
 public class ImageLoader {
     
-    Logger logger = Logger.getLogger(ImageLoader.class.getName());
+    static final Logger logger = Logger.getLogger(ImageLoader.class.getName());
     Randomizer randomizer = new RandomNumberGenerator();
     
     public ImageIcon loadImage(Character character) {
@@ -48,7 +48,7 @@ public class ImageLoader {
             }
             System.out.println(jsonAsString);
             
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.log(Level.WARNING, "Invalid URL", e);
             
         }finally {
@@ -73,13 +73,13 @@ public class ImageLoader {
             Image image = ImageIO.read(imageURL);            
             Image resizedImage = image.getScaledInstance(200, 200, 0);
             icon = new ImageIcon(resizedImage);
-        } catch (Exception e) {
+        } catch (IOException e) {
             logger.log(Level.WARNING, "Invalid URL", e);            
             try {
                 Image errorImg = ImageIO.read(new File("not-sure-if-this-is-a-bug-or-a-feature.jpg"));
                 Image error = errorImg.getScaledInstance(200, 200, 0);
                 errorIcon = new ImageIcon(error);
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 logger.log(Level.SEVERE, "Could not open file", ex);
             }
         }

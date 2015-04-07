@@ -5,7 +5,6 @@
  */
 package character;
 
-import character.Character;
 import java.io.EOFException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -22,7 +21,10 @@ import java.util.logging.Logger;
  */
 public class CharacterReader {
     
-    
+    /**
+     * Reads characters to List<Character> characters from binary file characters.bin
+     * @return List characters
+     */
     public List readCharactersFromFile() {
         
     List<Character> characters = new ArrayList<>();

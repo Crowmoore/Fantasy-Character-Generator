@@ -15,13 +15,17 @@ import interfaces.Randomizer;
 public class OrcAgeGenerator implements AgeGenerator{
     
     Randomizer randomizer;
-
+    
+    /**
+     * Constructor for OrcAgeGenerator
+     * @param randomizer 
+     */
     public OrcAgeGenerator(Randomizer randomizer) {
         this.randomizer = randomizer;
     }
     /**
-     *
-     * @return
+     * Gets a random age between 25 and 175 years
+     * @return int age
      */
     @Override
     public int generateAge() {

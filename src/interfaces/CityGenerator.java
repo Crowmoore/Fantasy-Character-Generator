@@ -11,6 +11,10 @@ package interfaces;
  */
 public interface CityGenerator {
     
+    /**
+     * Abstract method generateCity
+     * @return String
+     */
     public String generateCity();
     
 }

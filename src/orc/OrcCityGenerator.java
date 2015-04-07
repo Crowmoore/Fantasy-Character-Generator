@@ -17,14 +17,19 @@ public class OrcCityGenerator implements CityGenerator{
     
     List<String> orcCityList;
     Randomizer randomizer;
-
+    
+    /**
+     * Constructor for OrcCityGenerator
+     * @param randomizer
+     * @param cityList 
+     */
     public OrcCityGenerator(Randomizer randomizer, List<String> cityList) {
         this.randomizer = randomizer;
         this.orcCityList = cityList;
     }
     /**
-     *
-     * @return
+     * Gets a random city from orcCityList
+     * @return String city
      */
     @Override
     public String generateCity() {

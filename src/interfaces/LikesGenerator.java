@@ -9,7 +9,10 @@ package interfaces;
  * @author Greatmelons
  */
 public interface LikesGenerator {
-    
+    /**
+     * Abstract method generateLikes
+     * @return String
+     */
     public String generateLikes();
     
 }

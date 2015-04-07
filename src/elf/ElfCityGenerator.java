@@ -7,7 +7,6 @@ package elf;
 
 import interfaces.CityGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -19,13 +18,18 @@ public class ElfCityGenerator implements CityGenerator{
     List<String> elfCityList;
     Randomizer randomizer;
 
+    /**
+     * Constructor for ElfCityGenerator
+     * @param randomizer
+     * @param elfCities 
+     */
     public ElfCityGenerator(Randomizer randomizer, List<String> elfCities) {
         this.randomizer = randomizer;
         this.elfCityList = elfCities;
     }
     /**
-     *
-     * @return
+     * Gets a random city from elfCityList
+     * @return String city
      */
     @Override
     public String generateCity() {

@@ -7,12 +7,12 @@ package interfaces;
 
 import enums.Personality;
 
-/**
- *
- * @author Greatmelons
- */
+
 public interface PersonalityGenerator {
-    
+    /**
+     * Abstract method generatePersonality
+     * @return Personality
+     */
     public Personality generatePersonality();
     
 }

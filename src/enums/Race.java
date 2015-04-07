@@ -17,11 +17,19 @@ public enum Race {
     
     String raceAsText;
     
+    /**
+     * Constructor for Race
+     * @param raceAsText 
+     */
     Race(String raceAsText) {
         this.raceAsText = raceAsText;
     }
+    /**
+     * Gets Race enumerator's value as a String
+     * @return String raceAsText
+     */
     public String getRaceAsText() {
-        return raceAsText;
+        return this.raceAsText;
     }
     
 }

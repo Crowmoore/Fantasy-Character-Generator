@@ -7,7 +7,6 @@ package dwarf;
 
 import interfaces.LastnameGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,13 +19,24 @@ public class DwarfLastnameGenerator implements LastnameGenerator {
     List<String> dwarfLastnameSuffixList;
 
     Randomizer randomizer;
-
+    
+    /**
+     * Constructor for DwarfLastnameGenerator
+     * @param randomizer
+     * @param prefix
+     * @param suffix 
+     */
     public DwarfLastnameGenerator(Randomizer randomizer, List<String> prefix, List<String> suffix) {
         this.randomizer = randomizer;
         this.dwarfLastnamePrefixList = prefix;
         this.dwarfLastnameSuffixList = suffix;
     }
 
+    /**
+     * Generates a lastname for a dwarf by combining prefix and suffix
+     * @return String lastname
+     */
+    @Override
     public String generateLastname() {
         
         String lastnamePre = dwarfLastnamePrefixList.get(randomizer.getRandomNumber(dwarfLastnamePrefixList.size()));

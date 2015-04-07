@@ -8,7 +8,6 @@ package neutralGenerators;
 import enums.Personality;
 import interfaces.PersonalityGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,14 +19,19 @@ public class NeutralPersonalityGenerator implements PersonalityGenerator{
     List<Personality> personalities;
     Randomizer randomizer;
     
+    /**
+     * Constructor for NeutralPersonalityGenerator
+     * @param randomizer
+     * @param personalities 
+     */
     public NeutralPersonalityGenerator(Randomizer randomizer, List<Personality> personalities) {
         this.randomizer = randomizer;
         this.personalities = personalities;
     }
 
     /**
-     *
-     * @return
+     * Generates a random personality for a character from Personality enumerator
+     * @return Personality personality
      */
     @Override
     public Personality generatePersonality() {        

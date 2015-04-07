@@ -8,7 +8,6 @@ package character;
 import enums.Gender;
 import enums.Personality;
 import enums.Race;
-import java.awt.Image;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
@@ -31,6 +30,12 @@ public class Character implements Serializable {
     private Race race;
     public String story;
     
+    /**
+     * Constructor for Character
+     * @param setup
+     * @param gender
+     * @param race 
+     */
     public Character(CharacterSetup setup, Gender gender, Race race) {
         personality = setup.getPersonalityGenerator().generatePersonality();
         this.gender = gender;

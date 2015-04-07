@@ -13,6 +13,10 @@ import enums.Gender;
  */
 public interface GenderGenerator {
     
+    /**
+     * Abstract method generateGender
+     * @return Gender
+     */
     public Gender generateGender();
     
 }

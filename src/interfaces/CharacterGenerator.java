@@ -11,6 +11,10 @@ package interfaces;
  */
 public interface CharacterGenerator {
     
+    /**
+     * Abstract method generateCharacter
+     * @return Character
+     */
     public Character generateCharacter();
     
 }

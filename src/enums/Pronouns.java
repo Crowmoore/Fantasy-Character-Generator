@@ -22,11 +22,19 @@ public enum Pronouns {
     
     String pronounAsText;
     
+    /**
+     * Constructor for Pronouns
+     * @param pronounAsText 
+     */
     Pronouns(String pronounAsText) {
         this.pronounAsText = pronounAsText;
     }
+    /**
+     * Gets Pronouns enumerator's value as a String
+     * @return String pronounAsText
+     */
     public String getPronounAsText() {
-        return pronounAsText;
+        return this.pronounAsText;
     }
     
 }

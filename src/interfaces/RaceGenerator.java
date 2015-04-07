@@ -13,6 +13,10 @@ import enums.Race;
  */
 public interface RaceGenerator {
     
+    /**
+     * Abstract method generateRace
+     * @return Race
+     */
     public Race generateRace();
     
 }

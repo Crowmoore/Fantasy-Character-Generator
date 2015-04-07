@@ -8,8 +8,6 @@ package neutralGenerators;
 import enums.Gender;
 import interfaces.GenderGenerator;
 import interfaces.Randomizer;
-
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,15 +18,19 @@ public class NeutralGenderGenerator implements GenderGenerator {
     
     List<Gender> genders;
     Randomizer randomizer;
-    
+    /**
+     * Constructor for NeutralGenderGenerator
+     * @param randomizer
+     * @param genders 
+     */
     public NeutralGenderGenerator(Randomizer randomizer, List<Gender> genders) {
         this.randomizer = randomizer;
         this.genders = genders;
     }
 
     /**
-     *
-     * @return
+     * Generates a random gender for a character from Gender enumerator
+     * @return Gender gender
      */
     @Override
     public Gender generateGender() {

@@ -5,14 +5,17 @@
  */
 package interfaces;
 
-import java.util.Random;
-
 /**
  *
  * @author Greatmelons
  */
 public interface Randomizer {
     
+    /**
+     * Abstract method getRandomNumber
+     * @param max
+     * @return int
+     */
     public int getRandomNumber(int max);
     
 }

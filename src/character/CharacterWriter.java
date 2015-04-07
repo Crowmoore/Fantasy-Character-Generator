@@ -5,7 +5,6 @@
  */
 package character;
 
-import character.Character;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +19,10 @@ import java.util.logging.Logger;
  */
 public class CharacterWriter {
     
+    /**
+     * Writes elements from List<Character> characters to a binary file characters.bin
+     * @param characterList 
+     */
     public void writeCharacterToFile(List characterList) {
         
         List<Character> characters = characterList;

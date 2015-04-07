@@ -7,7 +7,6 @@ package neutralGenerators;
 
 import interfaces.DeityGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -16,14 +15,22 @@ import java.util.List;
  */
 public class NeutralDeityGenerator implements DeityGenerator{
     
-    List<String> deityList;
-    
+    List<String> deityList;    
     Randomizer randomizer;
-
+    /**
+     * Constructor for NeutrarlDeityGenerator
+     * @param randomizer
+     * @param deityList 
+     */
     public NeutralDeityGenerator(Randomizer randomizer, List<String> deityList) {
         this.randomizer = randomizer;
         this.deityList = deityList;
     }
+    /**
+     * Generates a random deity for a character from deityList
+     * @return String deity
+     */
+    @Override
     public String generateDeity() {
         String deity = deityList.get(randomizer.getRandomNumber(deityList.size()));
         return deity;

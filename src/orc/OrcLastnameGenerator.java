@@ -19,13 +19,21 @@ public class OrcLastnameGenerator implements LastnameGenerator {
     List<String> orcLastnameSuffixList;
 
     Randomizer randomizer;
-
+    /**
+     * Constructor for OrcLastnameGenerator
+     * @param randomizer
+     * @param prefix
+     * @param suffix 
+     */
     public OrcLastnameGenerator(Randomizer randomizer, List<String> prefix, List<String> suffix) {
         this.randomizer = randomizer;
         this.orcLastnamePrefixList = prefix;
         this.orcLastnameSuffixList = suffix;
     }
-
+    /**
+     * Generates a random lastname for an orc by combining a prefix and a suffix
+     * @return String lastname
+     */
     public String generateLastname() {
         
         String lastnamePre = orcLastnamePrefixList.get(randomizer.getRandomNumber(orcLastnamePrefixList.size()));

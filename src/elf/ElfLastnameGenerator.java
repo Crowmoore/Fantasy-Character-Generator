@@ -8,7 +8,6 @@ package elf;
 import interfaces.LastnameGenerator;
 import interfaces.Randomizer;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -21,11 +20,20 @@ public class ElfLastnameGenerator implements LastnameGenerator {
 
     Randomizer randomizer;
 
+    /**
+     * Constructor for ElfLastNameGenerator
+     * @param randomizer
+     * @param lastnameList 
+     */
     public ElfLastnameGenerator(Randomizer randomizer, List<String> lastnameList) {
         this.randomizer = randomizer;
         this.elfLastnameList = lastnameList;
     }
-
+    /**
+     * Gets a random lastname for an elf from elfLastnameList
+     * @return String lastname
+     */
+    @Override
     public String generateLastname() {
         
         String lastname = elfLastnameList.get(randomizer.getRandomNumber(elfLastnameList.size()));

@@ -22,9 +22,17 @@ public enum Personality {
     
     String personalityAsText;
     
+    /**
+     * Constructor for Personality
+     * @param personalityAsText 
+     */
     Personality(String personalityAsText) {
         this.personalityAsText = personalityAsText;
     }
+    /**
+     * Gets Personality enumerator's value as a String 
+     * @return String personalityAsText
+     */
     public String getPersonalityAsText() {
         return this.personalityAsText;
     }

@@ -19,6 +19,11 @@ import java.util.logging.Logger;
  */
 public class ListReader {
     
+    /**
+     * Reads lines from .txt file into a List<String> fileAsArray
+     * @param filename
+     * @return List<String> fileAsArray
+     */
     public List<String> readFromFile(String filename) {
         
         BufferedReader bufferedReader = null;

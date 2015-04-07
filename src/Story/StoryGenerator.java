@@ -15,7 +15,14 @@ import java.util.List;
  */
 public class StoryGenerator {
     
-    
+    /**
+     * Generates a story from List<StoryPart> storyparts until story contains word "died"
+     * @param storyparts
+     * @param cleaner
+     * @param randomizer
+     * @param character
+     * @return String finalStory
+     */
     public String generateStory(List<StoryPart> storyparts, StoryCleaner cleaner, Randomizer randomizer, Character character) {
         String story = "";
         String finalStory = "";

@@ -16,12 +16,20 @@ public class StoryPart {
     
     private List<String> sentences;
     
+    /**
+     * Constructor for StoryPart
+     * @param sentences 
+     */
     public StoryPart(List<String> sentences) {
         
         this.sentences = sentences;
         
     }
-    
+    /**
+     * Get a random sentence from List<String> sentences
+     * @param randomizer
+     * @return String sentence
+     */
     public String getSentence(Randomizer randomizer) {
         return sentences.get(randomizer.getRandomNumber(sentences.size()));
     }

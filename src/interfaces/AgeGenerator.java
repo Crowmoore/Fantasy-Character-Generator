@@ -11,6 +11,10 @@ package interfaces;
  */
 public interface AgeGenerator {
     
+    /**
+     * Abstract method generateAge
+     * @return int
+     */
     public int generateAge();
     
 }

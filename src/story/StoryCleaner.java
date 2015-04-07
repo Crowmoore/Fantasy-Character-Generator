@@ -22,13 +22,22 @@ public class StoryCleaner {
     NeutralPronounsGenerator pronouns = new NeutralPronounsGenerator();
     Randomizer randomizer;
     ListProvider listProvider;
-    private int year = 6500;
-    
+    private final int year = 6500;
+    /**
+     * Constructor for StoryCleaner
+     * @param randomizer
+     * @param listProvider 
+     */
     public StoryCleaner(Randomizer randomizer, ListProvider listProvider) {
         this.randomizer = randomizer;
         this.listProvider = listProvider;
     }
-    
+    /**
+     * 
+     * @param sentence
+     * @param character
+     * @return 
+     */
     public String cleanSentence(String sentence, Character character){
         
         List<String> events1 = listProvider.getEvents1();
@@ -81,6 +90,12 @@ public class StoryCleaner {
         return replaceTags(replacements, sentence);
 
     }
+    /**
+     * Replaces tags from sentence with keyvalues
+     * @param tags
+     * @param sentence
+     * @return String sentence
+     */
     private String replaceTags(Map<String,String> tags, String sentence) {
         for(String key : tags.keySet()) {
             sentence = sentence.replaceAll(key, tags.get(key));

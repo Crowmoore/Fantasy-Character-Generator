@@ -7,7 +7,6 @@ package neutralGenerators;
 
 import interfaces.LikesGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -18,19 +17,23 @@ public class NeutralLikesGenerator implements LikesGenerator{
      
     List<String> likesDislikesList;
     Randomizer randomizer;
-
+    /**
+     * Constructor for NeutralLikesGenerator
+     * @param randomizer
+     * @param likesDislikesList 
+     */
     public NeutralLikesGenerator(Randomizer randomizer, List<String> likesDislikesList) {
         this.randomizer = randomizer;
         this.likesDislikesList = likesDislikesList;
     }
     /**
-     *
-     * @return
+     * Generates a random like for a character from likesDislikesList
+     * @return String like
      */
     @Override
     public String generateLikes() {
-        String likes = likesDislikesList.get(randomizer.getRandomNumber(likesDislikesList.size()));
-        return likes;
+        String like = likesDislikesList.get(randomizer.getRandomNumber(likesDislikesList.size()));
+        return like;
     }
     
 }

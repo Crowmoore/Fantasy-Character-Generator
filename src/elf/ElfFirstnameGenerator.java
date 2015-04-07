@@ -8,7 +8,6 @@ package elf;
 import enums.Gender;
 import interfaces.FirstnameGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -20,16 +19,22 @@ public class ElfFirstnameGenerator implements FirstnameGenerator{
     List<String> elfFirstnameListM;
     List<String> elfFirstnameListF;
     Randomizer randomizer;
-
+    
+    /**
+     * Constructor for ElfFirstnameGenerator
+     * @param randomizer
+     * @param maleNames
+     * @param femaleNames 
+     */
     public ElfFirstnameGenerator(Randomizer randomizer, List<String> maleNames, List<String> femaleNames) {
         this.randomizer = randomizer;
         this.elfFirstnameListF = femaleNames;
         this.elfFirstnameListM = maleNames;
     }
     /**
-     *
+     * Gets a random firstname for elf based on gender
      * @param gender
-     * @return
+     * @return String firstname
      */
     @Override
     public String generateFirstname(Gender gender) {

@@ -31,6 +31,17 @@ public class CharacterSetup {
     CityGenerator cityGenerator;
     StoryGenerator storyGenerator;
     
+    /**
+     * Constructor for CharacterSetup
+     * @param deityGenerator
+     * @param personalityGenerator
+     * @param genderGenerator
+     * @param likesGenerator
+     * @param firstnameGenerator
+     * @param lastnameGenerator
+     * @param ageGenerator
+     * @param cityGenerator 
+     */
     public CharacterSetup(
             DeityGenerator deityGenerator,
             PersonalityGenerator personalityGenerator,

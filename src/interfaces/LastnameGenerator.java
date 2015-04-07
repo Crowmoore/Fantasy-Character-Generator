@@ -11,6 +11,10 @@ package interfaces;
  */
 public interface LastnameGenerator {
     
+    /**
+     * Abstract method generateLastname
+     * @return String
+     */
     public String generateLastname();
     
 }

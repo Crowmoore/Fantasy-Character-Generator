@@ -5,9 +5,10 @@
  */
 package interfaces;
 
-import enums.Gender;
-import enums.Personality;
 import character.Character;
+import java.util.List;
+import story.StoryCleaner;
+import story.StoryPart;
 
 /**
  *
@@ -15,6 +16,14 @@ import character.Character;
  */
 public interface StoryGenerator {
     
-    public String generateStory(Character characterBase);//(String firstname, String lastname, int age, Gender gender, Personality personality, String city, String likes, String deity);
+    /**
+     * Abstract method generateStory
+     * @param storyparts
+     * @param cleaner
+     * @param randomizer
+     * @param character
+     * @return String
+     */
+    public String generateStory(List<StoryPart> storyparts, StoryCleaner cleaner, Randomizer randomizer, Character character);
     
 }

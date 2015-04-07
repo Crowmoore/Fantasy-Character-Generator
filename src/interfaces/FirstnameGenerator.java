@@ -12,7 +12,11 @@ import enums.Gender;
  * @author Greatmelons
  */
 public interface FirstnameGenerator {
-
+    /**
+     * Abstract method generateFirstname
+     * @param gender
+     * @return String
+     */
     public String generateFirstname(Gender gender);
     
 }

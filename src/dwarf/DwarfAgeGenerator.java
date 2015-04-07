@@ -16,12 +16,16 @@ public class DwarfAgeGenerator implements AgeGenerator {
 
     Randomizer randomizer;
 
+    /**
+     * Constructor for DwarfAgeGenerator
+     * @param randomizer 
+     */
     public DwarfAgeGenerator(Randomizer randomizer) {
         this.randomizer = randomizer;
     }
     /**
-     *
-     * @return
+     * Gets a random age between 25 and 300 years
+     * @return int age
      */
     @Override
     public int generateAge() {
