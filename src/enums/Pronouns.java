@@ -6,7 +6,7 @@
 package enums;
 
 /**
- *
+ * Enumerator for pronouns
  * @author Greatmelons
  */
 public enum Pronouns {

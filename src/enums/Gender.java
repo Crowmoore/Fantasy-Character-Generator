@@ -1,6 +1,7 @@
 package enums;
 
 /**
+ * Enumerator for genders
  * Created by Greatmelons on 5.2.2015.
  */
 public enum Gender {

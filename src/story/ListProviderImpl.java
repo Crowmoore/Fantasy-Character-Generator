@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Provides a wanted ArrayList from enumerators or by calling the readFromFile method in ListReader class
  * @author Greatmelons
  */
 public class ListProviderImpl implements ListProvider{

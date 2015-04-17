@@ -11,7 +11,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random personality
  * @author Greatmelons
  */
 public class NeutralPersonalityGenerator implements PersonalityGenerator{

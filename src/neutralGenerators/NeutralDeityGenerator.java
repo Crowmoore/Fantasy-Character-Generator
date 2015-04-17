@@ -10,7 +10,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random deity
  * @author Greatmelons
  */
 public class NeutralDeityGenerator implements DeityGenerator{

@@ -5,21 +5,98 @@
  */
 package characterGenerator;
 
-import enums.Gender;
+import CharacterGenerator.ImageLoader;
+import character.CharacterWriter;
+import character.CharacterReader;
 import enums.Race;
+import enums.Gender;
+import character.Character;
+import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
+
+
 /**
- *
+ * GUI generated with Netbeans Designer
  * @author Greatmelons
  */
-public class MainFrame extends javax.swing.JFrame {
-
+public class MainFrame extends javax.swing.JFrame{
+    
+    List<Character> characterList = new ArrayList<>();
+    int currentCharacter = 0;
+    GuiFunctions guiFunctions = new GuiFunctions();
+    static final Logger logger = Logger.getLogger(MainFrame.class.getName());
+    
     /**
-     * Creates new form MainFrame
+     * Constructor for MainFrame
      */
     public MainFrame() {
         initComponents();
+        loadCharacters();
+        loadFrame();
+        generateBtn.setToolTipText("Generate a character based on the values above.");
+        seedGenerationBtn.setToolTipText("Generate a character based on seed. Seed must be an integer. Empty is considered as 0.");
+        previousChar.setToolTipText("Show previous character.");
+        nextChar.setToolTipText("Show next character.");
+        deleteChar.setToolTipText("Delete current character.");
+        saveButton.setToolTipText("Save all characters.");
+        saveModifiedtBtn.setToolTipText("Save modified character");
+        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+        this.getContentPane().setBackground(Color.black);
     }
+
+    /**
+     * Loads the frame for character portraits
+     */
+    public void loadFrame() {
+        ImageLoader loader = new ImageLoader();
+        ImageIcon frame = loader.loadFrame();
+        frameLbl.setIcon(frame);
+    }
+    
+    /**
+     * Loads saved characters from a local drive and displays the most recent character if the list isn't empty
+     */
+    public final void loadCharacters() {
+        CharacterReader reader = new CharacterReader();
+        characterList = reader.readCharactersFromFile();
+        if(!characterList.isEmpty()) {
+            Character character = characterList.get(characterList.size() - 1);
+            currentCharacter = characterList.size() - 1;
+            displayCharacter(character);
+            logger.log(Level.INFO, String.format("Characterlist loaded. Size: %d", characterList.size()));
+            }
+            else {
+                nameField.setText("");
+                raceField.setText("");
+                genderField.setText("");
+                ageField.setText("");
+                cityField.setText("");
+                storyField.setText("");
+                imageLbl.setIcon(null);
+                logger.log(Level.INFO, "Characterlist is empty");
+            }
+    }
+    
+    /**
+     * Puts all info of a character in it's rightful place
+     * @param character
+     */
+    public void displayCharacter(Character character) {
+        nameField.setText(character.getFirstname() + " " + character.getLastname());
+        raceField.setText(character.getRace().getRaceAsText());
+        genderField.setText(character.getGender().getGenderAsText());
+        ageField.setText(Integer.toString(character.getAge()));
+        cityField.setText(character.getCity());
+        deityField.setText(character.getDeity());
+        storyField.setText(character.getStory());
+        imageLbl.setIcon(character.getImage());
+        
+    }    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -31,143 +108,528 @@ public class MainFrame extends javax.swing.JFrame {
     private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
-        tabbedPane = new javax.swing.JTabbedPane();
-        generationTab = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
-        jComboBox2 = new javax.swing.JComboBox();
-        jButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        charactersTab = new javax.swing.JPanel();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        generationPanel = new javax.swing.JPanel();
+        raceLabel = new javax.swing.JLabel();
+        genderLabel = new javax.swing.JLabel();
+        raceSelect = new javax.swing.JComboBox();
+        genderSelect = new javax.swing.JComboBox();
+        generateBtn = new javax.swing.JButton();
+        infoPanel = new javax.swing.JPanel();
+        nameLbl = new javax.swing.JLabel();
+        ageLbl = new javax.swing.JLabel();
+        raceLbl = new javax.swing.JLabel();
+        genderLbl = new javax.swing.JLabel();
+        cityLbl = new javax.swing.JLabel();
+        nameField = new javax.swing.JTextField();
+        ageField = new javax.swing.JTextField();
+        raceField = new javax.swing.JTextField();
+        genderField = new javax.swing.JTextField();
+        cityField = new javax.swing.JTextField();
+        saveModifiedtBtn = new javax.swing.JButton();
+        deityLbl = new javax.swing.JLabel();
+        deityField = new javax.swing.JTextField();
+        characterNumberPanel = new javax.swing.JPanel();
+        characterNumberLbl = new javax.swing.JLabel();
+        imageLbl = new javax.swing.JLabel();
+        frameLbl = new javax.swing.JLabel();
+        seededGenerationPanel = new javax.swing.JPanel();
+        seedLabel = new javax.swing.JLabel();
+        seedField = new javax.swing.JTextField();
+        seedGenerationBtn = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        storyField = new javax.swing.JTextArea();
+        browsePanel = new javax.swing.JPanel();
+        previousChar = new javax.swing.JButton();
+        nextChar = new javax.swing.JButton();
+        saveButton = new javax.swing.JButton();
+        deleteChar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Fantasy Character Generator v1.0");
+        setBackground(new java.awt.Color(0, 0, 0));
+        setBounds(new java.awt.Rectangle(400, 400, 0, 0));
+        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setForeground(new java.awt.Color(0, 0, 0));
+        setMinimumSize(new java.awt.Dimension(750, 650));
+        getContentPane().setLayout(new java.awt.GridBagLayout());
 
-        generationTab.setLayout(new java.awt.GridBagLayout());
+        generationPanel.setBackground(new java.awt.Color(0, 0, 0));
+        generationPanel.setLayout(new java.awt.GridBagLayout());
 
-        jLabel1.setText("Race");
+        raceLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        raceLabel.setForeground(new java.awt.Color(255, 255, 255));
+        raceLabel.setText("Race");
+        generationPanel.add(raceLabel, new java.awt.GridBagConstraints());
 
-        jLabel2.setText("Gender");
-
-        jComboBox1.setModel(new DefaultComboBoxModel(Race.values())
-        );
-
-        jComboBox2.setModel(new DefaultComboBoxModel(Gender.values())
-        );
-
-        jButton1.setText("Generate");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
-        );
-
-        jPanel1Layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {jComboBox1, jComboBox2});
-
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addContainerGap())
-        );
-
-        generationTab.add(jPanel1, new java.awt.GridBagConstraints());
-
-        jPanel2.setLayout(new java.awt.GridBagLayout());
-
-        jLabel3.setText("Seed");
+        genderLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        genderLabel.setForeground(new java.awt.Color(255, 255, 255));
+        genderLabel.setText("Gender");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(3, 0, 0, 0);
-        jPanel2.add(jLabel3, gridBagConstraints);
+        gridBagConstraints.gridy = 1;
+        generationPanel.add(genderLabel, gridBagConstraints);
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        raceSelect.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        raceSelect.setModel(new DefaultComboBoxModel(Race.values()));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        generationPanel.add(raceSelect, gridBagConstraints);
+
+        genderSelect.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        genderSelect.setModel(new DefaultComboBoxModel(Gender.values()));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        generationPanel.add(genderSelect, gridBagConstraints);
+
+        generateBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        generateBtn.setText("Generate");
+        generateBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                generateBtnActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        generationPanel.add(generateBtn, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridwidth = 2;
+        gridBagConstraints.gridheight = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(generationPanel, gridBagConstraints);
+
+        infoPanel.setBackground(new java.awt.Color(0, 0, 0));
+        infoPanel.setLayout(new java.awt.GridBagLayout());
+
+        nameLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        nameLbl.setForeground(new java.awt.Color(255, 255, 255));
+        nameLbl.setText("Name");
+        infoPanel.add(nameLbl, new java.awt.GridBagConstraints());
+
+        ageLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        ageLbl.setForeground(new java.awt.Color(255, 255, 255));
+        ageLbl.setText("Age");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        infoPanel.add(ageLbl, gridBagConstraints);
+
+        raceLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        raceLbl.setForeground(new java.awt.Color(255, 255, 255));
+        raceLbl.setText("Race");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        infoPanel.add(raceLbl, gridBagConstraints);
+
+        genderLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        genderLbl.setForeground(new java.awt.Color(255, 255, 255));
+        genderLbl.setText("Gender");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        infoPanel.add(genderLbl, gridBagConstraints);
+
+        cityLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        cityLbl.setForeground(new java.awt.Color(255, 255, 255));
+        cityLbl.setText("City");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        infoPanel.add(cityLbl, gridBagConstraints);
+
+        nameField.setColumns(20);
+        nameField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 63;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 4, 0, 0);
-        jPanel2.add(jTextField1, gridBagConstraints);
+        infoPanel.add(nameField, gridBagConstraints);
 
-        jButton2.setText("Generate");
+        ageField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        infoPanel.add(ageField, gridBagConstraints);
+
+        raceField.setEditable(false);
+        raceField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        infoPanel.add(raceField, gridBagConstraints);
+
+        genderField.setEditable(false);
+        genderField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        infoPanel.add(genderField, gridBagConstraints);
+
+        cityField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        infoPanel.add(cityField, gridBagConstraints);
+
+        saveModifiedtBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        saveModifiedtBtn.setText("Save changes");
+        saveModifiedtBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveModifiedtBtnActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 6;
+        infoPanel.add(saveModifiedtBtn, gridBagConstraints);
+
+        deityLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        deityLbl.setForeground(new java.awt.Color(255, 255, 255));
+        deityLbl.setText("Deity");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        infoPanel.add(deityLbl, gridBagConstraints);
+
+        deityField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.gridwidth = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        infoPanel.add(deityField, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
+        gridBagConstraints.weightx = 1.0;
+        getContentPane().add(infoPanel, gridBagConstraints);
+
+        characterNumberPanel.setBackground(new java.awt.Color(0, 0, 0));
+        characterNumberPanel.setLayout(new java.awt.GridBagLayout());
+
+        characterNumberLbl.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        characterNumberLbl.setForeground(new java.awt.Color(255, 255, 255));
+        characterNumberLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        characterNumberLbl.setText("Character number");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        characterNumberPanel.add(characterNumberLbl, gridBagConstraints);
+
+        imageLbl.setForeground(new java.awt.Color(255, 255, 255));
+        imageLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridwidth = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(0, 27, 0, 17);
-        jPanel2.add(jButton2, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(40, 0, 0, 0);
+        characterNumberPanel.add(imageLbl, gridBagConstraints);
+
+        frameLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        frameLbl.setText("jLabel1");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.insets = new java.awt.Insets(40, 44, 0, 0);
+        characterNumberPanel.add(frameLbl, gridBagConstraints);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTH;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(characterNumberPanel, gridBagConstraints);
+
+        seededGenerationPanel.setBackground(new java.awt.Color(0, 0, 0));
+
+        seedLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        seedLabel.setForeground(new java.awt.Color(255, 255, 255));
+        seedLabel.setText("Seed");
+
+        seedGenerationBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        seedGenerationBtn.setText("Generate");
+        seedGenerationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seedGenerationBtnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout seededGenerationPanelLayout = new javax.swing.GroupLayout(seededGenerationPanel);
+        seededGenerationPanel.setLayout(seededGenerationPanelLayout);
+        seededGenerationPanelLayout.setHorizontalGroup(
+            seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seededGenerationPanelLayout.createSequentialGroup()
+                .addGroup(seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seededGenerationPanelLayout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(seedGenerationBtn))
+                    .addGroup(seededGenerationPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(seedLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        seededGenerationPanelLayout.setVerticalGroup(
+            seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(seededGenerationPanelLayout.createSequentialGroup()
+                .addGroup(seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(seedLabel)
+                    .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(seedGenerationBtn)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        generationTab.add(jPanel2, gridBagConstraints);
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 0.3;
+        getContentPane().add(seededGenerationPanel, gridBagConstraints);
 
-        tabbedPane.addTab("Generation", generationTab);
+        jScrollPane1.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
 
-        javax.swing.GroupLayout charactersTabLayout = new javax.swing.GroupLayout(charactersTab);
-        charactersTab.setLayout(charactersTabLayout);
-        charactersTabLayout.setHorizontalGroup(
-            charactersTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+        storyField.setBackground(new java.awt.Color(0, 0, 0));
+        storyField.setColumns(20);
+        storyField.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
+        storyField.setForeground(new java.awt.Color(255, 255, 255));
+        storyField.setLineWrap(true);
+        storyField.setRows(8);
+        storyField.setWrapStyleWord(true);
+        jScrollPane1.setViewportView(storyField);
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridwidth = 3;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.PAGE_END;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(jScrollPane1, gridBagConstraints);
+
+        browsePanel.setBackground(new java.awt.Color(0, 0, 0));
+
+        previousChar.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        previousChar.setText("Previous");
+        previousChar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                previousCharActionPerformed(evt);
+            }
+        });
+
+        nextChar.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        nextChar.setText("Next");
+        nextChar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextCharActionPerformed(evt);
+            }
+        });
+
+        saveButton.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        saveButton.setText("Save");
+        saveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveButtonActionPerformed(evt);
+            }
+        });
+
+        deleteChar.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
+        deleteChar.setText("Delete");
+        deleteChar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteCharActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout browsePanelLayout = new javax.swing.GroupLayout(browsePanel);
+        browsePanel.setLayout(browsePanelLayout);
+        browsePanelLayout.setHorizontalGroup(
+            browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(browsePanelLayout.createSequentialGroup()
+                .addComponent(previousChar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(nextChar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(saveButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteChar)
+                .addContainerGap())
         );
-        charactersTabLayout.setVerticalGroup(
-            charactersTabLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 272, Short.MAX_VALUE)
+        browsePanelLayout.setVerticalGroup(
+            browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(browsePanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(browsePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(previousChar)
+                    .addComponent(nextChar)
+                    .addComponent(saveButton)
+                    .addComponent(deleteChar))
+                .addContainerGap())
         );
 
-        tabbedPane.addTab("Characters", charactersTab);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(tabbedPane)
-        );
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.SOUTH;
+        gridBagConstraints.weighty = 1.0;
+        getContentPane().add(browsePanel, gridBagConstraints);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    /**
+     * Creates a new character based on race and gender when Generate button is pressed
+     * @param evt 
+     */
+    private void generateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateBtnActionPerformed
+        ImageLoader loader = new ImageLoader();
+        Race race = (Race)raceSelect.getSelectedItem();
+        Gender gender = (Gender)genderSelect.getSelectedItem();
+        Character character = guiFunctions.generateCharacter(race, gender);
+        characterList.add(character);
+        currentCharacter = characterList.size() - 1;
+        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+
+        ImageIcon image = loader.loadImage(character);
+        character.setImage(image);
+        displayCharacter(character);
+        logger.log(Level.INFO, String.format("Character %s %s created", character.getFirstname(), character.getLastname()));
+    }//GEN-LAST:event_generateBtnActionPerformed
+    /**
+     * Creates a new character based on user provided seed when Generate button is pressed
+     * @param evt 
+     */
+    private void seedGenerationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seedGenerationBtnActionPerformed
+        ImageLoader loader = new ImageLoader();
+        long seed = 0;
+        String userSeed = seedField.getText();
+            try{
+                seed = Long.valueOf(userSeed);
+            }catch(NumberFormatException e) {
+                logger.log(Level.WARNING, "Not a valid seed.");
+            }
+        Character seededCharacter = guiFunctions.generateSeededCharacter(seed);
+        characterList.add(seededCharacter);
+        currentCharacter = characterList.size() - 1;
+        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+        ImageIcon image = loader.loadImage(seededCharacter);
+        seededCharacter.setImage(image);
+        displayCharacter(seededCharacter);
+        logger.log(Level.INFO, String.format("Seeded character %s %s created", seededCharacter.getFirstname(), seededCharacter.getLastname()));
+    }//GEN-LAST:event_seedGenerationBtnActionPerformed
+    /**
+     * Shows previous character (if there is one) when Previous button is pressed
+     * @param evt 
+     */
+    private void previousCharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_previousCharActionPerformed
+
+        if(currentCharacter > 0) {
+            currentCharacter--;
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+            Character character = characterList.get(currentCharacter);
+            displayCharacter(character);            
+        }
+    }//GEN-LAST:event_previousCharActionPerformed
+    /**
+     * Shows next character (if there is one) when Next button is pressed
+     * @param evt 
+     */
+    private void nextCharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextCharActionPerformed
+
+        if(currentCharacter < characterList.size() - 1) {
+            currentCharacter++;
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+            Character character = characterList.get(currentCharacter);
+            displayCharacter(character);
+        }
+    }//GEN-LAST:event_nextCharActionPerformed
+    /**
+     * Handles the character delete operation when Delete button is pressed
+     * @param evt 
+     */
+    private void deleteCharActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteCharActionPerformed
+
+        if(currentCharacter > 0 && characterList.size() > 1) {
+            characterList.remove(currentCharacter);
+            currentCharacter--;
+            Character character = characterList.get(currentCharacter);
+            displayCharacter(character);
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+            logger.log(Level.INFO, "Character deleted");
+        }
+        else if(currentCharacter == 0 && characterList.size() == 1) {
+            characterList.remove(currentCharacter);
+            currentCharacter--;
+            nameField.setText("");
+            raceField.setText("");
+            genderField.setText("");
+            ageField.setText("");
+            cityField.setText("");
+            storyField.setText("");
+            imageLbl.setIcon(null);
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+            logger.log(Level.INFO, "Character deleted");
+        }
+        else if(currentCharacter == 0 && characterList.size() > 1) {
+            characterList.remove(currentCharacter);
+            Character character = characterList.get(currentCharacter);
+            displayCharacter(character);
+            characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+            logger.log(Level.INFO, "Character deleted");
+        }
+    }//GEN-LAST:event_deleteCharActionPerformed
+    /**
+     * Saves all characters to a local drive when Save button is pressed
+     * @param evt 
+     */
+    private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
+        CharacterWriter writer = new CharacterWriter();
+        writer.writeCharacterToFile(characterList);
+        logger.log(Level.INFO, String.format("Characterlist saved. Size: %d", characterList.size()));
+    }//GEN-LAST:event_saveButtonActionPerformed
+    /**
+     * Saves a user modified character to a local drive when Save changes button is pressed
+     * @param evt 
+     */
+    private void saveModifiedtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModifiedtBtnActionPerformed
+        CharacterWriter writer = new CharacterWriter();
+        Character character = characterList.get(currentCharacter);       
+        character.setAge(Integer.parseInt(ageField.getText()));
+        character.setCity(cityField.getText());
+        String[] name = nameField.getText().split("[\\s]");
+        character.setFirstname(name[0]);
+        character.setLastname(name[1]);
+        character.setDeity(deityField.getText());
+        character.setStory(storyField.getText());
+        displayCharacter(character);
+        writer.writeCharacterToFile(characterList);
+        logger.log(Level.INFO, "Modified character saved");
+    }//GEN-LAST:event_saveModifiedtBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,6 +657,7 @@ public class MainFrame extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -205,18 +668,41 @@ public class MainFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel charactersTab;
-    private javax.swing.JPanel generationTab;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JComboBox jComboBox2;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTabbedPane tabbedPane;
+    private javax.swing.JTextField ageField;
+    private javax.swing.JLabel ageLbl;
+    private javax.swing.JPanel browsePanel;
+    private javax.swing.JLabel characterNumberLbl;
+    private javax.swing.JPanel characterNumberPanel;
+    private javax.swing.JTextField cityField;
+    private javax.swing.JLabel cityLbl;
+    private javax.swing.JTextField deityField;
+    private javax.swing.JLabel deityLbl;
+    private javax.swing.JButton deleteChar;
+    private javax.swing.JLabel frameLbl;
+    private javax.swing.JTextField genderField;
+    private javax.swing.JLabel genderLabel;
+    private javax.swing.JLabel genderLbl;
+    private javax.swing.JComboBox genderSelect;
+    private javax.swing.JButton generateBtn;
+    private javax.swing.JPanel generationPanel;
+    private javax.swing.JLabel imageLbl;
+    private javax.swing.JPanel infoPanel;
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField nameField;
+    private javax.swing.JLabel nameLbl;
+    private javax.swing.JButton nextChar;
+    private javax.swing.JButton previousChar;
+    private javax.swing.JTextField raceField;
+    private javax.swing.JLabel raceLabel;
+    private javax.swing.JLabel raceLbl;
+    private javax.swing.JComboBox raceSelect;
+    private javax.swing.JButton saveButton;
+    private javax.swing.JButton saveModifiedtBtn;
+    private javax.swing.JTextField seedField;
+    private javax.swing.JButton seedGenerationBtn;
+    private javax.swing.JLabel seedLabel;
+    private javax.swing.JPanel seededGenerationPanel;
+    private javax.swing.JTextArea storyField;
     // End of variables declaration//GEN-END:variables
 }

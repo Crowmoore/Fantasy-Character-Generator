@@ -9,7 +9,7 @@ import enums.Gender;
 import enums.Pronouns;
 
 /**
- *
+ * Generates proper pronouns for a story based on character's gender
  * @author Greatmelons
  */
 public class NeutralPronounsGenerator{

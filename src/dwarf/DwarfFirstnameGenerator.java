@@ -8,11 +8,10 @@ package dwarf;
 import enums.Gender;
 import interfaces.FirstnameGenerator;
 import interfaces.Randomizer;
-import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Generates a random first name for a dwarf
  * @author Greatmelons
  */
 public class DwarfFirstnameGenerator implements FirstnameGenerator{
@@ -34,9 +33,9 @@ public class DwarfFirstnameGenerator implements FirstnameGenerator{
         this.dwarfFirstnameListF = firstnamesF;
     }
     /**
-     * Gets a random firstname for a dwarf based on gender
+     * Gets a random first name for a dwarf based on gender
      * @param gender
-     * @return String firstname
+     * @return String
      */
     @Override
     public String generateFirstname(Gender gender) {

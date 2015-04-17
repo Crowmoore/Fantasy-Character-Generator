@@ -11,7 +11,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random first name for an elf
  * @author Greatmelons
  */
 public class ElfFirstnameGenerator implements FirstnameGenerator{
@@ -32,9 +32,9 @@ public class ElfFirstnameGenerator implements FirstnameGenerator{
         this.elfFirstnameListM = maleNames;
     }
     /**
-     * Gets a random firstname for elf based on gender
+     * Gets a random first name for an elf based on gender
      * @param gender
-     * @return String firstname
+     * @return String
      */
     @Override
     public String generateFirstname(Gender gender) {

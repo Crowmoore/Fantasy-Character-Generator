@@ -34,7 +34,7 @@ import neutralGenerators.NeutralRaceGenerator;
 import neutralGenerators.RandomNumberGenerator;
 import neutralGenerators.SeededGenerator;
 import character.Character;
-import story.StoryGenerator;
+import story.StoryGeneratorImpl;
 import story.StoryPart;
 import java.util.Arrays;
 import java.util.List;
@@ -44,11 +44,16 @@ import orc.OrcFirstnameGenerator;
 import orc.OrcLastnameGenerator;
 
 /**
- *
+ * Handles the GUI logic
  * @author Greatmelons
  */
 public class GuiFunctions {
     
+    /**
+     * Initializes all the relevant classes for an elf creation
+     * @param randomizer
+     * @return CharacterSetup
+     */
     public CharacterSetup getSetupForElf(Randomizer randomizer){
         ListProvider provider = new ListProviderImpl();
         NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
@@ -62,6 +67,12 @@ public class GuiFunctions {
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);        
         }
+
+    /**
+     * Initializes all the relevant classes for a dwarf creation
+     * @param randomizer
+     * @return CharacterSetup
+     */
     public CharacterSetup getSetupForDwarf(Randomizer randomizer){
         ListProvider provider = new ListProviderImpl();
         NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
@@ -75,6 +86,12 @@ public class GuiFunctions {
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);
     }
+
+    /**
+     * Initializes all the relevant classes for an orc creation
+     * @param randomizer
+     * @return CharacterSetup
+     */
     public CharacterSetup getSetupForOrc(Randomizer randomizer){
         ListProvider provider = new ListProviderImpl();
         NeutralDeityGenerator deityGenerator = new NeutralDeityGenerator(randomizer, provider.getDeityList());
@@ -88,10 +105,17 @@ public class GuiFunctions {
         
         return new CharacterSetup(deityGenerator, personalityGenerator, genderGenerator, likesGenerator, firstnameGenerator, lastnameGenerator, ageGenerator, cityGenerator);        
         }
+
+    /**
+     * Generates a story for a character
+     * @param character
+     * @param randomizer
+     * @return String story
+     */
     public String generateStory(Character character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
-        StoryGenerator storyGenerator = new StoryGenerator();
+        StoryGeneratorImpl storyGenerator = new StoryGeneratorImpl();
         
         StoryPart storypart1 = new StoryPart(provider.getPart1());
         StoryPart storypart2 = new StoryPart(provider.getPart2());
@@ -102,21 +126,51 @@ public class GuiFunctions {
         String story = storyGenerator.generateStory(storyparts, cleaner, randomizer, character);
         return story;       
     }
+
+    /**
+     * Creates a dwarf character
+     * @param randomizer
+     * @param gender
+     * @param race
+     * @return Character
+     */
     public Character generateDwarf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForDwarf(randomizer);
         Character character = new Character(characterSetup, gender, race);
         return character;
     }
+
+    /**
+     * Creates an elf character
+     * @param randomizer
+     * @param gender
+     * @param race
+     * @return Character
+     */
     public Character generateElf(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForElf(randomizer);
         Character character = new Character(characterSetup, gender, race);
         return character;
     }
+
+    /**
+     * Creates an orc character
+     * @param randomizer
+     * @param gender
+     * @param race
+     * @return Character
+     */
     public Character generateOrc(Randomizer randomizer, Gender gender, Race race) {
         CharacterSetup characterSetup = getSetupForOrc(randomizer);
         Character character = new Character(characterSetup, gender, race);
         return character;
     }
+
+    /**
+     * Creates a character from a user provided seed
+     * @param seed
+     * @return Character
+     */
     public Character generateSeededCharacter(long seed) {
         ListProvider provider = new ListProviderImpl();
         Randomizer seededRandomizer = new SeededGenerator(seed);
@@ -138,6 +192,13 @@ public class GuiFunctions {
         seededCharacter.story = generateStory(seededCharacter, seededRandomizer);
         return seededCharacter;
     }
+
+    /**
+     * Creates a character based on race and gender
+     * @param race
+     * @param gender
+     * @return Character
+     */
     public Character generateCharacter(Race race, Gender gender) {
         Character character = null;
         Randomizer randomizer = new RandomNumberGenerator();

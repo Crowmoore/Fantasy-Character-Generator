@@ -12,16 +12,21 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- *
+ * Story setup class for initializing all the relevant classes needed for story generation
  * @author Greatmelons
  */
 public class StorySetup {
     
+    /**
+     * Sets up the story generation by initializing all the relevant classes and sending them to the StoryGeneratorImpl which then returns the final story
+     * @param character
+     * @param randomizer
+     * @return 
+     */
     public String generateStory(Character character, Randomizer randomizer) {
         ListProvider provider = new ListProviderImpl();
         StoryCleaner cleaner = new StoryCleaner(randomizer, provider);
-        StoryGenerator storyGenerator = new StoryGenerator();
-        ListReader reader = new ListReader();
+        StoryGeneratorImpl storyGenerator = new StoryGeneratorImpl();
         
         StoryPart storypart1 = new StoryPart(provider.getPart1());
         StoryPart storypart2 = new StoryPart(provider.getPart2());

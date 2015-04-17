@@ -7,7 +7,6 @@ package CharacterGenerator.NeutralGenerators;
 
 import neutralGenerators.NeutralGenderGenerator;
 import enums.Gender;
-import interfaces.GenderGenerator;
 import interfaces.Randomizer;
 import java.util.Arrays;
 import java.util.List;

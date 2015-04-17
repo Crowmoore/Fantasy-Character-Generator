@@ -10,7 +10,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random home city for an orc
  * @author Greatmelons
  */
 public class OrcCityGenerator implements CityGenerator{

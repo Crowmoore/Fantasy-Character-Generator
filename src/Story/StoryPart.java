@@ -9,7 +9,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * StoryPart consists of a List<String> with several sentences in it and the getSentence method returns one random sentence from a StoryPart
  * @author Greatmelons
  */
 public class StoryPart {

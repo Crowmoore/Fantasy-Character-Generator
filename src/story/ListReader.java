@@ -14,13 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Generates an ArrayList from a text file
  * @author Greatmelons
  */
 public class ListReader {
     
     /**
-     * Reads lines from .txt file into a List<String> fileAsArray
+     * Reads a text file into a List<String> fileAsArray
      * @param filename
      * @return List<String> fileAsArray
      */

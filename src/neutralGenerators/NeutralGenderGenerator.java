@@ -11,7 +11,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random gender
  * @author Greatmelons
  */
 public class NeutralGenderGenerator implements GenderGenerator {

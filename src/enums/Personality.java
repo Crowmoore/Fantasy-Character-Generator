@@ -6,7 +6,7 @@
 package enums;
 
 /**
- *
+ * Enumerator for personalities
  * @author Greatmelons
  */
 public enum Personality {

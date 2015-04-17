@@ -13,10 +13,10 @@ import interfaces.GenderGenerator;
 import interfaces.LastnameGenerator;
 import interfaces.LikesGenerator;
 import interfaces.PersonalityGenerator;
-import story.StoryGenerator;
+import story.StoryGeneratorImpl;
 
 /**
- *
+ * Setup class used to prepare character creation
  * @author Greatmelons
  */
 public class CharacterSetup {
@@ -29,7 +29,7 @@ public class CharacterSetup {
     LastnameGenerator lastnameGenerator;
     AgeGenerator ageGenerator;
     CityGenerator cityGenerator;
-    StoryGenerator storyGenerator;
+    StoryGeneratorImpl storyGenerator;
     
     /**
      * Constructor for CharacterSetup

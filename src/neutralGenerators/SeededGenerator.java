@@ -5,6 +5,7 @@ import interfaces.Randomizer;
 import java.util.Random;
 
 /**
+ * Forces the Random class to use a specific seed
  * Created by Greatmelons on 5.2.2015.
  */
 public class SeededGenerator implements Randomizer {

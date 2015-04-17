@@ -10,7 +10,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random last name for a dwarf
  * @author Greatmelons
  */
 public class DwarfLastnameGenerator implements LastnameGenerator {
@@ -33,8 +33,8 @@ public class DwarfLastnameGenerator implements LastnameGenerator {
     }
 
     /**
-     * Generates a lastname for a dwarf by combining prefix and suffix
-     * @return String lastname
+     * Generates a last name for a dwarf by combining a prefix and a suffix
+     * @return String lastnamePre + lastnameSuf
      */
     @Override
     public String generateLastname() {

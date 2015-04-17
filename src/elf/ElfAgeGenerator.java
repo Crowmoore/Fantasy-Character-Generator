@@ -9,7 +9,7 @@ import interfaces.AgeGenerator;
 import interfaces.Randomizer;
 
 /**
- *
+ * Generates a random age for an elf
  * @author Greatmelons
  */
 public class ElfAgeGenerator implements AgeGenerator {
@@ -24,7 +24,7 @@ public class ElfAgeGenerator implements AgeGenerator {
         this.randomizer = randomizer;
     }
     /**
-     * Gets a random age between 25 and 5000 years for elf
+     * Gets a random age between 25 and 5000 years for an elf
      * @return int age
      */
     @Override

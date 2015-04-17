@@ -14,13 +14,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Writes saved characters to a local drive
  * @author Greatmelons
  */
 public class CharacterWriter {
     
     /**
-     * Writes elements from List<Character> characters to a binary file characters.bin
+     * Writes elements from ArrayList into a binary file characters.bin
      * @param characterList 
      */
     public void writeCharacterToFile(List characterList) {
@@ -30,7 +30,7 @@ public class CharacterWriter {
         ObjectOutputStream characterOut = null;
         
         try {
-            characterOut = new ObjectOutputStream(new FileOutputStream("characters.bin"));
+            characterOut = new ObjectOutputStream(new FileOutputStream("lists/characters/characters.bin"));
             for(Character character : characters) {
                 characterOut.writeObject(character);
             }

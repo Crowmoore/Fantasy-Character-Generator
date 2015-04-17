@@ -11,7 +11,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random first name for an orc
  * @author Greatmelons
  */
 public class OrcFirstnameGenerator implements FirstnameGenerator{
@@ -32,9 +32,9 @@ public class OrcFirstnameGenerator implements FirstnameGenerator{
         this.orcFirstnameListF = firstnamesF;
     }
     /**
-     * Gets a random firstname for an orc based on gender 
+     * Gets a random first name for an orc based on gender 
      * @param gender
-     * @return String firstname
+     * @return String
      */
     @Override
     public String generateFirstname(Gender gender) {

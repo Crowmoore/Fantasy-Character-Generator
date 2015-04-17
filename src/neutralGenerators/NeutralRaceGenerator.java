@@ -11,7 +11,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random race for a character
  * @author Greatmelons
  */
 public class NeutralRaceGenerator implements RaceGenerator{
@@ -30,7 +30,7 @@ public class NeutralRaceGenerator implements RaceGenerator{
     }
 
     /**
-     * Generates race for characters from the values of Race enumerator
+     * Generates a random race for characters from the values of Race enumerator
      * @return Race race
      */
     @Override

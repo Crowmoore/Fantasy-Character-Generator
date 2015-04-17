@@ -10,7 +10,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates random likes/dislikes
  * @author Greatmelons
  */
 public class NeutralLikesGenerator implements LikesGenerator{
@@ -27,7 +27,7 @@ public class NeutralLikesGenerator implements LikesGenerator{
         this.likesDislikesList = likesDislikesList;
     }
     /**
-     * Generates a random like for a character from likesDislikesList
+     * Generates a random like/dislike for a character from likesDislikesList
      * @return String like
      */
     @Override

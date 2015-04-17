@@ -9,7 +9,7 @@ import interfaces.AgeGenerator;
 import interfaces.Randomizer;
 
 /**
- *
+ * Generates a random age for an orc
  * @author Greatmelons
  */
 public class OrcAgeGenerator implements AgeGenerator{

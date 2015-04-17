@@ -12,7 +12,7 @@ import java.io.Serializable;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * Character base class
  * @author Greatmelons
  */
 public class Character implements Serializable {

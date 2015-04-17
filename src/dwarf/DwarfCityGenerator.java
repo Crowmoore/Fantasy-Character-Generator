@@ -10,7 +10,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random home city for a dwarf
  * @author Greatmelons
  */
 public class DwarfCityGenerator implements CityGenerator {

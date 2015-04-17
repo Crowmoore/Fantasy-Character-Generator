@@ -6,7 +6,7 @@
 package enums;
 
 /**
- *
+ * Enumerator for races
  * @author Greatmelons
  */
 public enum Race {

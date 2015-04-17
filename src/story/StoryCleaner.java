@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
+ * Cleans a part of a story by replacing tags with their proper values 
  * @author Greatmelons
  */
 public class StoryCleaner {
@@ -33,10 +33,10 @@ public class StoryCleaner {
         this.listProvider = listProvider;
     }
     /**
-     * 
+     * Assigns all the possible tags included in story parts and their proper replacements to a HashMap
      * @param sentence
      * @param character
-     * @return 
+     * @return String replaceTags(replacements, sentence)
      */
     public String cleanSentence(String sentence, Character character){
         
@@ -91,7 +91,7 @@ public class StoryCleaner {
 
     }
     /**
-     * Replaces tags from sentence with keyvalues
+     * Replaces tags from a sentence with keyvalues
      * @param tags
      * @param sentence
      * @return String sentence

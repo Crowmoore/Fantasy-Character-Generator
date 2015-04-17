@@ -25,7 +25,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import neutralGenerators.RandomNumberGenerator;
 /**
- *
+ * Loads random portrait image for a character from Google 
  * @author Greatmelons
  */
 public class ImageLoader {
@@ -33,6 +33,14 @@ public class ImageLoader {
     static final Logger logger = Logger.getLogger(ImageLoader.class.getName());
     Randomizer randomizer = new RandomNumberGenerator();
     
+    /**
+     * Does a Google image search based on character's race and gender. The search returns a JSon code which is saved as a String
+     * and from which the image URLs are then parsed into an ArrayList. A random URL is then selected from that list and the image
+     * behind the selected URL is being loaded, rescaled and turned into an ImageIcon. If for some reason the image could not be loaded
+     * a character is given a default portrait image
+     * @param character
+     * @return ImageIcon
+     */
     public ImageIcon loadImage(Character character) {
         BufferedReader reader = null;
         String jsonAsString = "";
@@ -48,13 +56,13 @@ public class ImageLoader {
             }
             System.out.println(jsonAsString);
             
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Invalid URL", e);
             
         }finally {
             try {
                 if (reader != null) { reader.close(); }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 logger.log(Level.SEVERE, "Cannot close connection", e);
             }
         
@@ -73,23 +81,28 @@ public class ImageLoader {
             Image image = ImageIO.read(imageURL);            
             Image resizedImage = image.getScaledInstance(200, 200, 0);
             icon = new ImageIcon(resizedImage);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.log(Level.WARNING, "Invalid URL", e);            
             try {
-                Image errorImg = ImageIO.read(new File("not-sure-if-this-is-a-bug-or-a-feature.jpg"));
+                Image errorImg = ImageIO.read(new File("pictures/not-sure-if-this-is-a-bug-or-a-feature.jpg"));
                 Image error = errorImg.getScaledInstance(200, 200, 0);
                 errorIcon = new ImageIcon(error);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 logger.log(Level.SEVERE, "Could not open file", ex);
             }
         }
         if(icon != null) { return icon; }
         else { return errorIcon; }
     }
+
+    /**
+     * Loads a frame for a character portrait
+     * @return ImageIcon frame
+     */
     public ImageIcon loadFrame() {
         ImageIcon frame = null;
         try {
-                Image frameImg = ImageIO.read(new File("frame.jpg"));
+                Image frameImg = ImageIO.read(new File("pictures/frame.jpg"));
                 frame = new ImageIcon(frameImg);
             } catch (Exception ex) {
                 logger.log(Level.SEVERE, "Could not open file", ex);

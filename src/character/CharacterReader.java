@@ -16,13 +16,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Reads saved characters from local drive
  * @author Greatmelons
  */
 public class CharacterReader {
     
     /**
-     * Reads characters to List<Character> characters from binary file characters.bin
+     * Reads characters into an ArrayList from binary file characters.bin
      * @return List characters
      */
     public List readCharactersFromFile() {
@@ -32,7 +32,7 @@ public class CharacterReader {
     ObjectInputStream characterIn = null;
     
         try {
-            characterIn = new ObjectInputStream(new FileInputStream("characters.bin"));
+            characterIn = new ObjectInputStream(new FileInputStream("lists/characters/characters.bin"));
             Character character;
             while((character = (Character) characterIn.readObject()) != null) {
                 characters.add(character);

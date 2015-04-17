@@ -5,7 +5,7 @@
  */
 package CharacterGenerator.NeutralGenerators;
 
-import story.StoryGenerator;
+import story.StoryGeneratorImpl;
 import character.CharacterSetup;
 import interfaces.Randomizer;
 import story.StoryCleaner;
@@ -47,7 +47,7 @@ public class StoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(0);
         //Act
-        StoryGenerator generator = new StoryGenerator();
+        StoryGeneratorImpl generator = new StoryGeneratorImpl();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
@@ -65,7 +65,7 @@ public class StoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(sentences.size())).thenReturn(1);
         //Act
-        StoryGenerator generator = new StoryGenerator();
+        StoryGeneratorImpl generator = new StoryGeneratorImpl();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
@@ -84,7 +84,7 @@ public class StoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(0);
         //Act
-        StoryGenerator generator = new StoryGenerator();
+        StoryGeneratorImpl generator = new StoryGeneratorImpl();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         //Assert
@@ -102,7 +102,7 @@ public class StoryGeneratorTest {
         when(cleaner.cleanSentence(expectedStory, character)).thenReturn(expectedStory);
         when(randomizer.getRandomNumber(listSizeForBothLists)).thenReturn(1);
         
-        StoryGenerator generator = new StoryGenerator();
+        StoryGeneratorImpl generator = new StoryGeneratorImpl();
         String actualStory = generator.generateStory(storyparts, cleaner, randomizer, character);
         actualStory = cleaner.cleanSentence(expectedStory, character);
         

@@ -10,7 +10,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random last name for an orc
  * @author Greatmelons
  */
 public class OrcLastnameGenerator implements LastnameGenerator {
@@ -31,9 +31,10 @@ public class OrcLastnameGenerator implements LastnameGenerator {
         this.orcLastnameSuffixList = suffix;
     }
     /**
-     * Generates a random lastname for an orc by combining a prefix and a suffix
-     * @return String lastname
+     * Generates a random last name for an orc by combining a prefix and a suffix
+     * @return String lastnamePre + lastnameSuf;
      */
+    @Override
     public String generateLastname() {
         
         String lastnamePre = orcLastnamePrefixList.get(randomizer.getRandomNumber(orcLastnamePrefixList.size()));

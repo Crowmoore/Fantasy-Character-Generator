@@ -9,7 +9,7 @@ import interfaces.AgeGenerator;
 import interfaces.Randomizer;
 
 /**
- *
+ * Generates a random age for a dwarf
  * @author Greatmelons
  */
 public class DwarfAgeGenerator implements AgeGenerator {

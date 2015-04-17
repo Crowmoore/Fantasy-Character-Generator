@@ -11,7 +11,7 @@ import interfaces.Randomizer;
 import java.util.List;
 
 /**
- *
+ * Generates a random last name for an elf
  * @author Greatmelons
  */
 public class ElfLastnameGenerator implements LastnameGenerator {
@@ -30,7 +30,7 @@ public class ElfLastnameGenerator implements LastnameGenerator {
         this.elfLastnameList = lastnameList;
     }
     /**
-     * Gets a random lastname for an elf from elfLastnameList
+     * Gets a random last name for an elf from elfLastnameList
      * @return String lastname
      */
     @Override
