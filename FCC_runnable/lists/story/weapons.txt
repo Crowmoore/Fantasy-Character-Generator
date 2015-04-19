@@ -1,0 +1,10 @@
+sword
+greathammer
+dagger
+bow
+crossbow
+hammer
+bastard sword
+slingshot
+axe
+waraxe

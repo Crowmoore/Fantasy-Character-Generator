@@ -77,6 +77,8 @@ public interface ListProvider {
     List<String> getPart4();
 
     List<String> getPart5();
+    
+    List<String> getPart6();
 
     List<Personality> getPersonalities();
 
@@ -89,5 +91,9 @@ public interface ListProvider {
     List<String> getWeapons();
 
     List<String> getWeather();
+    
+    List<String> getHorses();
+    
+    List<String> getTaverns();
     
 }

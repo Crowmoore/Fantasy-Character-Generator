@@ -1,0 +1,15 @@
+shield
+rock
+heart
+hammer
+forger
+shadow
+breaker
+beard
+axe
+fist
+bane
+caster
+crusher
+eye
+mind

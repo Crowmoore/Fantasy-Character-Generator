@@ -1,0 +1,5 @@
+warm
+cold
+bright
+stormy
+rainy

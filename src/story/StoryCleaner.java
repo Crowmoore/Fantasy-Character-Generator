@@ -54,6 +54,8 @@ public class StoryCleaner {
         List<String> movementVerbs = listProvider.getMovementVerbs();
         List<String> oralVerbs = listProvider.getOralVerbs();
         List<String> likes = listProvider.getLikesDislikesList();
+        List<String> horses = listProvider.getHorses();
+        List<String> taverns = listProvider.getTaverns();
 
         Map<String,String> replacements = new HashMap<>();
         
@@ -84,6 +86,8 @@ public class StoryCleaner {
         replacements.put("\\bMOVEMENTVERB\\b", movementVerbs.get(randomizer.getRandomNumber(movementVerbs.size())));
         replacements.put("\\bORALVERB\\b", oralVerbs.get(randomizer.getRandomNumber(oralVerbs.size())));
         replacements.put("\\bDEITY\\b", character.getDeity());
+        replacements.put("\\bTAVERN\\b", taverns.get(randomizer.getRandomNumber(taverns.size())));
+        replacements.put("\\bHORSE\\b", horses.get(randomizer.getRandomNumber(horses.size())));
         replacements.put("\\bYEAR\\b", Integer.toString(year - character.getAge()));
         replacements.put("\\bAGE\\b", Integer.toString(character.getAge()));
         

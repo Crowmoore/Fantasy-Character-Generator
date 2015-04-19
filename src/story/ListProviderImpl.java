@@ -144,6 +144,11 @@ public class ListProviderImpl implements ListProvider{
     }
     
     @Override
+    public List<String> getPart6() {
+        return reader.readFromFile("lists/story/part6.txt");
+    }
+    
+    @Override
     public List<String> getEvents1() {
         return reader.readFromFile("lists/story/events1.txt");
     }
@@ -207,5 +212,16 @@ public class ListProviderImpl implements ListProvider{
     public List<String> getOralVerbs() {
         return reader.readFromFile("lists/story/oralVerbs.txt");
     }
+    
+    @Override
+    public List<String> getHorses() {
+        return reader.readFromFile("lists/story/horses.txt");
+    }
+    
+    @Override
+    public List<String> getTaverns() {
+        return reader.readFromFile("lists/story/taverns.txt");
+    } 
+
 
 }

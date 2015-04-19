@@ -5,7 +5,7 @@
  */
 package characterGenerator;
 
-import CharacterGenerator.ImageLoader;
+import character.ImageLoader;
 import character.CharacterWriter;
 import character.CharacterReader;
 import enums.Race;
@@ -28,7 +28,7 @@ public class MainFrame extends javax.swing.JFrame{
     
     List<Character> characterList = new ArrayList<>();
     int currentCharacter = 0;
-    GuiFunctions guiFunctions = new GuiFunctions();
+    GuiFunctions guiFunctions = new GuiFunctions();   
     static final Logger logger = Logger.getLogger(MainFrame.class.getName());
     
     /**
