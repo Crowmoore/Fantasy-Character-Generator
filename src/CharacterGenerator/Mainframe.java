@@ -39,7 +39,7 @@ public class MainFrame extends javax.swing.JFrame{
         loadCharacters();
         loadFrame();
         generateBtn.setToolTipText("Generate a character based on the values above.");
-        seedGenerationBtn.setToolTipText("Generate a character based on seed. Seed must be an integer. Empty is considered as 0.");
+        seedGenerationBtn.setToolTipText("Generate a character based on seed. Seed must be an integer.");
         previousChar.setToolTipText("Show previous character.");
         nextChar.setToolTipText("Show next character.");
         deleteChar.setToolTipText("Delete current character.");
@@ -137,6 +137,7 @@ public class MainFrame extends javax.swing.JFrame{
         seedLabel = new javax.swing.JLabel();
         seedField = new javax.swing.JTextField();
         seedGenerationBtn = new javax.swing.JButton();
+        invalidLbl = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         storyField = new javax.swing.JTextArea();
         browsePanel = new javax.swing.JPanel();
@@ -151,7 +152,7 @@ public class MainFrame extends javax.swing.JFrame{
         setBounds(new java.awt.Rectangle(400, 400, 0, 0));
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setForeground(new java.awt.Color(0, 0, 0));
-        setMinimumSize(new java.awt.Dimension(750, 650));
+        setMinimumSize(new java.awt.Dimension(800, 650));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
         generationPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -199,9 +200,9 @@ public class MainFrame extends javax.swing.JFrame{
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
-        gridBagConstraints.gridheight = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(generationPanel, gridBagConstraints);
 
         infoPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -246,6 +247,8 @@ public class MainFrame extends javax.swing.JFrame{
 
         nameField.setColumns(20);
         nameField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        nameField.setMaximumSize(new java.awt.Dimension(226, 22));
+        nameField.setMinimumSize(new java.awt.Dimension(226, 22));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 0;
@@ -321,6 +324,7 @@ public class MainFrame extends javax.swing.JFrame{
         gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_END;
         gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(infoPanel, gridBagConstraints);
 
         characterNumberPanel.setBackground(new java.awt.Color(0, 0, 0));
@@ -361,10 +365,37 @@ public class MainFrame extends javax.swing.JFrame{
         getContentPane().add(characterNumberPanel, gridBagConstraints);
 
         seededGenerationPanel.setBackground(new java.awt.Color(0, 0, 0));
+        seededGenerationPanel.setLayout(new java.awt.GridBagLayout());
 
         seedLabel.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         seedLabel.setForeground(new java.awt.Color(255, 255, 255));
+        seedLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        seedLabel.setLabelFor(seedField);
         seedLabel.setText("Seed");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.insets = new java.awt.Insets(9, 10, 0, 0);
+        seededGenerationPanel.add(seedLabel, gridBagConstraints);
+
+        seedField.setColumns(1);
+        seedField.setFont(new java.awt.Font("Book Antiqua", 0, 12)); // NOI18N
+        seedField.setAutoscrolls(false);
+        seedField.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
+        seedField.setMaximumSize(new java.awt.Dimension(15, 20));
+        seedField.setMinimumSize(new java.awt.Dimension(15, 20));
+        seedField.setName(""); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.ipadx = 77;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(0, 3, 0, 3);
+        seededGenerationPanel.add(seedField, gridBagConstraints);
 
         seedGenerationBtn.setFont(new java.awt.Font("Book Antiqua", 0, 11)); // NOI18N
         seedGenerationBtn.setText("Generate");
@@ -373,41 +404,37 @@ public class MainFrame extends javax.swing.JFrame{
                 seedGenerationBtnActionPerformed(evt);
             }
         });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(6, 8, 0, 9);
+        seededGenerationPanel.add(seedGenerationBtn, gridBagConstraints);
 
-        javax.swing.GroupLayout seededGenerationPanelLayout = new javax.swing.GroupLayout(seededGenerationPanel);
-        seededGenerationPanel.setLayout(seededGenerationPanelLayout);
-        seededGenerationPanelLayout.setHorizontalGroup(
-            seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seededGenerationPanelLayout.createSequentialGroup()
-                .addGroup(seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, seededGenerationPanelLayout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(seedGenerationBtn))
-                    .addGroup(seededGenerationPanelLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(seedLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
-        );
-        seededGenerationPanelLayout.setVerticalGroup(
-            seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(seededGenerationPanelLayout.createSequentialGroup()
-                .addGroup(seededGenerationPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(seedLabel)
-                    .addComponent(seedField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(seedGenerationBtn)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        invalidLbl.setBackground(new java.awt.Color(0, 0, 0));
+        invalidLbl.setForeground(new java.awt.Color(255, 0, 51));
+        invalidLbl.setLabelFor(seedField);
+        invalidLbl.setFocusable(false);
+        invalidLbl.setMaximumSize(new java.awt.Dimension(30, 30));
+        invalidLbl.setMinimumSize(new java.awt.Dimension(12, 20));
+        invalidLbl.setPreferredSize(new java.awt.Dimension(80, 20));
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        seededGenerationPanel.add(invalidLbl, gridBagConstraints);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
-        gridBagConstraints.gridheight = java.awt.GridBagConstraints.RELATIVE;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.FIRST_LINE_START;
         gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 0.3;
+        gridBagConstraints.weighty = 1.0;
         getContentPane().add(seededGenerationPanel, gridBagConstraints);
 
         jScrollPane1.setFont(new java.awt.Font("Book Antiqua", 0, 14)); // NOI18N
@@ -419,6 +446,7 @@ public class MainFrame extends javax.swing.JFrame{
         storyField.setLineWrap(true);
         storyField.setRows(8);
         storyField.setWrapStyleWord(true);
+        storyField.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(255, 255, 255)));
         jScrollPane1.setViewportView(storyField);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -530,17 +558,21 @@ public class MainFrame extends javax.swing.JFrame{
         String userSeed = seedField.getText();
             try{
                 seed = Long.valueOf(userSeed);
+                invalidLbl.setText("");
+                Character seededCharacter = guiFunctions.generateSeededCharacter(seed);
+                characterList.add(seededCharacter);
+                currentCharacter = characterList.size() - 1;
+                characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
+                ImageIcon image = loader.loadImage(seededCharacter);
+                seededCharacter.setImage(image);
+                displayCharacter(seededCharacter);
+                logger.log(Level.INFO, String.format("Seeded character %s %s created", seededCharacter.getFirstname(), seededCharacter.getLastname()));
             }catch(NumberFormatException e) {
-                logger.log(Level.WARNING, "Not a valid seed.");
+                invalidLbl.setText("Invalid seed");
+                seedField.setText("");
+                seedField.requestFocus();
+                logger.log(Level.WARNING, "Not a valid seed.", e);
             }
-        Character seededCharacter = guiFunctions.generateSeededCharacter(seed);
-        characterList.add(seededCharacter);
-        currentCharacter = characterList.size() - 1;
-        characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
-        ImageIcon image = loader.loadImage(seededCharacter);
-        seededCharacter.setImage(image);
-        displayCharacter(seededCharacter);
-        logger.log(Level.INFO, String.format("Seeded character %s %s created", seededCharacter.getFirstname(), seededCharacter.getLastname()));
     }//GEN-LAST:event_seedGenerationBtnActionPerformed
     /**
      * Shows previous character (if there is one) when Previous button is pressed
@@ -591,6 +623,7 @@ public class MainFrame extends javax.swing.JFrame{
             ageField.setText("");
             cityField.setText("");
             storyField.setText("");
+            deityField.setText("");
             imageLbl.setIcon(null);
             characterNumberLbl.setText("Character number: " + Integer.toString(currentCharacter + 1));
             logger.log(Level.INFO, "Character deleted");
@@ -618,8 +651,14 @@ public class MainFrame extends javax.swing.JFrame{
      */
     private void saveModifiedtBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModifiedtBtnActionPerformed
         CharacterWriter writer = new CharacterWriter();
-        Character character = characterList.get(currentCharacter);       
-        character.setAge(Integer.parseInt(ageField.getText()));
+        Character character = characterList.get(currentCharacter);
+        try {
+            character.setAge(Integer.parseInt(ageField.getText()));
+        } catch (NumberFormatException e) {
+            ageField.setText(Integer.toString(character.getAge()));
+            ageField.requestFocus();
+            logger.log(Level.WARNING, "Age field does not contain an integer", e);
+        }
         character.setCity(cityField.getText());
         String[] name = nameField.getText().split("[\\s]");
         character.setFirstname(name[0]);
@@ -687,6 +726,7 @@ public class MainFrame extends javax.swing.JFrame{
     private javax.swing.JPanel generationPanel;
     private javax.swing.JLabel imageLbl;
     private javax.swing.JPanel infoPanel;
+    private javax.swing.JLabel invalidLbl;
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameField;
