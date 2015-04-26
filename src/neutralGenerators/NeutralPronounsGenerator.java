@@ -7,17 +7,19 @@ package neutralGenerators;
 
 import enums.Gender;
 import enums.Pronouns;
+import interfaces.PronounsGenerator;
 
 /**
  * Generates proper pronouns for a story based on character's gender
  * @author Greatmelons
  */
-public class NeutralPronounsGenerator{
+public class NeutralPronounsGenerator implements PronounsGenerator{
     /**
      * Generates a subjective pronoun from Pronouns enumerator for a character based on gender
      * @param gender
      * @return String pronoun
      */
+    @Override
     public String getSubjective(Gender gender) {
         switch(gender) {
             case MALE: return Pronouns.HE.getPronounAsText(); 
@@ -29,6 +31,7 @@ public class NeutralPronounsGenerator{
      * @param gender
      * @return String pronoun
      */
+    @Override
     public String getObjective(Gender gender) {
         switch(gender) {
             case MALE: return Pronouns.HIM.getPronounAsText(); 
@@ -40,6 +43,7 @@ public class NeutralPronounsGenerator{
      * @param gender
      * @return String pronoun
      */
+    @Override
     public String getPossessive(Gender gender) {
         switch(gender) {
             case MALE: return Pronouns.HIS.getPronounAsText(); 
@@ -51,6 +55,7 @@ public class NeutralPronounsGenerator{
      * @param gender
      * @return String pronoun
      */
+    @Override
     public String getPossessiveAdj(Gender gender) {
         switch(gender) {
             case MALE: return Pronouns.HIS.getPronounAsText(); 
@@ -62,6 +67,7 @@ public class NeutralPronounsGenerator{
      * @param gender
      * @return String pronoun
      */
+    @Override
     public String getReflexive(Gender gender) {
         switch(gender) {
             case MALE: return Pronouns.HIMSELF.getPronounAsText(); 
