@@ -12,3 +12,9 @@ a midwife
 a seer
 a jeweler
 a military leader
+a priest
+a cleric
+a jester
+a post man
+a guard
+a minister of silly walk
